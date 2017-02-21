@@ -1,0 +1,54 @@
+{
+  "name": "digitickets/omnipay-gocardlessv2",
+  "type": "library",
+  "description": "GoCardless gateway for Omnipay payment processing library, using the v2 GoCardless API",
+  "keywords": [
+    "gateway",
+    "merchant",
+    "omnipay",
+    "pay",
+    "payment",
+    "gocardless",
+    "purchase"
+  ],
+  "homepage": "https://github.com/digitickets/omnipay-gocardlessv2",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Digitickets Contributors",
+      "homepage": "https://github.com/digitickets/omnipay-gocardlessv2/contributors"
+    },
+    {
+      "name": "Kayla Daniels",
+      "email": "kayladnls@gmail.com",
+      "role": "Original Developer of Base Package"
+    },
+    {
+      "name": "Barry vd. Heuvel",
+      "email": "barryvdh@gmail.com",
+      "role": "Original Developer of Base Package"
+    },
+    {
+      "name": "Omnipay Contributors",
+      "homepage": "https://github.com/thephpleague/omnipay-braintree/contributors",
+      "role": "Original Base Package"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Omnipay\\GoCardlessV2\\": "src/"
+    }
+  },
+  "require": {
+    "omnipay/common": "~2.0",
+    "braintree/braintree_php": "^2.39|^3.0"
+  },
+  "require-dev": {
+    "omnipay/tests": "~2.0"
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "2.0.x-dev"
+    }
+  }
+}
