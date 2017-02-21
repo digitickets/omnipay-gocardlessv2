@@ -1,6 +1,6 @@
-# Omnipay: Braintree
+# Omnipay: GoCardlessV2
 
-**Braintree driver for the Omnipay PHP payment processing library**
+**Go Cardless driver for the Omnipay PHP payment processing library using the GoCardless v2 API**
 
 [![Build Status](https://travis-ci.org/digitickets/omnipay-gocardlessv2.png?branch=master)](https://travis-ci.org/digitickets/omnipay-gocardlessv2)
 [![Latest Stable Version](https://poser.pugx.org/omnipay/gocardlessv2/version.png)](https://packagist.org/packages/omnipay/gocardlessv2)
