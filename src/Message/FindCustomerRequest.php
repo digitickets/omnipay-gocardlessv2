@@ -10,18 +10,18 @@ class FindCustomerRequest extends AbstractRequest
 {
     public function getData()
     {
-        return $this->getCustomerData();
+        return array();
     }
 
     /**
      * Send the request with specified data
      *
-     * @param  mixed $data The data to send
+     * @param  mixed $data - completely ignored, included for consistency
      * @return CustomerResponse
      */
     public function sendData($data)
     {
-        $response = $this->braintree->customer()->find($this->getCustomerId());
+        $response = $this->gocardless->customers()->get($this->getCustomerId());
 
         return $this->response = new CustomerResponse($this, $response);
     }

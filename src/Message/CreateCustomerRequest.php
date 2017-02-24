@@ -1,12 +1,9 @@
 <?php
 namespace Omnipay\GoCardlessV2\Message;
 
-use Omnipay\Common\Message\ResponseInterface;
 
 /**
  * Authorize Request
- *
- * @method CustomerResponse send()
  */
 class CreateCustomerRequest extends AbstractRequest
 {
@@ -23,7 +20,7 @@ class CreateCustomerRequest extends AbstractRequest
      */
     public function sendData($data)
     {
-        $response = $this->braintree->customer()->create($data);
+        $response = $this->gocardless->customers()->create($data);
 
         return $this->response = new CustomerResponse($this, $response);
     }

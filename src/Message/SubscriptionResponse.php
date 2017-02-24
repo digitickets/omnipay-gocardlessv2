@@ -2,15 +2,17 @@
 
 namespace Omnipay\GoCardlessV2\Message;
 
-/**
- * Subscription Response
- */
-class SubscriptionResponse extends Response
+use GoCardlessPro\Resources\Subscription;
+
+class SubscriptionResponse extends AbstractResponse
 {
+    /**
+     * @return Subscription|null
+     */
     public function getSubscriptionData()
     {
-        if (isset($this->data->subscription)) {
-            return $this->data->subscription;
+        if (isset($this->data)) {
+            return $this->data;
         }
 
         return null;

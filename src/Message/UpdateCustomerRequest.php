@@ -22,11 +22,11 @@ class UpdateCustomerRequest extends AbstractRequest
      * Send the request with specified data
      *
      * @param  mixed $data The data to send
-     * @return ResponseInterface
+     * @return CustomerResponse
      */
     public function sendData($data)
     {
-        $response = $this->braintree->customer()->update($data['customerId'], $data['customerData']);
+        $response = $this->gocardless->customers()->update($data['customerId'], $data['customerData']);
 
         return $this->response = new CustomerResponse($this, $response);
     }

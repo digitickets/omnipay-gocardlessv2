@@ -1,9 +1,4 @@
 <?php
-/**
- * This file is part of Rocketgraph service
- * <http://www.rocketgraph.com>
- */
-
 namespace Omnipay\GoCardlessV2\Message;
 use Omnipay\Tests\TestCase;
 
@@ -18,20 +13,31 @@ class CustomerResponseTest extends TestCase
     {
         parent::setUp();
 
-        $this->request = new CreateCustomerRequest($this->getHttpClient(), $this->getHttpRequest(), \Braintree_Configuration::gateway());
+        $this->request = $this->getMockBuilder(CreateCustomerRequest::class)
+            ->disableOriginalConstructor()
+            ->getMock();
     }
 
-    public function testGetSubscriptionData()
+    public function testGetCustomerData()
     {
-        $data = new \stdClass();
-
-        $response = new CustomerResponse($this->request, $data);
-        $this->assertNull($response->getCustomerData());
-
-        $data->customer = 'customerData';
+        $data = 'customerData';
 
         $response = new CustomerResponse($this->request, $data);
         $this->assertEquals('customerData', $response->getCustomerData());
+    }
+
+    public function testFailedCustomerData()
+    {
+        $data = null;
+
+        $response = new CustomerResponse($this->request, $data);
+        $this->assertNull($response->getCustomerData());
+    }
+
+    public function testSuccessful(){
+        $data = 'customerData';
+        $response = new CustomerResponse($this->request, $data);
+        $this->assertTrue($response->isSuccessful());
     }
 
 }

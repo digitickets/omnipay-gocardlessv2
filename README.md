@@ -7,7 +7,7 @@
 [![Total Downloads](https://poser.pugx.org/omnipay/gocardlessv2/d/total.png)](https://packagist.org/packages/omnipay/gocardlessv2)
 
 [Omnipay](https://github.com/thephpleague/omnipay) is a framework agnostic, multi-gateway payment
-processing library for PHP 5.3+. This package implements Braintree support for Omnipay.
+processing library for PHP 5.5+. This package implements GoCardless support for Omnipay.
 
 ## Installation
 
@@ -22,7 +22,16 @@ composer require omnipay/gocardlessv2:"^0"
 
 The following gateways are provided by this package:
 
-* Braintree
+* GoCardless Pro
+* GoCardless Redirect Flow
+
+
+This is still in Development - DO NOT USE IN LIVE APPLICATIONS 
+
+
+The following documentation is all old, relates to braintree and needs replacing
+
+
 
 You need to set your `merchantId`, `publicKey` and `privateKey`. Setting `testMode` to true will use the `sandbox` environment.
 
