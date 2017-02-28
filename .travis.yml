@@ -14,7 +14,7 @@ matrix:
       env: 'COMPOSER_FLAGS="--prefer-stable --prefer-lowest"'
     - php: 7
       env: PHPSTAN=1
-    - php: hhvm-3.9
+    - php: hhvm
       sudo: required
       dist: trusty
       group: edge
