@@ -3,8 +3,6 @@
 namespace Omnipay\GoCardlessV2\Message;
 
 use GoCardlessPro\Client;
-use GoCardlessPro\Resources\Mandate;
-use GoCardlessPro\Services\MandatesService;
 use Omnipay\Common\Exception\InvalidRequestException;
 use Omnipay\Tests\TestCase;
 

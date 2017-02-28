@@ -1,7 +1,6 @@
 <?php
 namespace Omnipay\GoCardlessV2\Message;
 
-use GoCardlessPro\Resources\Refund;
 
 class UpdateRefundRequest extends AbstractRequest
 {

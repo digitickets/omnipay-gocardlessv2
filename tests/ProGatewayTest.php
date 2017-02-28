@@ -2,6 +2,7 @@
 
 namespace Omnipay\GoCardlessV2;
 
+use Omnipay\Common\Exception\InvalidResponseException;
 use Omnipay\Tests\GatewayTestCase;
 
 /**
@@ -193,7 +194,7 @@ class ProGatewayTest extends GatewayTestCase
 
     public function testFailedWebHookAuthentication()
     {
-        $this->setExpectedException(\Omnipay\Common\Exception\InvalidResponseException::class, 'Invalid security token from webhook response');
+        $this->setExpectedException(InvalidResponseException::class, 'Invalid security token from webhook response');
         $this->gateway->parseWebHooks(
             array('Webhook-Signature' => 123),
             '{"events": [

@@ -66,7 +66,7 @@ class ReinstateMandateRequestTest extends TestCase
     {
         // this will trigger additional validation as the sendData method calls mandate create that validates the parameters handed to it match
         // the original data handed in to the initialise (in $this->sampleMandate).
-        $result = $this->request->send($this->request->getData());
+        $result = $this->request->send();
         $this->assertInstanceOf(MandateResponse::class, $result);
     }
 

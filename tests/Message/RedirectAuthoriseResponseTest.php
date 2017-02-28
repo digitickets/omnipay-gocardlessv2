@@ -2,8 +2,6 @@
 
 namespace Omnipay\GoCardlessV2\Message;
 
-use GoCardlessPro\Resources\Authorise;
-use GoCardlessPro\Services\AuthorisesService;
 use Omnipay\Tests\TestCase;
 
 class RedirectAuthoriseResponseTest extends TestCase

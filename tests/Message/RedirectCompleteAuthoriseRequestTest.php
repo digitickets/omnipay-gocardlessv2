@@ -3,9 +3,7 @@
 namespace Omnipay\GoCardlessV2\Message;
 
 use GoCardlessPro\Client;
-use GoCardlessPro\Resources\CompleteAuthorise;
 use GoCardlessPro\Resources\RedirectFlow;
-use GoCardlessPro\Services\CompleteAuthorisesService;
 use Omnipay\Tests\TestCase;
 
 class RedirectCompleteAuthoriseRequestTest extends TestCase
@@ -67,7 +65,7 @@ class RedirectCompleteAuthoriseRequestTest extends TestCase
     {
         // this will trigger additional validation as the sendData method calls completeAuthorise create that validates the parameters handed to it match
         // the original data handed in to the initialise (in $this->sampleCompleteAuthorise).
-        $result = $this->request->send($this->request->getData());
+        $result = $this->request->send();
         $this->assertInstanceOf(RedirectCompleteAuthoriseResponse::class, $result);
     }
 

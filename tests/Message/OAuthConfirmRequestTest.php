@@ -3,13 +3,7 @@
 namespace Omnipay\GoCardlessV2\Message;
 
 use GoCardlessPro\Client;
-use GoCardlessPro\Resources\Authorise;
-use GoCardlessPro\Resources\RedirectFlow;
-use GoCardlessPro\Services\AuthorisesService;
-use Guzzle\Http\ClientInterface;
 use Guzzle\Http\Message\Request;
-use Guzzle\Http\Message\Response;
-use Omnipay\Common\Message\RequestInterface;
 use Omnipay\Tests\TestCase;
 
 class OAuthConfirmRequestTest extends TestCase
@@ -89,7 +83,7 @@ class OAuthConfirmRequestTest extends TestCase
     {
         // this will trigger additional validation as the sendData method calls authorise create that validates the parameters handed to it match
         // the original data handed in to the initialise (in $this->sampleAuthorise).
-        $result = $this->request->send($this->request->getData());
+        $result = $this->request->send();
         $this->assertInstanceOf(OAuthConfirmResponse::class, $result);
     }
 

@@ -140,7 +140,7 @@ class CreateSubscriptionRequestTest extends TestCase
         $this->request->initialize($this->sampleSubscription);
         // this will trigger additional validation as the sendData method calls subscription create that validates the parameters handed to it match
         // the original data handed in to the initialise (in $this->sampleSubscription).
-        $result = $this->request->send($this->request->getData());
+        $result = $this->request->send();
         $this->assertInstanceOf(SubscriptionResponse::class, $result);
     }
 
