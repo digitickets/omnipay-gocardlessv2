@@ -28,11 +28,6 @@ The following gateways are provided by this package:
 
 This is still in Development - DO NOT USE IN LIVE APPLICATIONS 
 
-
-The following documentation is all old, relates to braintree and needs replacing
-
-
-
 You need to set your `access_token`. Setting `testMode` to true will use the `sandbox` environment.
 
 This gateway supports single payments or scheduled subscriptions via bank mandate only. For more details about what this gateway supports please consult [the documentation](https://developer.gocardless.com/api-reference/)
