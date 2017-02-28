@@ -3,6 +3,7 @@
 namespace Omnipay\GoCardlessV2\Message;
 
 use Mockery;
+use Omnipay\Common\Exception\InvalidRequestException;
 use Omnipay\Tests\TestCase;
 
 class AbstractRequestTest extends TestCase
@@ -18,47 +19,24 @@ class AbstractRequestTest extends TestCase
         $this->request->initialize();
     }
 
-    /**
-     * @dataProvider provideKeepsData
-     * @param  string $field
-     * @param  string $value
-     */
-    public function testKeepsData($field, $value)
+    public function testSetServiceFeeAmountValidation()
     {
-        $field = ucfirst($field);
-        $this->assertSame($this->request, $this->request->{"set$field"}($value));
-        $this->assertSame($value, $this->request->{"get$field"}());
+        // check blank is formatted
+        $this->assertEquals(0.00, $this->request->getServiceFeeAmount());
+
+        // check a real value
+        $this->request->setServiceFeeAmount(5.29);
+        $this->assertEquals(5.29, $this->request->getServiceFeeAmount());
+
+        // check null is made zero and overwrites the previous value
+        $this->request->setServiceFeeAmount(null);
+        $this->assertEquals(0.00, $this->request->getServiceFeeAmount());
     }
 
-    public function provideKeepsData()
+    public function testSetServiceFeeAmountExceptionValidation()
     {
-        return array(
-            array('oAuthSecret', 'abc123'),
-        );
-    }
-
-    public function testCustomerBankAccountData()
-    {
-        $card = array(
-            'account_holder_name' => 'Example User',
-            'account_number' => 'League',
-            'bank_code' => '123 Billing St',
-            'branch_code' => 'Billsville',
-            'country_code' => 'Billstown',
-            'currency' => '12345',
-            'iban' => 'CA',
-            'metadata' => array(
-                                'billingPhone' => '(555) 123-4567',
-                                'shippingAddress1' => '123 Shipping St',
-                                'shippingAddress2' => 'Shipsville',
-                            ),
-        );
-
-        $this->request->setCustomerBankAccountData($card);
-        $data = $this->request->getCustomerBankAccountData();
-        foreach($card as $field=>$value){
-            $this->assertSame($value, $data[$field]);
-        }
-
+        // check invalid values error
+        $this->setExpectedException(InvalidRequestException::class);
+        $this->request->setServiceFeeAmount('Rubbish');
     }
 }

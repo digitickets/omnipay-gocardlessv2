@@ -71,7 +71,7 @@ class UpdateSubscriptionRequestTest extends TestCase
     {
         // this will trigger additional validation as the sendData method calls subscription create that validates the parameters handed to it match
         // the original data handed in to the initialise (in $this->sampleSubscription).
-        $result = $this->request->sendData($this->request->getData());
+        $result = $this->request->send($this->request->getData());
         $this->assertInstanceOf(SubscriptionResponse::class, $result);
     }
 

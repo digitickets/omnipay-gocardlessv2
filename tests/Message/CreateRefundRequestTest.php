@@ -80,7 +80,7 @@ class CreateRefundRequestTest extends TestCase
     {
         // this will trigger additional validation as the sendData method calls refund create that validates the parameters handed to it match
         // the original data handed in to the initialise (in $this->sampleRefund).
-        $result = $this->request->sendData($this->request->getData());
+        $result = $this->request->send($this->request->getData());
         $this->assertInstanceOf(RefundResponse::class, $result);
     }
 

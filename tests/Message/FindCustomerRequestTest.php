@@ -62,7 +62,7 @@ class FindCustomerRequestTest extends TestCase
     {
         // this will trigger additional validation as the sendData method calls customer create that validates the parameters handed to it match
         // the original data handed in to the initialise (in $this->sampleCustomer).
-        $result = $this->request->sendData($this->request->getData());
+        $result = $this->request->send($this->request->getData());
         $this->assertInstanceOf(CustomerResponse::class, $result);
     }
 
