@@ -46,7 +46,6 @@
   },
   "require": {
     "omnipay/common": "~2.0",
-    "braintree/braintree_php": "^2.39|^3.0",
     "gocardless/gocardless-pro": "^0.9.4",
     "php": "^5.5|^7"
   },
