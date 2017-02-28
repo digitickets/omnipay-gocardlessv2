@@ -1,10 +1,12 @@
 <?php
 
-namespace Omnipay\GoCardlessV2\Message;
+namespace Omnipay\GoCardlessV2Tests\Message;
 
 use GoCardlessPro\Client;
 use GoCardlessPro\Resources\CustomerBankAccount;
 use GoCardlessPro\Services\CustomerBankAccountsService;
+use Omnipay\GoCardlessV2\Message\CustomerBankAccountResponse;
+use Omnipay\GoCardlessV2\Message\UpdateCustomerBankAccountRequest;
 use Omnipay\Tests\TestCase;
 
 class UpdateCustomerBankAccountRequestTest extends TestCase
@@ -17,27 +19,27 @@ class UpdateCustomerBankAccountRequestTest extends TestCase
     /**
      * @var array sample customerBankAccount data to drive test
      */
-    private $sampleData = array(
+    private $sampleData = [
         'customerBankAccountId' => 'CU123123123',
-        'customerBankAccountData' => array('Some extra data' => 'just as placeholders'),
-    );
+        'customerBankAccountData' => ['Some extra data' => 'just as placeholders'],
+    ];
 
     public function setUp()
     {
         $gateway = $this->getMockBuilder(Client::class)
             ->disableOriginalConstructor()
             ->setMethods(
-                array(
+                [
                     'customerBankAccounts',
-                )
+                ]
             )
             ->getMock();
         $customerBankAccountService = $this->getMockBuilder(CustomerBankAccountsService::class)
             ->disableOriginalConstructor()
             ->setMethods(
-                array(
+                [
                     'update',
-                )
+                ]
             )
             ->getMock();
 
@@ -46,7 +48,7 @@ class UpdateCustomerBankAccountRequestTest extends TestCase
             ->will($this->returnValue($customerBankAccountService));
         $customerBankAccountService->expects($this->any())
             ->method('update')
-            ->will($this->returnCallback(array($this, 'customerBankAccountGet')));
+            ->will($this->returnCallback([$this, 'customerBankAccountGet']));
 
         $this->request = new UpdateCustomerBankAccountRequest($this->getHttpClient(), $this->getHttpRequest(), $gateway);
         $this->request->initialize($this->sampleData);
@@ -54,10 +56,10 @@ class UpdateCustomerBankAccountRequestTest extends TestCase
 
     public function testGetDataReturnsCorrectArray()
     {
-        $data = array(
-            'customerBankAccountData' => array('params' => $this->sampleData['customerBankAccountData']),
+        $data = [
+            'customerBankAccountData' => ['params' => $this->sampleData['customerBankAccountData']],
             'customerBankAccountId' => $this->sampleData['customerBankAccountId'],
-        );
+        ];
         $this->assertSame($data, $this->request->getData());
     }
 
@@ -78,7 +80,6 @@ class UpdateCustomerBankAccountRequestTest extends TestCase
     // Assert the customerBankAccount get method is being handed the customerBankAccountId
     public function customerBankAccountGet($id, $data)
     {
-
         $this->assertEquals($this->sampleData['customerBankAccountId'], $id);
         $this->assertEquals($this->request->getData()['customerBankAccountData'], $data);
 

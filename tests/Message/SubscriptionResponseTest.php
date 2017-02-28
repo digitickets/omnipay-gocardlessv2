@@ -1,12 +1,15 @@
 <?php
-namespace Omnipay\GoCardlessV2\Message;
 
+namespace Omnipay\GoCardlessV2Tests\Message;
+
+use Omnipay\GoCardlessV2\Message\CreateSubscriptionRequest;
+use Omnipay\GoCardlessV2\Message\SubscriptionResponse;
 use Omnipay\Tests\TestCase;
 
 class SubscriptionResponseTest extends TestCase
 {
     /**
-     * @var CreateSubscriptionRequest
+     * @var CreateSubscriptionRequest|\PHPUnit_Framework_MockObject_MockObject
      */
     private $request;
 
@@ -34,5 +37,4 @@ class SubscriptionResponseTest extends TestCase
         $response = new SubscriptionResponse($this->request, $data);
         $this->assertNull($response->getSubscriptionData());
     }
-
 }

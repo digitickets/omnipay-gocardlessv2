@@ -1,10 +1,12 @@
 <?php
 
-namespace Omnipay\GoCardlessV2\Message;
+namespace Omnipay\GoCardlessV2Tests\Message;
 
 use GoCardlessPro\Client;
 use GoCardlessPro\Resources\Mandate;
 use GoCardlessPro\Services\MandatesService;
+use Omnipay\GoCardlessV2\Message\MandateResponse;
+use Omnipay\GoCardlessV2\Message\UpdateMandateRequest;
 use Omnipay\Tests\TestCase;
 
 class UpdateMandateRequestTest extends TestCase
@@ -17,33 +19,33 @@ class UpdateMandateRequestTest extends TestCase
     /**
      * @var array fully populated sample mandate data to drive test
      */
-    private $sampleData = array(
+    private $sampleData = [
         'mandateId' => 'CU123123123',
-        'mandateData' => array(
-            'metaData' => array(
+        'mandateData' => [
+            'metaData' => [
                 'meta1' => 'Lorem Ipsom Dolor Est',
                 'meta2' => 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.',
                 'meta567890123456789012345678901234567890123456789' => 'Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia.',
-            ),
-        ),
-    );
+            ],
+        ],
+    ];
 
     public function setUp()
     {
         $gateway = $this->getMockBuilder(Client::class)
             ->disableOriginalConstructor()
             ->setMethods(
-                array(
+                [
                     'mandates',
-                )
+                ]
             )
             ->getMock();
         $mandateService = $this->getMockBuilder(MandatesService::class)
             ->disableOriginalConstructor()
             ->setMethods(
-                array(
+                [
                     'update',
-                )
+                ]
             )
             ->getMock();
 
@@ -52,7 +54,7 @@ class UpdateMandateRequestTest extends TestCase
             ->will($this->returnValue($mandateService));
         $mandateService->expects($this->any())
             ->method('update')
-            ->will($this->returnCallback(array($this, 'mandateGet')));
+            ->will($this->returnCallback([$this, 'mandateGet']));
 
         $this->request = new UpdateMandateRequest($this->getHttpClient(), $this->getHttpRequest(), $gateway);
         $this->request->initialize($this->sampleData);
@@ -60,10 +62,10 @@ class UpdateMandateRequestTest extends TestCase
 
     public function testGetDataReturnsCorrectArray()
     {
-        $data = array(
-            'mandateData' => array('params' => $this->sampleData['mandateData']),
+        $data = [
+            'mandateData' => ['params' => $this->sampleData['mandateData']],
             'mandateId' => $this->sampleData['mandateId'],
-        );
+        ];
         $this->assertSame($data, $this->request->getData());
     }
 
@@ -84,7 +86,6 @@ class UpdateMandateRequestTest extends TestCase
     // Assert the mandate get method is being handed the mandateId
     public function mandateGet($id, $data)
     {
-
         $this->assertEquals($this->sampleData['mandateId'], $id);
         $this->assertEquals($this->request->getData()['mandateData'], $data);
 

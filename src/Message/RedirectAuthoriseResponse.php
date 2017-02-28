@@ -1,8 +1,8 @@
 <?php
+
 namespace Omnipay\GoCardlessV2\Message;
 
 use Omnipay\Common\Message\RedirectResponseInterface;
-
 
 class RedirectAuthoriseResponse extends AbstractResponse implements RedirectResponseInterface
 {
@@ -31,7 +31,7 @@ class RedirectAuthoriseResponse extends AbstractResponse implements RedirectResp
         return null;
     }
 
-    public function getRedirectID()
+    public function getRedirectId()
     {
         return $this->data->id;
     }

@@ -1,13 +1,15 @@
 <?php
 
-namespace Omnipay\GoCardlessV2\Message;
+namespace Omnipay\GoCardlessV2Tests\Message;
 
+use Omnipay\GoCardlessV2\Message\RedirectAuthoriseRequest;
+use Omnipay\GoCardlessV2\Message\RedirectAuthoriseResponse;
 use Omnipay\Tests\TestCase;
 
 class RedirectAuthoriseResponseTest extends TestCase
 {
     /**
-     * @var RedirectAuthoriseRequest
+     * @var RedirectAuthoriseRequest|\PHPUnit_Framework_MockObject_MockObject
      */
     private $request;
 
@@ -38,8 +40,7 @@ class RedirectAuthoriseResponseTest extends TestCase
     public function testReturnedValues()
     {
         $response = new RedirectAuthoriseResponse($this->request, $this->data);
-        $this->assertEquals('CB1231235413', $response->getRedirectID());
+        $this->assertEquals('CB1231235413', $response->getRedirectId());
         $this->assertEquals('https://this.site.com/redirect', $response->getRedirectUrl());
     }
-
 }

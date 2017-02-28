@@ -1,15 +1,15 @@
 <?php
 
-namespace Omnipay\GoCardlessV2;
+namespace Omnipay\GoCardlessV2Tests;
 
 use Omnipay\Common\Exception\InvalidResponseException;
+use Omnipay\GoCardlessV2\ProGateway;
 use Omnipay\Tests\GatewayTestCase;
+use Omnipay\GoCardlessV2\Message;
 
 /**
  * Class ProGatewayTest
  * This also tests the base abstract gateway.
- *
- * @package Omnipay\GoCardlessV2
  */
 class ProGatewayTest extends GatewayTestCase
 {
@@ -119,14 +119,14 @@ class ProGatewayTest extends GatewayTestCase
 
     public function testPurchase()
     {
-        $request = $this->gateway->purchase(array('amount' => '10.00'));
+        $request = $this->gateway->purchase(['amount' => '10.00']);
         $this->assertInstanceOf(Message\CreatePaymentRequest::class, $request);
         $this->assertSame('10.00', $request->getAmount());
     }
 
     public function testRefund()
     {
-        $request = $this->gateway->refund(array('amount' => '10.00'));
+        $request = $this->gateway->refund(['amount' => '10.00']);
         $this->assertInstanceOf(Message\CreateRefundRequest::class, $request);
         $this->assertSame('10.00', $request->getAmount());
     }
@@ -138,7 +138,6 @@ class ProGatewayTest extends GatewayTestCase
         $this->assertEquals(1, $request->getTransactionReference());
     }
 
-
     public function testUpdateRefund()
     {
         $request = $this->gateway->updateRefund();
@@ -147,7 +146,7 @@ class ProGatewayTest extends GatewayTestCase
 
     public function testCreateSubscription()
     {
-        $request = $this->gateway->createSubscription(array());
+        $request = $this->gateway->createSubscription([]);
         $this->assertInstanceOf(Message\CreateSubscriptionRequest::class, $request);
     }
 
@@ -164,7 +163,6 @@ class ProGatewayTest extends GatewayTestCase
         $this->assertEquals(1, $request->getSubscriptionId());
     }
 
-
     public function testUpdateSubscription()
     {
         $request = $this->gateway->updateSubscription();
@@ -177,13 +175,11 @@ class ProGatewayTest extends GatewayTestCase
         $this->assertInstanceOf(Message\OAuthRequest::class, $request);
     }
 
-
     public function testConfirmOAuth()
     {
         $request = $this->gateway->confirmOAuth();
         $this->assertInstanceOf(Message\OAuthConfirmRequest::class, $request);
     }
-
 
     public function testFindEvent()
     {
@@ -196,7 +192,7 @@ class ProGatewayTest extends GatewayTestCase
     {
         $this->setExpectedException(InvalidResponseException::class, 'Invalid security token from webhook response');
         $this->gateway->parseWebHooks(
-            array('Webhook-Signature' => 123),
+            ['Webhook-Signature' => 123],
             '{"events": [
     {"id": "EV123", "created_at": "2014-08-03T12:00:00.000Z", "action": "confirmed","resource_type": "payments",}}',
             'WrongSecret'
@@ -208,14 +204,14 @@ class ProGatewayTest extends GatewayTestCase
         $body = '{"events": [{"id": "EV123", "created_at": "2014-08-03T12:00:00.000Z", "action": "confirmed","resource_type": "payments"}]}';
         $secret = 'This Secret Is Public';
         $response = $this->gateway->parseWebHooks(
-            array('Webhook-Signature' => hash_hmac("sha256", $body, $secret)),
+            ['Webhook-Signature' => hash_hmac('sha256', $body, $secret)],
             $body,
             $secret
         );
-        $this->assertSame(array(), $response);
+        $this->assertSame([], $response);
     }
 
-    #-------------------- Test Pro Gateway Features -------------------#
+    //-------------------- Test Pro Gateway Features -------------------#
 
     public function testCreateCustomer()
     {

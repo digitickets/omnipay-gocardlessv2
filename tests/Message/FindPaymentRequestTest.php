@@ -1,10 +1,12 @@
 <?php
 
-namespace Omnipay\GoCardlessV2\Message;
+namespace Omnipay\GoCardlessV2Tests\Message;
 
 use GoCardlessPro\Client;
 use GoCardlessPro\Resources\Payment;
 use GoCardlessPro\Services\PaymentsService;
+use Omnipay\GoCardlessV2\Message\FindPaymentRequest;
+use Omnipay\GoCardlessV2\Message\PaymentResponse;
 use Omnipay\Tests\TestCase;
 
 class FindPaymentRequestTest extends TestCase
@@ -17,26 +19,26 @@ class FindPaymentRequestTest extends TestCase
     /**
      * @var array fully populated sample payment data to drive test
      */
-    private $sampleData = array(
+    private $sampleData = [
         'paymentId' => 'CU123123123',
-    );
+    ];
 
     public function setUp()
     {
         $gateway = $this->getMockBuilder(Client::class)
             ->disableOriginalConstructor()
             ->setMethods(
-                array(
+                [
                     'payments',
-                )
+                ]
             )
             ->getMock();
         $paymentService = $this->getMockBuilder(PaymentsService::class)
             ->disableOriginalConstructor()
             ->setMethods(
-                array(
+                [
                     'get',
-                )
+                ]
             )
             ->getMock();
 
@@ -45,7 +47,7 @@ class FindPaymentRequestTest extends TestCase
             ->will($this->returnValue($paymentService));
         $paymentService->expects($this->any())
             ->method('get')
-            ->will($this->returnCallback(array($this, 'paymentGet')));
+            ->will($this->returnCallback([$this, 'paymentGet']));
 
         $this->request = new FindPaymentRequest($this->getHttpClient(), $this->getHttpRequest(), $gateway);
         $this->request->initialize($this->sampleData);
@@ -54,7 +56,7 @@ class FindPaymentRequestTest extends TestCase
     public function testGetDataReturnsCorrectArray()
     {
         // this should be blank
-        $this->assertSame(array(), $this->request->getData());
+        $this->assertSame([], $this->request->getData());
     }
 
     public function testRequestDataIsStoredCorrectly()
@@ -73,7 +75,6 @@ class FindPaymentRequestTest extends TestCase
     // Assert the payment get method is being handed the paymentId
     public function paymentGet($data)
     {
-
         $this->assertEquals($this->sampleData['paymentId'], $data);
 
         return $this->getMockBuilder(Payment::class)

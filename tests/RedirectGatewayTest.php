@@ -1,7 +1,10 @@
 <?php
 
-namespace Omnipay\GoCardlessV2;
+namespace Omnipay\GoCardlessV2Tests;
 
+use Omnipay\GoCardlessV2\Message\RedirectAuthoriseRequest;
+use Omnipay\GoCardlessV2\Message\RedirectCompleteAuthoriseRequest;
+use Omnipay\GoCardlessV2\RedirectGateway;
 use Omnipay\Tests\GatewayTestCase;
 
 class RedirectGatewayTest extends GatewayTestCase
@@ -21,13 +24,12 @@ class RedirectGatewayTest extends GatewayTestCase
     public function testAuthoriseRequest()
     {
         $request = $this->gateway->authoriseRequest();
-        $this->assertInstanceOf(Message\RedirectAuthoriseRequest::class, $request);
+        $this->assertInstanceOf(RedirectAuthoriseRequest::class, $request);
     }
 
     public function testCompleteAuthoriseRequest()
     {
         $request = $this->gateway->completeAuthoriseRequest();
-        $this->assertInstanceOf(Message\RedirectCompleteAuthoriseRequest::class, $request);
+        $this->assertInstanceOf(RedirectCompleteAuthoriseRequest::class, $request);
     }
-
 }

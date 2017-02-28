@@ -1,12 +1,15 @@
 <?php
-namespace Omnipay\GoCardlessV2\Message;
 
+namespace Omnipay\GoCardlessV2Tests\Message;
+
+use Omnipay\GoCardlessV2\Message\CreateRefundRequest;
+use Omnipay\GoCardlessV2\Message\RefundResponse;
 use Omnipay\Tests\TestCase;
 
 class RefundResponseTest extends TestCase
 {
     /**
-     * @var CreateRefundRequest
+     * @var CreateRefundRequest|\PHPUnit_Framework_MockObject_MockObject
      */
     private $request;
 
@@ -34,5 +37,4 @@ class RefundResponseTest extends TestCase
         $response = new RefundResponse($this->request, $data);
         $this->assertNull($response->getRefundData());
     }
-
 }

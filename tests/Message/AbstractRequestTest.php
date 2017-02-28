@@ -1,15 +1,16 @@
 <?php
 
-namespace Omnipay\GoCardlessV2\Message;
+namespace Omnipay\GoCardlessV2Tests\Message;
 
 use Mockery;
 use Omnipay\Common\Exception\InvalidRequestException;
+use Omnipay\GoCardlessV2\Message\AbstractRequest;
 use Omnipay\Tests\TestCase;
 
 class AbstractRequestTest extends TestCase
 {
     /**
-     * @var AbstractRequest
+     * @var AbstractRequest|\Mockery\MockInterface
      */
     private $request;
 

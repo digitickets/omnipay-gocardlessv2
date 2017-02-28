@@ -1,4 +1,5 @@
 <?php
+
 namespace Omnipay\GoCardlessV2\Message;
 
 class OAuthConfirmResponse extends AbstractResponse
@@ -42,7 +43,7 @@ class OAuthConfirmResponse extends AbstractResponse
     /**
      * @return string|null
      */
-    public function getOrganisationID()
+    public function getOrganisationId()
     {
         if (isset($this->data->organisation_id)) {
             return $this->data->organisation_id;

@@ -1,12 +1,15 @@
 <?php
-namespace Omnipay\GoCardlessV2\Message;
 
+namespace Omnipay\GoCardlessV2Tests\Message;
+
+use Omnipay\GoCardlessV2\Message\EventResponse;
+use Omnipay\GoCardlessV2\Message\FindEventRequest;
 use Omnipay\Tests\TestCase;
 
 class EventResponseTest extends TestCase
 {
     /**
-     * @var FindEventRequest
+     * @var FindEventRequest|\PHPUnit_Framework_MockObject_MockObject
      */
     private $request;
 
@@ -34,5 +37,4 @@ class EventResponseTest extends TestCase
         $response = new EventResponse($this->request, $data);
         $this->assertNull($response->getEventData());
     }
-
 }

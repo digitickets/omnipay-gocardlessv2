@@ -1,4 +1,5 @@
 <?php
+
 namespace Omnipay\GoCardlessV2\Message;
 
 use Omnipay\Common\Message\AbstractResponse as BaseAbstractResponse;

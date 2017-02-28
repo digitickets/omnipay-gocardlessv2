@@ -1,9 +1,11 @@
 <?php
 
-namespace Omnipay\GoCardlessV2\Message;
+namespace Omnipay\GoCardlessV2Tests\Message;
 
 use GoCardlessPro\Client;
 use GoCardlessPro\Resources\RedirectFlow;
+use Omnipay\GoCardlessV2\Message\RedirectAuthoriseRequest;
+use Omnipay\GoCardlessV2\Message\RedirectAuthoriseResponse;
 use Omnipay\Tests\TestCase;
 
 class RedirectAuthoriseRequestTest extends TestCase
@@ -13,29 +15,29 @@ class RedirectAuthoriseRequestTest extends TestCase
      */
     private $request;
 
-    private $sampleAuthorise = array(
+    private $sampleAuthorise = [
         'description' => 'CB1231235413',
         'transactionId' => 'CR783472',
         'returnUrl' => 'https://this.site.com/return',
         'creditorId' => 'CR123123123',
-    );
+    ];
 
     public function setUp()
     {
         $gateway = $this->getMockBuilder(Client::class)
             ->disableOriginalConstructor()
             ->setMethods(
-                array(
+                [
                     'redirectFlows',
-                )
+                ]
             )
             ->getMock();
         $authoriseService = $this->getMockBuilder(RedirectFlow::class)
             ->disableOriginalConstructor()
             ->setMethods(
-                array(
+                [
                     'create',
-                )
+                ]
             )
             ->getMock();
 
@@ -44,7 +46,7 @@ class RedirectAuthoriseRequestTest extends TestCase
             ->will($this->returnValue($authoriseService));
         $authoriseService->expects($this->any())
             ->method('create')
-            ->will($this->returnCallback(array($this, 'authoriseCreate')));
+            ->will($this->returnCallback([$this, 'authoriseCreate']));
 
         $this->request = new RedirectAuthoriseRequest($this->getHttpClient(), $this->getHttpRequest(), $gateway);
         $this->request->initialize($this->sampleAuthorise);
@@ -78,8 +80,7 @@ class RedirectAuthoriseRequestTest extends TestCase
     // Assert the authorise create method is being handed the correct parameters
     public function authoriseCreate($data)
     {
-
-        $this->assertEquals(array('params' => $this->request->getData()), $data);
+        $this->assertEquals(['params' => $this->request->getData()], $data);
 
         return $this->getMockBuilder(RedirectFlow::class)
             ->disableOriginalConstructor()

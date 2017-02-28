@@ -1,12 +1,15 @@
 <?php
-namespace Omnipay\GoCardlessV2\Message;
 
+namespace Omnipay\GoCardlessV2Tests\Message;
+
+use Omnipay\GoCardlessV2\Message\RedirectCompleteAuthoriseRequest;
+use Omnipay\GoCardlessV2\Message\RedirectCompleteAuthoriseResponse;
 use Omnipay\Tests\TestCase;
 
-class CompleteAuthoriseResponseTest extends TestCase
+class RedirectCompleteAuthoriseResponseTest extends TestCase
 {
     /**
-     * @var RedirectCompleteAuthoriseRequest
+     * @var RedirectCompleteAuthoriseRequest|\PHPUnit_Framework_MockObject_MockObject
      */
     private $request;
 
@@ -36,5 +39,4 @@ class CompleteAuthoriseResponseTest extends TestCase
         $this->assertNull($response->getMandateId());
         $this->assertNull($response->getCustomerId());
     }
-
 }

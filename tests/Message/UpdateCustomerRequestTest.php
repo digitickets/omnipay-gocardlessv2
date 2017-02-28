@@ -1,10 +1,12 @@
 <?php
 
-namespace Omnipay\GoCardlessV2\Message;
+namespace Omnipay\GoCardlessV2Tests\Message;
 
 use GoCardlessPro\Client;
 use GoCardlessPro\Resources\Customer;
 use GoCardlessPro\Services\CustomersService;
+use Omnipay\GoCardlessV2\Message\CustomerResponse;
+use Omnipay\GoCardlessV2\Message\UpdateCustomerRequest;
 use Omnipay\Tests\TestCase;
 
 class UpdateCustomerRequestTest extends TestCase
@@ -17,27 +19,27 @@ class UpdateCustomerRequestTest extends TestCase
     /**
      * @var array sample customer data to drive test
      */
-    private $sampleData = array(
+    private $sampleData = [
         'customerId' => 'CU123123123',
-        'customerData' => array('Some extra data' => 'just as placeholders'),
-    );
+        'customerData' => ['Some extra data' => 'just as placeholders'],
+    ];
 
     public function setUp()
     {
         $gateway = $this->getMockBuilder(Client::class)
             ->disableOriginalConstructor()
             ->setMethods(
-                array(
+                [
                     'customers',
-                )
+                ]
             )
             ->getMock();
         $customerService = $this->getMockBuilder(CustomersService::class)
             ->disableOriginalConstructor()
             ->setMethods(
-                array(
+                [
                     'update',
-                )
+                ]
             )
             ->getMock();
 
@@ -46,7 +48,7 @@ class UpdateCustomerRequestTest extends TestCase
             ->will($this->returnValue($customerService));
         $customerService->expects($this->any())
             ->method('update')
-            ->will($this->returnCallback(array($this, 'customerGet')));
+            ->will($this->returnCallback([$this, 'customerGet']));
 
         $this->request = new UpdateCustomerRequest($this->getHttpClient(), $this->getHttpRequest(), $gateway);
         $this->request->initialize($this->sampleData);
@@ -54,10 +56,10 @@ class UpdateCustomerRequestTest extends TestCase
 
     public function testGetDataReturnsCorrectArray()
     {
-        $data = array(
-            'customerData' => array('params' => $this->sampleData['customerData']),
+        $data = [
+            'customerData' => ['params' => $this->sampleData['customerData']],
             'customerId' => $this->sampleData['customerId'],
-        );
+        ];
         $this->assertSame($data, $this->request->getData());
     }
 
@@ -78,7 +80,6 @@ class UpdateCustomerRequestTest extends TestCase
     // Assert the customer get method is being handed the customerId
     public function customerGet($id, $data)
     {
-
         $this->assertEquals($this->sampleData['customerId'], $id);
         $this->assertEquals($this->request->getData()['customerData'], $data);
 

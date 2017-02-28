@@ -1,10 +1,12 @@
 <?php
 
-namespace Omnipay\GoCardlessV2\Message;
+namespace Omnipay\GoCardlessV2Tests\Message;
 
 use GoCardlessPro\Client;
 use GoCardlessPro\Resources\CustomerBankAccount;
 use GoCardlessPro\Services\CustomerBankAccountsService;
+use Omnipay\GoCardlessV2\Message\CustomerBankAccountResponse;
+use Omnipay\GoCardlessV2\Message\FindCustomerBankAccountRequest;
 use Omnipay\Tests\TestCase;
 
 class FindCustomerBankAccountRequestTest extends TestCase
@@ -17,26 +19,26 @@ class FindCustomerBankAccountRequestTest extends TestCase
     /**
      * @var array fully populated sample customerBankAccount data to drive test
      */
-    private $sampleData = array(
+    private $sampleData = [
         'customerBankAccountId' => 'CU123123123',
-    );
+    ];
 
     public function setUp()
     {
         $gateway = $this->getMockBuilder(Client::class)
             ->disableOriginalConstructor()
             ->setMethods(
-                array(
+                [
                     'customerBankAccounts',
-                )
+                ]
             )
             ->getMock();
         $customerBankAccountService = $this->getMockBuilder(CustomerBankAccountsService::class)
             ->disableOriginalConstructor()
             ->setMethods(
-                array(
+                [
                     'get',
-                )
+                ]
             )
             ->getMock();
 
@@ -45,7 +47,7 @@ class FindCustomerBankAccountRequestTest extends TestCase
             ->will($this->returnValue($customerBankAccountService));
         $customerBankAccountService->expects($this->any())
             ->method('get')
-            ->will($this->returnCallback(array($this, 'customerBankAccountGet')));
+            ->will($this->returnCallback([$this, 'customerBankAccountGet']));
 
         $this->request = new FindCustomerBankAccountRequest($this->getHttpClient(), $this->getHttpRequest(), $gateway);
         $this->request->initialize($this->sampleData);
@@ -54,7 +56,7 @@ class FindCustomerBankAccountRequestTest extends TestCase
     public function testGetDataReturnsCorrectArray()
     {
         // this should be blank
-        $this->assertSame(array(), $this->request->getData());
+        $this->assertSame([], $this->request->getData());
     }
 
     public function testRequestDataIsStoredCorrectly()
@@ -73,7 +75,6 @@ class FindCustomerBankAccountRequestTest extends TestCase
     // Assert the customerBankAccount get method is being handed the customerBankAccountId
     public function customerBankAccountGet($data)
     {
-
         $this->assertEquals($this->sampleData['customerBankAccountId'], $data);
 
         return $this->getMockBuilder(CustomerBankAccount::class)

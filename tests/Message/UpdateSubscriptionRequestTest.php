@@ -1,10 +1,12 @@
 <?php
 
-namespace Omnipay\GoCardlessV2\Message;
+namespace Omnipay\GoCardlessV2Tests\Message;
 
 use GoCardlessPro\Client;
 use GoCardlessPro\Resources\Subscription;
 use GoCardlessPro\Services\SubscriptionsService;
+use Omnipay\GoCardlessV2\Message\SubscriptionResponse;
+use Omnipay\GoCardlessV2\Message\UpdateSubscriptionRequest;
 use Omnipay\Tests\TestCase;
 
 class UpdateSubscriptionRequestTest extends TestCase
@@ -17,32 +19,32 @@ class UpdateSubscriptionRequestTest extends TestCase
     /**
      * @var array fully populated sample subscription data to drive test
      */
-    private $sampleData = array(
+    private $sampleData = [
         'subscriptionId' => 'CU123123123',
         'paymentDescription' => 'This is a lovely name for a subscription',
-        'subscriptionMetaData' => array(
+        'subscriptionMetaData' => [
             'meta1' => 'Lorem Ipsom Dolor Est',
             'meta2' => 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.',
             'meta567890123456789012345678901234567890123456789' => 'Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia.',
-        ),
-    );
+        ],
+    ];
 
     public function setUp()
     {
         $gateway = $this->getMockBuilder(Client::class)
             ->disableOriginalConstructor()
             ->setMethods(
-                array(
+                [
                     'subscriptions',
-                )
+                ]
             )
             ->getMock();
         $subscriptionService = $this->getMockBuilder(SubscriptionsService::class)
             ->disableOriginalConstructor()
             ->setMethods(
-                array(
+                [
                     'update',
-                )
+                ]
             )
             ->getMock();
 
@@ -51,7 +53,7 @@ class UpdateSubscriptionRequestTest extends TestCase
             ->will($this->returnValue($subscriptionService));
         $subscriptionService->expects($this->any())
             ->method('update')
-            ->will($this->returnCallback(array($this, 'subscriptionGet')));
+            ->will($this->returnCallback([$this, 'subscriptionGet']));
 
         $this->request = new UpdateSubscriptionRequest($this->getHttpClient(), $this->getHttpRequest(), $gateway);
         $this->request->initialize($this->sampleData);
@@ -59,15 +61,15 @@ class UpdateSubscriptionRequestTest extends TestCase
 
     public function testGetDataReturnsCorrectArray()
     {
-        $data = array(
-            'subscriptionData' => array(
-                "params" => array(
+        $data = [
+            'subscriptionData' => [
+                'params' => [
                     'name' => $this->sampleData['paymentDescription'],
                     'metadata' => $this->sampleData['subscriptionMetaData'],
-                ),
-            ),
+                ],
+            ],
             'subscriptionId' => $this->sampleData['subscriptionId'],
-        );
+        ];
         $this->assertSame($data, $this->request->getData());
     }
 
@@ -89,7 +91,6 @@ class UpdateSubscriptionRequestTest extends TestCase
     // Assert the subscription get method is being handed the subscriptionId
     public function subscriptionGet($id, $data)
     {
-
         $this->assertEquals($this->sampleData['subscriptionId'], $id);
         $this->assertEquals($this->request->getData()['subscriptionData'], $data);
 

@@ -1,4 +1,5 @@
 <?php
+
 namespace Omnipay\GoCardlessV2\Message;
 
 class CreateCustomerBankAccountRequest extends AbstractRequest
@@ -8,13 +9,14 @@ class CreateCustomerBankAccountRequest extends AbstractRequest
         $response = $this->getCustomerBankAccountData();
         $response['links']['customer'] = $this->getCustomerId();
 
-        return array("params" => $response);
+        return ['params' => $response];
     }
 
     /**
      * Send the request with specified data
      *
      * @param  mixed $data The data to send
+     *
      * @return CustomerBankAccountResponse
      */
     public function sendData($data)

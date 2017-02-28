@@ -1,16 +1,17 @@
 <?php
+
 namespace Omnipay\GoCardlessV2\Message;
 
 class RedirectCompleteAuthoriseRequest extends AbstractRequest
 {
     public function getData()
     {
-        $data = array(
-            "authorisationRequestId" => $this->getTransactionReference(),
-            'params' => array(
+        $data = [
+            'authorisationRequestId' => $this->getTransactionReference(),
+            'params' => [
                 'session_token' => $this->getTransactionId(),
-            ),
-        );
+            ],
+        ];
 
         return $data;
     }
@@ -19,6 +20,7 @@ class RedirectCompleteAuthoriseRequest extends AbstractRequest
      * Send the request with specified data
      *
      * @param  mixed $data The data to send
+     *
      * @return RedirectCompleteAuthoriseResponse
      */
     public function sendData($data)

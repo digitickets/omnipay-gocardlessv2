@@ -1,11 +1,13 @@
 <?php
 
-namespace Omnipay\GoCardlessV2\Message;
+namespace Omnipay\GoCardlessV2Tests\Message;
 
 use GoCardlessPro\Client;
 use GoCardlessPro\Resources\Subscription;
 use GoCardlessPro\Services\SubscriptionsService;
 use Omnipay\Common\Exception\InvalidRequestException;
+use Omnipay\GoCardlessV2\Message\CreateSubscriptionRequest;
+use Omnipay\GoCardlessV2\Message\SubscriptionResponse;
 use Omnipay\Tests\TestCase;
 
 class CreateSubscriptionRequestTest extends TestCase
@@ -18,17 +20,17 @@ class CreateSubscriptionRequestTest extends TestCase
     /**
      * @var array fully populated sample subscription data to drive test
      */
-    private $sampleSubscription = array(
+    private $sampleSubscription = [
         'amount' => 12.99,
         'currency' => 'GBP',
         'subscriptionDayOfMonth' => '1',
         'subscriptionInterval' => '1',
         'subscriptionIntervalUnit' => 'month',
-        'subscriptionMetaData' => array(
+        'subscriptionMetaData' => [
             'meta1' => 'Lorem Ipsom Dolor Est',
             'meta2' => 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.',
             'meta567890123456789012345678901234567890123456789' => 'Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia.',
-        ),
+        ],
         'subscriptionMonth' => '1',
         'paymentDescription' => 'bacs subscription',
         'reference' => '13wekjhewe123n3hjd8',
@@ -36,24 +38,24 @@ class CreateSubscriptionRequestTest extends TestCase
         'mandateId' => 'CB1231235413',
         'subscriptionCount' => '12',
         'subscriptionEndDate' => '2018-01-01',
-    );
+    ];
 
     public function setUp()
     {
         $gateway = $this->getMockBuilder(Client::class)
             ->disableOriginalConstructor()
             ->setMethods(
-                array(
+                [
                     'subscriptions',
-                )
+                ]
             )
             ->getMock();
         $subscriptionService = $this->getMockBuilder(SubscriptionsService::class)
             ->disableOriginalConstructor()
             ->setMethods(
-                array(
+                [
                     'create',
-                )
+                ]
             )
             ->getMock();
 
@@ -62,7 +64,7 @@ class CreateSubscriptionRequestTest extends TestCase
             ->will($this->returnValue($subscriptionService));
         $subscriptionService->expects($this->any())
             ->method('create')
-            ->will($this->returnCallback(array($this, 'subscriptionCreate')));
+            ->will($this->returnCallback([$this, 'subscriptionCreate']));
 
         $this->request = new CreateSubscriptionRequest($this->getHttpClient(), $this->getHttpRequest(), $gateway);
     }
@@ -81,8 +83,8 @@ class CreateSubscriptionRequestTest extends TestCase
         $requestData = $this->sampleSubscription;
         unset($requestData['subscriptionEndDate']);
         $this->request->initialize($requestData);
-        $data = array(
-            "params" => array(
+        $data = [
+            'params' => [
                 'amount' => $requestData['amount'] * 100,
                 'currency' => $requestData['currency'],
                 'day_of_month' => $requestData['subscriptionDayOfMonth'],
@@ -93,10 +95,10 @@ class CreateSubscriptionRequestTest extends TestCase
                 'name' => $requestData['paymentDescription'],
                 'payment_reference' => $requestData['reference'],
                 'start_date' => $requestData['paymentDate'],
-                'links' => array('mandate' => $requestData['mandateId']),
+                'links' => ['mandate' => $requestData['mandateId']],
                 'count' => $requestData['subscriptionCount'],
-            ),
-        );
+            ],
+        ];
 
         $this->assertEquals($data, $this->request->getData());
     }
@@ -106,8 +108,8 @@ class CreateSubscriptionRequestTest extends TestCase
         $requestData = $this->sampleSubscription;
         unset($requestData['subscriptionCount']);
         $this->request->initialize($requestData);
-        $data = array(
-            "params" => array(
+        $data = [
+            'params' => [
                 'amount' => $requestData['amount'] * 100,
                 'currency' => $requestData['currency'],
                 'day_of_month' => $requestData['subscriptionDayOfMonth'],
@@ -118,10 +120,10 @@ class CreateSubscriptionRequestTest extends TestCase
                 'name' => $requestData['paymentDescription'],
                 'payment_reference' => $requestData['reference'],
                 'start_date' => $requestData['paymentDate'],
-                'links' => array('mandate' => $requestData['mandateId']),
+                'links' => ['mandate' => $requestData['mandateId']],
                 'end_date' => $requestData['subscriptionEndDate'],
-            ),
-        );
+            ],
+        ];
 
         $this->assertEquals($data, $this->request->getData());
     }
@@ -147,7 +149,6 @@ class CreateSubscriptionRequestTest extends TestCase
     // Assert the subscription create method is being handed the correct parameters
     public function subscriptionCreate($data)
     {
-
         $this->assertEquals($this->request->getData(), $data);
 
         return $this->getMockBuilder(Subscription::class)

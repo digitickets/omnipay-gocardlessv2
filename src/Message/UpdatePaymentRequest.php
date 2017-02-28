@@ -1,20 +1,22 @@
 <?php
+
 namespace Omnipay\GoCardlessV2\Message;
 
 class UpdatePaymentRequest extends AbstractRequest
 {
     public function getData()
     {
-        return array(
-            'paymentData' => array("params" => array('metadata' => $this->getPaymentMetaData())),
+        return [
+            'paymentData' => ['params' => ['metadata' => $this->getPaymentMetaData()]],
             'paymentId' => $this->getPaymentId(),
-        );
+        ];
     }
 
     /**
      * Send the request with specified data
      *
      * @param  mixed $data The data to send
+     *
      * @return PaymentResponse
      */
     public function sendData($data)

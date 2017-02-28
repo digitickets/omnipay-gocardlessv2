@@ -10,12 +10,11 @@ use GoCardlessPro\Client as GoCardlessClient;
 
 /**
  * Abstract Request
- *
  */
 abstract class AbstractRequest extends BaseAbstractRequest
 {
-    CONST LIVE_OAUTH_URL = 'https://connect.gocardless.com/oauth';
-    CONST TEST_OAUTH_URL = 'https://connect-sandbox.gocardless.com/oauth';
+    const LIVE_OAUTH_URL = 'https://connect.gocardless.com/oauth';
+    const TEST_OAUTH_URL = 'https://connect-sandbox.gocardless.com/oauth';
 
     /**
      * @var GoCardlessClient
@@ -40,6 +39,7 @@ abstract class AbstractRequest extends BaseAbstractRequest
      * Set the correct configuration sending
      *
      * @return \Omnipay\Common\Message\ResponseInterface
+     *
      * @throws InvalidRequestException
      */
     public function send()
@@ -295,7 +295,6 @@ abstract class AbstractRequest extends BaseAbstractRequest
     {
         return $this->setParameter('totalRefundedAmount', $value);
     }
-
 
     public function getServiceFeeAmount()
     {

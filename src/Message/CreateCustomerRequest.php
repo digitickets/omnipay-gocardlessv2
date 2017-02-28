@@ -1,6 +1,6 @@
 <?php
-namespace Omnipay\GoCardlessV2\Message;
 
+namespace Omnipay\GoCardlessV2\Message;
 
 /**
  * Authorize Request
@@ -9,13 +9,14 @@ class CreateCustomerRequest extends AbstractRequest
 {
     public function getData()
     {
-        return array("params" => $this->getCustomerData());
+        return ['params' => $this->getCustomerData()];
     }
 
     /**
      * Send the request with specified data
      *
      * @param  mixed $data The data to send
+     *
      * @return CustomerResponse
      */
     public function sendData($data)

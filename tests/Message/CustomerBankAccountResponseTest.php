@@ -1,12 +1,15 @@
 <?php
-namespace Omnipay\GoCardlessV2\Message;
 
+namespace Omnipay\GoCardlessV2Tests\Message;
+
+use Omnipay\GoCardlessV2\Message\CreateCustomerBankAccountRequest;
+use Omnipay\GoCardlessV2\Message\CustomerBankAccountResponse;
 use Omnipay\Tests\TestCase;
 
 class CustomerBankAccountResponseTest extends TestCase
 {
     /**
-     * @var CreateCustomerBankAccountRequest
+     * @var CreateCustomerBankAccountRequest|\Mockery\MockInterface
      */
     private $request;
 
@@ -34,5 +37,4 @@ class CustomerBankAccountResponseTest extends TestCase
         $response = new CustomerBankAccountResponse($this->request, $data);
         $this->assertNull($response->getCustomerBankAccountData());
     }
-
 }

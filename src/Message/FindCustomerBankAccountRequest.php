@@ -1,4 +1,5 @@
 <?php
+
 namespace Omnipay\GoCardlessV2\Message;
 
 /**
@@ -10,18 +11,19 @@ class FindCustomerBankAccountRequest extends AbstractRequest
 {
     public function getData()
     {
-        return array();
+        return [];
     }
 
     /**
      * Send the request with specified data
      *
      * @param  mixed $data completely ignored - there for consistency
+     *
      * @return CustomerBankAccountResponse
      */
     public function sendData($data)
     {
-        $response = $this->gocardless->customerBankAccounts()->get($this->getCustomerBankAccountID());
+        $response = $this->gocardless->customerBankAccounts()->get($this->getCustomerBankAccountId());
 
         return $this->response = new CustomerBankAccountResponse($this, $response);
     }

@@ -1,21 +1,22 @@
 <?php
-namespace Omnipay\GoCardlessV2\Message;
 
+namespace Omnipay\GoCardlessV2\Message;
 
 class UpdateRefundRequest extends AbstractRequest
 {
     public function getData()
     {
-        return array(
-            'refundData' => array("params" => array('metadata' => $this->getPaymentMetaData())),
+        return [
+            'refundData' => ['params' => ['metadata' => $this->getPaymentMetaData()]],
             'refundId' => $this->getTransactionReference(),
-        );
+        ];
     }
 
     /**
      * Send the request with specified data
      *
      * @param  mixed $data The data to send
+     *
      * @return RefundResponse
      */
     public function sendData($data)

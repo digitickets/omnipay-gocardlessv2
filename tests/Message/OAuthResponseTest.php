@@ -1,13 +1,15 @@
 <?php
 
-namespace Omnipay\GoCardlessV2\Message;
+namespace Omnipay\GoCardlessV2Tests\Message;
 
+use Omnipay\GoCardlessV2\Message\OAuthRequest;
+use Omnipay\GoCardlessV2\Message\OAuthResponse;
 use Omnipay\Tests\TestCase;
 
 class OAuthResponseTest extends TestCase
 {
     /**
-     * @var OAuthRequest
+     * @var OAuthRequest|\PHPUnit_Framework_MockObject_MockObject
      */
     private $request;
 
@@ -15,10 +17,10 @@ class OAuthResponseTest extends TestCase
 
     public function setUp()
     {
-        $this->data = array(
-            "params" => array("some" => "params"),
-            "redirect_url" => "https://this.site.com/redirect",
-        );
+        $this->data = [
+            'params' => ['some' => 'params'],
+            'redirect_url' => 'https://this.site.com/redirect',
+        ];
         $this->request = $this->getMockBuilder(OAuthRequest::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -38,5 +40,4 @@ class OAuthResponseTest extends TestCase
         $this->assertEquals($this->data['params'], $response->getRedirectData());
         $this->assertEquals($this->data['redirect_url'], $response->getRedirectUrl());
     }
-
 }

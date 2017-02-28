@@ -1,4 +1,5 @@
 <?php
+
 namespace Omnipay\GoCardlessV2\Message;
 
 /**
@@ -10,13 +11,14 @@ class ReinstateMandateRequest extends AbstractRequest
 {
     public function getData()
     {
-        return array();
+        return [];
     }
 
     /**
      * Send the request with specified data
      *
      * @param  mixed $data The data to send
+     *
      * @return MandateResponse
      */
     public function sendData($data)

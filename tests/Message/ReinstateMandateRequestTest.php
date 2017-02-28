@@ -1,10 +1,12 @@
 <?php
 
-namespace Omnipay\GoCardlessV2\Message;
+namespace Omnipay\GoCardlessV2Tests\Message;
 
 use GoCardlessPro\Client;
 use GoCardlessPro\Resources\Mandate;
 use GoCardlessPro\Services\MandatesService;
+use Omnipay\GoCardlessV2\Message\MandateResponse;
+use Omnipay\GoCardlessV2\Message\ReinstateMandateRequest;
 use Omnipay\Tests\TestCase;
 
 class ReinstateMandateRequestTest extends TestCase
@@ -17,26 +19,26 @@ class ReinstateMandateRequestTest extends TestCase
     /**
      * @var array fully populated sample mandate data to drive test
      */
-    private $sampleData = array(
+    private $sampleData = [
         'mandateId' => 'CU123123123',
-    );
+    ];
 
     public function setUp()
     {
         $gateway = $this->getMockBuilder(Client::class)
             ->disableOriginalConstructor()
             ->setMethods(
-                array(
+                [
                     'mandates',
-                )
+                ]
             )
             ->getMock();
         $mandateService = $this->getMockBuilder(MandatesService::class)
             ->disableOriginalConstructor()
             ->setMethods(
-                array(
+                [
                     'reinstate',
-                )
+                ]
             )
             ->getMock();
 
@@ -45,7 +47,7 @@ class ReinstateMandateRequestTest extends TestCase
             ->will($this->returnValue($mandateService));
         $mandateService->expects($this->any())
             ->method('reinstate')
-            ->will($this->returnCallback(array($this, 'mandateGet')));
+            ->will($this->returnCallback([$this, 'mandateGet']));
 
         $this->request = new ReinstateMandateRequest($this->getHttpClient(), $this->getHttpRequest(), $gateway);
         $this->request->initialize($this->sampleData);
@@ -54,7 +56,7 @@ class ReinstateMandateRequestTest extends TestCase
     public function testGetDataReturnsCorrectArray()
     {
         // this should be blank
-        $this->assertSame(array(), $this->request->getData());
+        $this->assertSame([], $this->request->getData());
     }
 
     public function testRequestDataIsStoredCorrectly()
@@ -73,7 +75,6 @@ class ReinstateMandateRequestTest extends TestCase
     // Assert the mandate get method is being handed the mandateId
     public function mandateGet($data)
     {
-
         $this->assertEquals($this->sampleData['mandateId'], $data);
 
         return $this->getMockBuilder(Mandate::class)

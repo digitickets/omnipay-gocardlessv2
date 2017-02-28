@@ -1,10 +1,12 @@
 <?php
 
-namespace Omnipay\GoCardlessV2\Message;
+namespace Omnipay\GoCardlessV2Tests\Message;
 
 use GoCardlessPro\Client;
 use GoCardlessPro\Resources\Event;
 use GoCardlessPro\Services\EventsService;
+use Omnipay\GoCardlessV2\Message\EventResponse;
+use Omnipay\GoCardlessV2\Message\FindEventRequest;
 use Omnipay\Tests\TestCase;
 
 class FindEventRequestTest extends TestCase
@@ -17,26 +19,26 @@ class FindEventRequestTest extends TestCase
     /**
      * @var array fully populated sample event data to drive test
      */
-    private $sampleData = array(
+    private $sampleData = [
         'eventId' => 'CU123123123',
-    );
+    ];
 
     public function setUp()
     {
         $gateway = $this->getMockBuilder(Client::class)
             ->disableOriginalConstructor()
             ->setMethods(
-                array(
+                [
                     'events',
-                )
+                ]
             )
             ->getMock();
         $eventService = $this->getMockBuilder(EventsService::class)
             ->disableOriginalConstructor()
             ->setMethods(
-                array(
+                [
                     'get',
-                )
+                ]
             )
             ->getMock();
 
@@ -45,7 +47,7 @@ class FindEventRequestTest extends TestCase
             ->will($this->returnValue($eventService));
         $eventService->expects($this->any())
             ->method('get')
-            ->will($this->returnCallback(array($this, 'eventGet')));
+            ->will($this->returnCallback([$this, 'eventGet']));
 
         $this->request = new FindEventRequest($this->getHttpClient(), $this->getHttpRequest(), $gateway);
         $this->request->initialize($this->sampleData);
@@ -54,7 +56,7 @@ class FindEventRequestTest extends TestCase
     public function testGetDataReturnsCorrectArray()
     {
         // this should be blank
-        $this->assertSame(array(), $this->request->getData());
+        $this->assertSame([], $this->request->getData());
     }
 
     public function testRequestDataIsStoredCorrectly()
@@ -73,7 +75,6 @@ class FindEventRequestTest extends TestCase
     // Assert the event get method is being handed the eventId
     public function eventGet($data)
     {
-
         $this->assertEquals($this->sampleData['eventId'], $data);
 
         return $this->getMockBuilder(Event::class)

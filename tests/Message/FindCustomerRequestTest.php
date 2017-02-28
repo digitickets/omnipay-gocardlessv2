@@ -1,10 +1,12 @@
 <?php
 
-namespace Omnipay\GoCardlessV2\Message;
+namespace Omnipay\GoCardlessV2Tests\Message;
 
 use GoCardlessPro\Client;
 use GoCardlessPro\Resources\Customer;
 use GoCardlessPro\Services\CustomersService;
+use Omnipay\GoCardlessV2\Message\CustomerResponse;
+use Omnipay\GoCardlessV2\Message\FindCustomerRequest;
 use Omnipay\Tests\TestCase;
 
 class FindCustomerRequestTest extends TestCase
@@ -17,26 +19,26 @@ class FindCustomerRequestTest extends TestCase
     /**
      * @var array fully populated sample customer data to drive test
      */
-    private $sampleData = array(
+    private $sampleData = [
         'customerId' => 'CU123123123',
-    );
+    ];
 
     public function setUp()
     {
         $gateway = $this->getMockBuilder(Client::class)
             ->disableOriginalConstructor()
             ->setMethods(
-                array(
+                [
                     'customers',
-                )
+                ]
             )
             ->getMock();
         $customerService = $this->getMockBuilder(CustomersService::class)
             ->disableOriginalConstructor()
             ->setMethods(
-                array(
+                [
                     'get',
-                )
+                ]
             )
             ->getMock();
 
@@ -45,7 +47,7 @@ class FindCustomerRequestTest extends TestCase
             ->will($this->returnValue($customerService));
         $customerService->expects($this->any())
             ->method('get')
-            ->will($this->returnCallback(array($this, 'customerGet')));
+            ->will($this->returnCallback([$this, 'customerGet']));
 
         $this->request = new FindCustomerRequest($this->getHttpClient(), $this->getHttpRequest(), $gateway);
         $this->request->initialize($this->sampleData);
@@ -54,7 +56,7 @@ class FindCustomerRequestTest extends TestCase
     public function testGetDataReturnsCorrectArray()
     {
         // this should be blank
-        $this->assertSame(array(), $this->request->getData());
+        $this->assertSame([], $this->request->getData());
     }
 
     public function testRequestDataIsStoredCorrectly()
@@ -73,7 +75,6 @@ class FindCustomerRequestTest extends TestCase
     // Assert the customer get method is being handed the customerId
     public function customerGet($data)
     {
-
         $this->assertEquals($this->sampleData['customerId'], $data);
 
         return $this->getMockBuilder(Customer::class)

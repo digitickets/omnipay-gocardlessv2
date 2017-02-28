@@ -1,10 +1,12 @@
 <?php
 
-namespace Omnipay\GoCardlessV2\Message;
+namespace Omnipay\GoCardlessV2Tests\Message;
 
 use GoCardlessPro\Client;
 use GoCardlessPro\Resources\Subscription;
 use GoCardlessPro\Services\SubscriptionsService;
+use Omnipay\GoCardlessV2\Message\CancelSubscriptionRequest;
+use Omnipay\GoCardlessV2\Message\SubscriptionResponse;
 use Omnipay\Tests\TestCase;
 
 class CancelSubscriptionRequestTest extends TestCase
@@ -17,26 +19,26 @@ class CancelSubscriptionRequestTest extends TestCase
     /**
      * @var array fully populated sample subscription data to drive test
      */
-    private $sampleData = array(
+    private $sampleData = [
         'subscriptionId' => 'CU123123123',
-    );
+    ];
 
     public function setUp()
     {
         $gateway = $this->getMockBuilder(Client::class)
             ->disableOriginalConstructor()
             ->setMethods(
-                array(
+                [
                     'subscriptions',
-                )
+                ]
             )
             ->getMock();
         $subscriptionService = $this->getMockBuilder(SubscriptionsService::class)
             ->disableOriginalConstructor()
             ->setMethods(
-                array(
+                [
                     'cancel',
-                )
+                ]
             )
             ->getMock();
 
@@ -45,7 +47,7 @@ class CancelSubscriptionRequestTest extends TestCase
             ->will($this->returnValue($subscriptionService));
         $subscriptionService->expects($this->any())
             ->method('cancel')
-            ->will($this->returnCallback(array($this, 'subscriptionGet')));
+            ->will($this->returnCallback([$this, 'subscriptionGet']));
 
         $this->request = new CancelSubscriptionRequest($this->getHttpClient(), $this->getHttpRequest(), $gateway);
         $this->request->initialize($this->sampleData);
@@ -54,7 +56,7 @@ class CancelSubscriptionRequestTest extends TestCase
     public function testGetDataReturnsCorrectArray()
     {
         // this should be blank
-        $this->assertSame(array(), $this->request->getData());
+        $this->assertSame([], $this->request->getData());
     }
 
     public function testRequestDataIsStoredCorrectly()
@@ -73,7 +75,6 @@ class CancelSubscriptionRequestTest extends TestCase
     // Assert the subscription get method is being handed the subscriptionId
     public function subscriptionGet($data)
     {
-
         $this->assertEquals($this->sampleData['subscriptionId'], $data);
 
         return $this->getMockBuilder(Subscription::class)

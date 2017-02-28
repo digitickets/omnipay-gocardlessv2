@@ -1,21 +1,22 @@
 <?php
+
 namespace Omnipay\GoCardlessV2\Message;
 
 class UpdateCustomerBankAccountRequest extends AbstractRequest
 {
     public function getData()
     {
-
-        return array(
-            'customerBankAccountData' => array("params" => $this->getCustomerBankAccountData()),
+        return [
+            'customerBankAccountData' => ['params' => $this->getCustomerBankAccountData()],
             'customerBankAccountId' => $this->getCustomerBankAccountId(),
-        );
+        ];
     }
 
     /**
      * Send the request with specified data
      *
      * @param  mixed $data The data to send
+     *
      * @return CustomerBankAccountResponse
      */
     public function sendData($data)

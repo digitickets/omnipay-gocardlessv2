@@ -1,12 +1,15 @@
 <?php
-namespace Omnipay\GoCardlessV2\Message;
 
+namespace Omnipay\GoCardlessV2Tests\Message;
+
+use Omnipay\GoCardlessV2\Message\CreateMandateRequest;
+use Omnipay\GoCardlessV2\Message\MandateResponse;
 use Omnipay\Tests\TestCase;
 
 class MandateResponseTest extends TestCase
 {
     /**
-     * @var CreateMandateRequest
+     * @var CreateMandateRequest|\PHPUnit_Framework_MockObject_MockObject
      */
     private $request;
 
@@ -34,5 +37,4 @@ class MandateResponseTest extends TestCase
         $response = new MandateResponse($this->request, $data);
         $this->assertNull($response->getMandateData());
     }
-
 }

@@ -1,12 +1,16 @@
 <?php
-namespace Omnipay\GoCardlessV2\Message;
 
+namespace Omnipay\GoCardlessV2Tests\Message;
+
+use Omnipay\GoCardlessV2\Message\CreateCustomerRequest;
+use Omnipay\GoCardlessV2\Message\CustomerResponse;
 use Omnipay\Tests\TestCase;
+use PHPUnit_Framework_MockObject_MockObject;
 
 class CustomerResponseTest extends TestCase
 {
     /**
-     * @var CreateCustomerRequest
+     * @var CreateCustomerRequest|PHPUnit_Framework_MockObject_MockObject
      */
     private $request;
 
@@ -41,5 +45,4 @@ class CustomerResponseTest extends TestCase
         $response = new CustomerResponse($this->request, $data);
         $this->assertTrue($response->isSuccessful());
     }
-
 }

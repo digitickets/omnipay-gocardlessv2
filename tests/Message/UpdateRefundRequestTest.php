@@ -1,10 +1,12 @@
 <?php
 
-namespace Omnipay\GoCardlessV2\Message;
+namespace Omnipay\GoCardlessV2Tests\Message;
 
 use GoCardlessPro\Client;
 use GoCardlessPro\Resources\Refund;
 use GoCardlessPro\Services\RefundsService;
+use Omnipay\GoCardlessV2\Message\RefundResponse;
+use Omnipay\GoCardlessV2\Message\UpdateRefundRequest;
 use Omnipay\Tests\TestCase;
 
 class UpdateRefundRequestTest extends TestCase
@@ -17,31 +19,31 @@ class UpdateRefundRequestTest extends TestCase
     /**
      * @var array fully populated sample refund data to drive test
      */
-    private $sampleData = array(
+    private $sampleData = [
         'transactionReference' => 'CU123123123',
-        'paymentMetaData' => array(
+        'paymentMetaData' => [
             'meta1' => 'Lorem Ipsom Dolor Est',
             'meta2' => 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.',
             'meta567890123456789012345678901234567890123456789' => 'Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia.',
-        ),
-    );
+        ],
+    ];
 
     public function setUp()
     {
         $gateway = $this->getMockBuilder(Client::class)
             ->disableOriginalConstructor()
             ->setMethods(
-                array(
+                [
                     'refunds',
-                )
+                ]
             )
             ->getMock();
         $refundService = $this->getMockBuilder(RefundsService::class)
             ->disableOriginalConstructor()
             ->setMethods(
-                array(
+                [
                     'update',
-                )
+                ]
             )
             ->getMock();
 
@@ -50,7 +52,7 @@ class UpdateRefundRequestTest extends TestCase
             ->will($this->returnValue($refundService));
         $refundService->expects($this->any())
             ->method('update')
-            ->will($this->returnCallback(array($this, 'refundGet')));
+            ->will($this->returnCallback([$this, 'refundGet']));
 
         $this->request = new UpdateRefundRequest($this->getHttpClient(), $this->getHttpRequest(), $gateway);
         $this->request->initialize($this->sampleData);
@@ -58,10 +60,10 @@ class UpdateRefundRequestTest extends TestCase
 
     public function testGetDataReturnsCorrectArray()
     {
-        $data = array(
-            'refundData' => array('params' => array('metadata' => $this->sampleData['paymentMetaData'])),
+        $data = [
+            'refundData' => ['params' => ['metadata' => $this->sampleData['paymentMetaData']]],
             'refundId' => $this->sampleData['transactionReference'],
-        );
+        ];
         $this->assertSame($data, $this->request->getData());
     }
 
@@ -82,7 +84,6 @@ class UpdateRefundRequestTest extends TestCase
     // Assert the refund get method is being handed the refundId
     public function refundGet($id, $data)
     {
-
         $this->assertEquals($this->sampleData['transactionReference'], $id);
         $this->assertEquals($this->request->getData()['refundData'], $data);
 

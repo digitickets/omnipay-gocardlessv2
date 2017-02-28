@@ -1,21 +1,22 @@
 <?php
+
 namespace Omnipay\GoCardlessV2\Message;
 
 /**
  * Find Payment Request
- *
  */
 class FindPaymentRequest extends AbstractRequest
 {
     public function getData()
     {
-        return array();
+        return [];
     }
 
     /**
      * Send the request with specified data
      *
      * @param  mixed $data - completely ignored, included for consistency
+     *
      * @return PaymentResponse
      */
     public function sendData($data)

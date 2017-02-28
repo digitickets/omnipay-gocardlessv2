@@ -1,9 +1,11 @@
 <?php
 
-namespace Omnipay\GoCardlessV2\Message;
+namespace Omnipay\GoCardlessV2Tests\Message;
 
 use GoCardlessPro\Client;
 use GoCardlessPro\Resources\RedirectFlow;
+use Omnipay\GoCardlessV2\Message\RedirectCompleteAuthoriseRequest;
+use Omnipay\GoCardlessV2\Message\RedirectCompleteAuthoriseResponse;
 use Omnipay\Tests\TestCase;
 
 class RedirectCompleteAuthoriseRequestTest extends TestCase
@@ -13,27 +15,27 @@ class RedirectCompleteAuthoriseRequestTest extends TestCase
      */
     private $request;
 
-    private $sampleCompleteAuthorise = array(
+    private $sampleCompleteAuthorise = [
         'transactionId' => 'CR783472',
         'transactionReference' => 'CR123123123',
-    );
+    ];
 
     public function setUp()
     {
         $gateway = $this->getMockBuilder(Client::class)
             ->disableOriginalConstructor()
             ->setMethods(
-                array(
+                [
                     'redirectFlows',
-                )
+                ]
             )
             ->getMock();
         $completeAuthoriseService = $this->getMockBuilder(RedirectFlow::class)
             ->disableOriginalConstructor()
             ->setMethods(
-                array(
+                [
                     'complete',
-                )
+                ]
             )
             ->getMock();
 
@@ -42,7 +44,7 @@ class RedirectCompleteAuthoriseRequestTest extends TestCase
             ->will($this->returnValue($completeAuthoriseService));
         $completeAuthoriseService->expects($this->any())
             ->method('complete')
-            ->will($this->returnCallback(array($this, 'completeAuthoriseCreate')));
+            ->will($this->returnCallback([$this, 'completeAuthoriseCreate']));
 
         $this->request = new RedirectCompleteAuthoriseRequest($this->getHttpClient(), $this->getHttpRequest(), $gateway);
         $this->request->initialize($this->sampleCompleteAuthorise);
@@ -72,7 +74,6 @@ class RedirectCompleteAuthoriseRequestTest extends TestCase
     // Assert the completeAuthorise create method is being handed the correct parameters
     public function completeAuthoriseCreate($id, $data)
     {
-
         $this->assertEquals($this->request->getData()['authorisationRequestId'], $id);
         $this->assertEquals($this->request->getData(), $data);
 

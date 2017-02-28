@@ -1,17 +1,19 @@
 <?php
+
 namespace Omnipay\GoCardlessV2\Message;
 
 class CancelSubscriptionRequest extends AbstractRequest
 {
     public function getData()
     {
-        return array();
+        return [];
     }
 
     /**
      * Send the request with specified data
      *
      * @param  mixed $data The data to send
+     *
      * @return SubscriptionResponse
      */
     public function sendData($data)

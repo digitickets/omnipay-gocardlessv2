@@ -1,43 +1,45 @@
 <?php
 
-namespace Omnipay\GoCardlessV2\Message;
+namespace Omnipay\GoCardlessV2Tests\Message;
 
 use GoCardlessPro\Client;
 use GoCardlessPro\Resources\CustomerBankAccount;
 use GoCardlessPro\Services\CustomerBankAccountsService;
+use Omnipay\GoCardlessV2\Message\CreateCustomerBankAccountRequestFromToken;
+use Omnipay\GoCardlessV2\Message\CustomerBankAccountResponse;
 use Omnipay\Tests\TestCase;
 
 class CreateCustomerBankAccountRequestFromTokenTest extends TestCase
 {
     /**
-     * @var CreateCustomerBankAccountRequest
+     * @var CreateCustomerBankAccountRequestFromToken
      */
     private $request;
 
     /**
      * @var array fully populated sample customerBankAccount data to drive test
      */
-    private $sampleCustomerBankAccount = array(
+    private $sampleCustomerBankAccount = [
         'customerBankAccountToken' => 'TK123123123',
         'customerId' => 'CU1231235413',
-    );
+    ];
 
     public function setUp()
     {
         $gateway = $this->getMockBuilder(Client::class)
             ->disableOriginalConstructor()
             ->setMethods(
-                array(
+                [
                     'customerBankAccounts',
-                )
+                ]
             )
             ->getMock();
         $customerBankAccountService = $this->getMockBuilder(CustomerBankAccountsService::class)
             ->disableOriginalConstructor()
             ->setMethods(
-                array(
+                [
                     'create',
-                )
+                ]
             )
             ->getMock();
 
@@ -46,7 +48,7 @@ class CreateCustomerBankAccountRequestFromTokenTest extends TestCase
             ->will($this->returnValue($customerBankAccountService));
         $customerBankAccountService->expects($this->any())
             ->method('create')
-            ->will($this->returnCallback(array($this, 'customerBankAccountCreate')));
+            ->will($this->returnCallback([$this, 'customerBankAccountCreate']));
 
         $this->request = new CreateCustomerBankAccountRequestFromToken($this->getHttpClient(), $this->getHttpRequest(), $gateway);
         $this->request->initialize($this->sampleCustomerBankAccount);
@@ -56,7 +58,7 @@ class CreateCustomerBankAccountRequestFromTokenTest extends TestCase
     {
         $data['links']['customer'] = $this->sampleCustomerBankAccount['customerId'];
         $data['links']['customer_bank_account_token'] = $this->sampleCustomerBankAccount['customerBankAccountToken'];
-        $this->assertSame(array('params' => $data), $this->request->getData());
+        $this->assertSame(['params' => $data], $this->request->getData());
     }
 
     public function testRequestDataIsStoredCorrectly()
@@ -77,7 +79,6 @@ class CreateCustomerBankAccountRequestFromTokenTest extends TestCase
     // Assert the customerBankAccount create method is being handed the correct parameters
     public function customerBankAccountCreate($data)
     {
-
         $this->assertEquals($this->request->getData(), $data);
 
         return $this->getMockBuilder(CustomerBankAccount::class)

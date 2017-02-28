@@ -1,10 +1,12 @@
 <?php
 
-namespace Omnipay\GoCardlessV2\Message;
+namespace Omnipay\GoCardlessV2Tests\Message;
 
 use GoCardlessPro\Client;
 use GoCardlessPro\Resources\Mandate;
 use GoCardlessPro\Services\MandatesService;
+use Omnipay\GoCardlessV2\Message\CreateMandateRequest;
+use Omnipay\GoCardlessV2\Message\MandateResponse;
 use Omnipay\Tests\TestCase;
 
 class CreateMandateRequestTest extends TestCase
@@ -17,36 +19,36 @@ class CreateMandateRequestTest extends TestCase
     /**
      * @var array fully populated sample mandate data to drive test
      */
-    private $sampleMandate = array(
-        'mandateData' => array(
+    private $sampleMandate = [
+        'mandateData' => [
             'reference' => 'TestRef',
             'scheme' => 'bacs',
-            'metadata' => array(
+            'metadata' => [
                 'meta1' => 'Lorem Ipsom Dolor Est',
                 'meta2' => 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.',
                 'meta567890123456789012345678901234567890123456789' => 'Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia.',
-            ),
-        ),
+            ],
+        ],
         'customerBankAccountId' => 'CB1231235413',
         'creditorId' => 'CR783472',
-    );
+    ];
 
     public function setUp()
     {
         $gateway = $this->getMockBuilder(Client::class)
             ->disableOriginalConstructor()
             ->setMethods(
-                array(
+                [
                     'mandates',
-                )
+                ]
             )
             ->getMock();
         $mandateService = $this->getMockBuilder(MandatesService::class)
             ->disableOriginalConstructor()
             ->setMethods(
-                array(
+                [
                     'create',
-                )
+                ]
             )
             ->getMock();
 
@@ -55,7 +57,7 @@ class CreateMandateRequestTest extends TestCase
             ->will($this->returnValue($mandateService));
         $mandateService->expects($this->any())
             ->method('create')
-            ->will($this->returnCallback(array($this, 'mandateCreate')));
+            ->will($this->returnCallback([$this, 'mandateCreate']));
 
         $this->request = new CreateMandateRequest($this->getHttpClient(), $this->getHttpRequest(), $gateway);
         $this->request->initialize($this->sampleMandate);
@@ -66,7 +68,7 @@ class CreateMandateRequestTest extends TestCase
         $data = $this->sampleMandate['mandateData'];
         $data['links']['customer_bank_account'] = $this->sampleMandate['customerBankAccountId'];
         $data['links']['creditor'] = $this->sampleMandate['creditorId'];
-        $this->assertSame(array('params' => $data), $this->request->getData());
+        $this->assertSame(['params' => $data], $this->request->getData());
     }
 
     public function testRequestDataIsStoredCorrectly()

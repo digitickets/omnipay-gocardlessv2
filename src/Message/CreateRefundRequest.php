@@ -1,4 +1,5 @@
 <?php
+
 namespace Omnipay\GoCardlessV2\Message;
 
 use Omnipay\Common\Message\ResponseInterface;
@@ -9,21 +10,22 @@ class CreateRefundRequest extends AbstractRequest
     {
         $this->validate('transactionReference');
 
-        return array(
-            "params" => array(
-                'links' => array('payment' => $this->getTransactionReference()),
+        return [
+            'params' => [
+                'links' => ['payment' => $this->getTransactionReference()],
                 'amount' => $this->getAmountInteger(),
                 'total_amount_confirmation' => $this->getTotalRefundedAmount(),
                 'reference' => $this->getReference(),
                 'metadata' => $this->getPaymentMetaData(),
-            ),
-        );
+            ],
+        ];
     }
 
     /**
      * Send the request with specified data
      *
      * @param  mixed $data The data to send
+     *
      * @return ResponseInterface
      */
     public function sendData($data)

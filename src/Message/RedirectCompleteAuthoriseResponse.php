@@ -1,4 +1,5 @@
 <?php
+
 namespace Omnipay\GoCardlessV2\Message;
 
 use GoCardlessPro\Resources\RedirectFlow;
@@ -34,4 +35,3 @@ class RedirectCompleteAuthoriseResponse extends AbstractResponse
         return null;
     }
 }
-

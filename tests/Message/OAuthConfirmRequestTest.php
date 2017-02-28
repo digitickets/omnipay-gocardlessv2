@@ -1,9 +1,11 @@
 <?php
 
-namespace Omnipay\GoCardlessV2\Message;
+namespace Omnipay\GoCardlessV2Tests\Message;
 
 use GoCardlessPro\Client;
 use Guzzle\Http\Message\Request;
+use Omnipay\GoCardlessV2\Message\OAuthConfirmRequest;
+use Omnipay\GoCardlessV2\Message\OAuthConfirmResponse;
 use Omnipay\Tests\TestCase;
 
 class OAuthConfirmRequestTest extends TestCase
@@ -13,12 +15,12 @@ class OAuthConfirmRequestTest extends TestCase
      */
     private $request;
 
-    private $sampleAuthorise = array(
+    private $sampleAuthorise = [
         'merchantId' => 'CB1231235413',
         'oAuthSecret' => 'read_only',
         'returnUrl' => 'https://this.site.com/return',
         'transactionReference' => 'CR123123123',
-    );
+    ];
 
     private $jsonReturn = '{"links":{"mandate":"mandateVal","customer":"customerVal"}}';
 
@@ -29,18 +31,17 @@ class OAuthConfirmRequestTest extends TestCase
             ->getMock();
         $httpClient = $this->getMockBuilder(\Guzzle\Http\Client::class)
             ->disableOriginalConstructor()
-            ->setMethods(array('post'))
+            ->setMethods(['post'])
             ->getMock();
         $post = $this->getMockBuilder(Request::class)
             ->disableOriginalConstructor()
-            ->setMethods(array('send'))
+            ->setMethods(['send'])
             ->getMock();
 
         $send = $this->getMockBuilder('Response')
             ->disableOriginalConstructor()
-            ->setMethods(array('getBody'))
+            ->setMethods(['getBody'])
             ->getMock();
-
 
         $send->expects($this->any())
             ->method('getBody')
@@ -58,16 +59,16 @@ class OAuthConfirmRequestTest extends TestCase
 
     public function testGetDataReturnsCorrectArray()
     {
-        $data = array(
-            'params' => array(
+        $data = [
+            'params' => [
                 'grant_type' => 'authorization_code',
                 'client_id' => $this->sampleAuthorise['merchantId'],
                 'client_secret' => $this->sampleAuthorise['oAuthSecret'],
                 'redirect_uri' => $this->sampleAuthorise['returnUrl'],
                 'code' => $this->sampleAuthorise['transactionReference'],
-            ),
+            ],
             'url' => $this->request->getOAuthUrl().'/access_token',
-        );
+        ];
         $this->assertSame($data, $this->request->getData());
     }
 
@@ -86,5 +87,4 @@ class OAuthConfirmRequestTest extends TestCase
         $result = $this->request->send();
         $this->assertInstanceOf(OAuthConfirmResponse::class, $result);
     }
-
 }

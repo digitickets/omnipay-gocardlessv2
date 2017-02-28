@@ -1,4 +1,5 @@
 <?php
+
 namespace Omnipay\GoCardlessV2\Message;
 
 /**
@@ -10,13 +11,14 @@ class FindEventRequest extends AbstractRequest
 {
     public function getData()
     {
-        return array();
+        return [];
     }
 
     /**
      * Send the request with specified data
      *
      * @param  mixed $data - completely ignored, included for consistency
+     *
      * @return EventResponse
      */
     public function sendData($data)

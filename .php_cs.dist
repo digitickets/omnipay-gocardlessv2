@@ -1,0 +1,19 @@
+<?php
+
+// Only autoformat files from specific locations
+$finder = PhpCsFixer\Finder::create()
+    ->in(__DIR__ . '/src')
+    ->in(__DIR__ . '/tests');
+
+return PhpCsFixer\Config::create()
+    ->setRules(
+        [
+            '@Symfony' => true, // Use the Symfony coding standard as our base
+            'array_syntax' => ['syntax' => 'short'], // Use short array syntax
+            'phpdoc_align' => false, // Reduce blast-radius of changes by not vertically aligning
+            'phpdoc_annotation_without_dot' => false, // Actually prefer annotations to start with upper case
+            'phpdoc_summary' => false, // Don't care about adding dot at the end of a summary line
+            'phpdoc_var_without_name' => false // Removing variable name causes too many changes in our code
+        ]
+    )
+    ->setFinder($finder);

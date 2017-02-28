@@ -1,10 +1,12 @@
 <?php
 
-namespace Omnipay\GoCardlessV2\Message;
+namespace Omnipay\GoCardlessV2Tests\Message;
 
 use GoCardlessPro\Client;
 use GoCardlessPro\Resources\Refund;
 use GoCardlessPro\Services\RefundsService;
+use Omnipay\GoCardlessV2\Message\FindRefundRequest;
+use Omnipay\GoCardlessV2\Message\RefundResponse;
 use Omnipay\Tests\TestCase;
 
 class FindRefundRequestTest extends TestCase
@@ -17,26 +19,26 @@ class FindRefundRequestTest extends TestCase
     /**
      * @var array fully populated sample refund data to drive test
      */
-    private $sampleData = array(
+    private $sampleData = [
         'transactionReference' => 'CU123123123',
-    );
+    ];
 
     public function setUp()
     {
         $gateway = $this->getMockBuilder(Client::class)
             ->disableOriginalConstructor()
             ->setMethods(
-                array(
+                [
                     'refunds',
-                )
+                ]
             )
             ->getMock();
         $refundService = $this->getMockBuilder(RefundsService::class)
             ->disableOriginalConstructor()
             ->setMethods(
-                array(
+                [
                     'get',
-                )
+                ]
             )
             ->getMock();
 
@@ -45,7 +47,7 @@ class FindRefundRequestTest extends TestCase
             ->will($this->returnValue($refundService));
         $refundService->expects($this->any())
             ->method('get')
-            ->will($this->returnCallback(array($this, 'refundGet')));
+            ->will($this->returnCallback([$this, 'refundGet']));
 
         $this->request = new FindRefundRequest($this->getHttpClient(), $this->getHttpRequest(), $gateway);
         $this->request->initialize($this->sampleData);
@@ -54,7 +56,7 @@ class FindRefundRequestTest extends TestCase
     public function testGetDataReturnsCorrectArray()
     {
         // this should be blank
-        $this->assertSame(array(), $this->request->getData());
+        $this->assertSame([], $this->request->getData());
     }
 
     public function testRequestDataIsStoredCorrectly()
@@ -73,7 +75,6 @@ class FindRefundRequestTest extends TestCase
     // Assert the refund get method is being handed the refundId
     public function refundGet($data)
     {
-
         $this->assertEquals($this->sampleData['transactionReference'], $data);
 
         return $this->getMockBuilder(Refund::class)

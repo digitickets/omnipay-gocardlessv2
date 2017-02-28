@@ -1,4 +1,5 @@
 <?php
+
 namespace Omnipay\GoCardlessV2\Message;
 
 class CreatePaymentRequest extends AbstractRequest
@@ -7,7 +8,7 @@ class CreatePaymentRequest extends AbstractRequest
     {
         $this->validate('amount', 'currency', 'mandateId');
 
-        $data = array(
+        $data = [
             'amount' => $this->getAmountInteger(),
             'description' => $this->getPaymentDescription(),
             'app_fee' => $this->getServiceFeeAmount(),
@@ -15,8 +16,8 @@ class CreatePaymentRequest extends AbstractRequest
             'charge_date' => $this->getPaymentDate(),
             'currency' => $this->getCurrency(),
             'reference' => $this->getReference(),
-            'links' => array('mandate' => $this->getMandateId()),
-        );
+            'links' => ['mandate' => $this->getMandateId()],
+        ];
 
         // Remove null values
         $data = array_filter(
@@ -26,13 +27,14 @@ class CreatePaymentRequest extends AbstractRequest
             }
         );
 
-        return array("params" => $data);
+        return ['params' => $data];
     }
 
     /**
      * Send the request with specified data
      *
      * @param  mixed $data The data to send
+     *
      * @return PaymentResponse
      */
     public function sendData($data)
@@ -41,5 +43,4 @@ class CreatePaymentRequest extends AbstractRequest
 
         return $this->response = new PaymentResponse($this, $response);
     }
-
 }

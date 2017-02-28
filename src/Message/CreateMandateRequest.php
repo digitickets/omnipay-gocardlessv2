@@ -1,4 +1,5 @@
 <?php
+
 namespace Omnipay\GoCardlessV2\Message;
 
 class CreateMandateRequest extends AbstractRequest
@@ -9,13 +10,14 @@ class CreateMandateRequest extends AbstractRequest
         $data['links']['customer_bank_account'] = $this->getCustomerBankAccountId();
         $data['links']['creditor'] = $this->getCreditorId();
 
-        return array("params" => $data);
+        return ['params' => $data];
     }
 
     /**
      * Send the request with specified data
      *
      * @param  mixed $data The data to send
+     *
      * @return MandateResponse
      */
     public function sendData($data)

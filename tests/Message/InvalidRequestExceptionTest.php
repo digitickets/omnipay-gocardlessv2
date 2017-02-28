@@ -1,9 +1,10 @@
 <?php
 
-namespace Omnipay\GoCardlessV2\Message;
+namespace Omnipay\GoCardlessV2Tests\Message;
 
 use GoCardlessPro\Client;
 use Omnipay\Common\Exception\InvalidRequestException;
+use Omnipay\GoCardlessV2\Message\CancelMandateRequest;
 use Omnipay\Tests\TestCase;
 
 class InvalidRequestExceptionTest extends TestCase
@@ -16,13 +17,13 @@ class InvalidRequestExceptionTest extends TestCase
     /**
      * @var array fully populated sample mandate data to drive test
      */
-    private $sampleData = array(
+    private $sampleData = [
         'mandateId' => 'CU123123123',
-    );
+    ];
 
     public function setUp()
     {
-        $gateway = new Client(array('access_token' => 'foobar', 'environment' => 'sandbox'));
+        $gateway = new Client(['access_token' => 'foobar', 'environment' => 'sandbox']);
 
         $this->request = new CancelMandateRequest($this->getHttpClient(), $this->getHttpRequest(), $gateway);
         $this->request->initialize($this->sampleData);
@@ -34,5 +35,4 @@ class InvalidRequestExceptionTest extends TestCase
         $this->setExpectedException(InvalidRequestException::class);
         $this->request->send();
     }
-
 }

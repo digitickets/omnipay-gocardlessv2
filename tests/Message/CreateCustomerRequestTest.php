@@ -1,10 +1,12 @@
 <?php
 
-namespace Omnipay\GoCardlessV2\Message;
+namespace Omnipay\GoCardlessV2Tests\Message;
 
 use GoCardlessPro\Client;
 use GoCardlessPro\Resources\Customer;
 use GoCardlessPro\Services\CustomersService;
+use Omnipay\GoCardlessV2\Message\CreateCustomerRequest;
+use Omnipay\GoCardlessV2\Message\CustomerResponse;
 use Omnipay\Tests\TestCase;
 
 class CreateCustomerRequestTest extends TestCase
@@ -17,8 +19,8 @@ class CreateCustomerRequestTest extends TestCase
     /**
      * @var array fully populated sample customer data to drive test
      */
-    private $sampleCustomer = array(
-        'customerData' => array(
+    private $sampleCustomer = [
+        'customerData' => [
             'given_name' => 'Mike',
             'family_name' => 'Jones',
             'email' => 'mike.jones@example.com',
@@ -29,34 +31,33 @@ class CreateCustomerRequestTest extends TestCase
             'company_name' => 'Mike Jones Enterprises',
             'country_code' => 'GB',
             'language' => 'en',
-            'metadata' => array(
+            'metadata' => [
                 'meta1' => 'Lorem Ipsom Dolor Est',
                 'meta2' => 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.',
                 'meta567890123456789012345678901234567890123456789' => 'Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia.',
-            ),
+            ],
             'postal_code' => 'L18 1DE',
             'region' => 'Merseyside',
             'swedish_identity_number' => '123',
-
-        ),
-    );
+        ],
+    ];
 
     public function setUp()
     {
         $gateway = $this->getMockBuilder(Client::class)
             ->disableOriginalConstructor()
             ->setMethods(
-                array(
+                [
                     'customers',
-                )
+                ]
             )
             ->getMock();
         $customerService = $this->getMockBuilder(CustomersService::class)
             ->disableOriginalConstructor()
             ->setMethods(
-                array(
+                [
                     'create',
-                )
+                ]
             )
             ->getMock();
 
@@ -65,7 +66,7 @@ class CreateCustomerRequestTest extends TestCase
             ->will($this->returnValue($customerService));
         $customerService->expects($this->any())
             ->method('create')
-            ->will($this->returnCallback(array($this, 'customerCreate')));
+            ->will($this->returnCallback([$this, 'customerCreate']));
 
         $this->request = new CreateCustomerRequest($this->getHttpClient(), $this->getHttpRequest(), $gateway);
         $this->request->initialize($this->sampleCustomer);
@@ -73,7 +74,7 @@ class CreateCustomerRequestTest extends TestCase
 
     public function testGetDataReturnsCorrectArray()
     {
-        $this->assertSame(array('params' => $this->sampleCustomer['customerData']), $this->request->getData());
+        $this->assertSame(['params' => $this->sampleCustomer['customerData']], $this->request->getData());
     }
 
     public function testRequestDataIsStoredCorrectly()
@@ -93,7 +94,6 @@ class CreateCustomerRequestTest extends TestCase
     // Assert the customer create method is being handed the correct parameters
     public function customerCreate($data)
     {
-
         $this->assertEquals($this->request->getData(), $data);
 
         return $this->getMockBuilder(Customer::class)

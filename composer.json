@@ -39,6 +39,11 @@
       "Omnipay\\GoCardlessV2\\": "src/"
     }
   },
+  "autoload-dev": {
+    "psr-4": {
+      "Omnipay\\GoCardlessV2Tests\\": "tests/"
+    }
+  },
   "require": {
     "omnipay/common": "~2.0",
     "braintree/braintree_php": "^2.39|^3.0",
@@ -46,11 +51,18 @@
     "php": "^5.5|^7"
   },
   "require-dev": {
-    "omnipay/tests": "~2.0"
+    "friendsofphp/php-cs-fixer": "^2.0",
+    "omnipay/tests": "~2.0",
+    "phpstan/phpstan": "^0.6"
   },
   "extra": {
     "branch-alias": {
       "dev-master": "2.0.x-dev"
     }
+  },
+  "scripts": {
+    "run-sa": "vendor/bin/phpstan analyse --ansi --no-progress -c phpstan.neon -l 4 src tests",
+    "run-fixer": "vendor/bin/php-cs-fixer fix",
+    "run-tests": "vendor/bin/phpunit"
   }
 }
