@@ -16,25 +16,29 @@ class RedirectAuthoriseRequestTest extends TestCase
     private $request;
 
     private $sampleAuthorise = array(
-        'description'=>'CB1231235413',
-        'transactionId'=>'CR783472',
-        'returnUrl'=>'https://this.site.com/return',
-        'creditorId'=>'CR123123123'
+        'description' => 'CB1231235413',
+        'transactionId' => 'CR783472',
+        'returnUrl' => 'https://this.site.com/return',
+        'creditorId' => 'CR123123123',
     );
 
     public function setUp()
     {
         $gateway = $this->getMockBuilder(Client::class)
             ->disableOriginalConstructor()
-            ->setMethods(array(
-                'redirectFlows'
-            ))
+            ->setMethods(
+                array(
+                    'redirectFlows',
+                )
+            )
             ->getMock();
         $authoriseService = $this->getMockBuilder(RedirectFlow::class)
             ->disableOriginalConstructor()
-            ->setMethods(array(
-                'create'
-            ))
+            ->setMethods(
+                array(
+                    'create',
+                )
+            )
             ->getMock();
 
         $gateway->expects($this->any())
@@ -50,10 +54,10 @@ class RedirectAuthoriseRequestTest extends TestCase
 
     public function testGetDataReturnsCorrectArray()
     {
-        $data['description']=$this->sampleAuthorise['description'];
-        $data['session_token']=$this->sampleAuthorise['transactionId'];
-        $data['success_redirect_url']=$this->sampleAuthorise['returnUrl'];
-        $data['links']['creditor']=$this->sampleAuthorise['creditorId'];
+        $data['description'] = $this->sampleAuthorise['description'];
+        $data['session_token'] = $this->sampleAuthorise['transactionId'];
+        $data['success_redirect_url'] = $this->sampleAuthorise['returnUrl'];
+        $data['links']['creditor'] = $this->sampleAuthorise['creditorId'];
         $this->assertSame($data, $this->request->getData());
     }
 
@@ -74,12 +78,13 @@ class RedirectAuthoriseRequestTest extends TestCase
     }
 
     // Assert the authorise create method is being handed the correct parameters
-    public function authoriseCreate($data){
+    public function authoriseCreate($data)
+    {
 
-         $this->assertEquals(array("params"=>$this->request->getData()), $data);
+        $this->assertEquals(array('params' => $this->request->getData()), $data);
 
         return $this->getMockBuilder(RedirectFlow::class)
-                ->disableOriginalConstructor()
-                ->getMock();
+            ->disableOriginalConstructor()
+            ->getMock();
     }
 }

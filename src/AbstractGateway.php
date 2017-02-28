@@ -351,16 +351,16 @@ abstract class AbstractGateway extends BaseAbstractGateway
     public function parseWebHooks(array $headers, $rawPayload, $securityToken = null)
     {
         $return = array();
-        if($securityToken){// validate
+        if ($securityToken) {// validate
             $provided_signature = $headers["Webhook-Signature"];
             $calculated_signature = hash_hmac("sha256", $rawPayload, $securityToken);
-            if($provided_signature != $calculated_signature){
+            if ($provided_signature != $calculated_signature) {
                 throw new InvalidResponseException("Invalid security token from webhook response");
             }
         }
         $payload = json_decode($rawPayload, true);
-        foreach($payload['events'] as $event){
-            $array[]=$this->findEvent($event['id']);
+        foreach ($payload['events'] as $event) {
+            $array[] = $this->findEvent($event['id']);
         }
 
         return $return;

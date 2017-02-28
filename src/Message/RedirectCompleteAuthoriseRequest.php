@@ -7,10 +7,11 @@ class RedirectCompleteAuthoriseRequest extends AbstractRequest
     {
         $data = array(
             "authorisationRequestId" => $this->getTransactionReference(),
-            'params'=>array(
-                'session_token' => $this->getTransactionId()
-            )
+            'params' => array(
+                'session_token' => $this->getTransactionId(),
+            ),
         );
+
         return $data;
     }
 
@@ -22,7 +23,7 @@ class RedirectCompleteAuthoriseRequest extends AbstractRequest
      */
     public function sendData($data)
     {
-        $response = $this->gocardless->redirectFlows()->complete($data['authorisationRequestId'],$data);
+        $response = $this->gocardless->redirectFlows()->complete($data['authorisationRequestId'], $data);
 
         return $this->response = new RedirectCompleteAuthoriseResponse($this, $response);
     }

@@ -13,7 +13,7 @@ class UpdateMandateRequest extends AbstractRequest
     public function getData()
     {
         return array(
-            'mandateData' => $this->getMandateData(),
+            'mandateData' => array("params" => $this->getMandateData()),
             'mandateId' => $this->getMandateId(),
         );
     }

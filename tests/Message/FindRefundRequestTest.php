@@ -25,15 +25,19 @@ class FindRefundRequestTest extends TestCase
     {
         $gateway = $this->getMockBuilder(Client::class)
             ->disableOriginalConstructor()
-            ->setMethods(array(
-                'refunds'
-            ))
+            ->setMethods(
+                array(
+                    'refunds',
+                )
+            )
             ->getMock();
         $refundService = $this->getMockBuilder(RefundsService::class)
             ->disableOriginalConstructor()
-            ->setMethods(array(
-                'get'
-            ))
+            ->setMethods(
+                array(
+                    'get',
+                )
+            )
             ->getMock();
 
         $gateway->expects($this->any())
@@ -67,12 +71,13 @@ class FindRefundRequestTest extends TestCase
     }
 
     // Assert the refund get method is being handed the refundId
-    public function refundGet($data){
+    public function refundGet($data)
+    {
 
-         $this->assertEquals($this->sampleData['transactionReference'], $data);
+        $this->assertEquals($this->sampleData['transactionReference'], $data);
 
         return $this->getMockBuilder(Refund::class)
-                ->disableOriginalConstructor()
-                ->getMock();
+            ->disableOriginalConstructor()
+            ->getMock();
     }
 }

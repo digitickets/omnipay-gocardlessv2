@@ -29,7 +29,7 @@ class CreatePaymentRequest extends AbstractRequest
             }
         );
 
-        return $data;
+        return array("params" => $data);
     }
 
     /**

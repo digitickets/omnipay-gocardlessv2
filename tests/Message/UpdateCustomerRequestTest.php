@@ -19,7 +19,7 @@ class UpdateCustomerRequestTest extends TestCase
      */
     private $sampleData = array(
         'customerId' => 'CU123123123',
-        'customerData' => array('Some extra data'=>'just as placeholders'),
+        'customerData' => array('Some extra data' => 'just as placeholders'),
     );
 
     public function setUp()
@@ -55,7 +55,7 @@ class UpdateCustomerRequestTest extends TestCase
     public function testGetDataReturnsCorrectArray()
     {
         $data = array(
-            'customerData' => $this->sampleData['customerData'],
+            'customerData' => array('params' => $this->sampleData['customerData']),
             'customerId' => $this->sampleData['customerId'],
         );
         $this->assertSame($data, $this->request->getData());

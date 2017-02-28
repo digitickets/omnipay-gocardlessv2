@@ -7,7 +7,8 @@ class CreateCustomerBankAccountRequest extends AbstractRequest
     {
         $response = $this->getCustomerBankAccountData();
         $response['links']['customer'] = $this->getCustomerId();
-        return $response;
+
+        return array("params" => $response);
     }
 
     /**

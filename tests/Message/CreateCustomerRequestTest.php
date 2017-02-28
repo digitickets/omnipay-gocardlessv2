@@ -45,15 +45,19 @@ class CreateCustomerRequestTest extends TestCase
     {
         $gateway = $this->getMockBuilder(Client::class)
             ->disableOriginalConstructor()
-            ->setMethods(array(
-                'customers'
-            ))
+            ->setMethods(
+                array(
+                    'customers',
+                )
+            )
             ->getMock();
         $customerService = $this->getMockBuilder(CustomersService::class)
             ->disableOriginalConstructor()
-            ->setMethods(array(
-                'create'
-            ))
+            ->setMethods(
+                array(
+                    'create',
+                )
+            )
             ->getMock();
 
         $gateway->expects($this->any())
@@ -69,7 +73,7 @@ class CreateCustomerRequestTest extends TestCase
 
     public function testGetDataReturnsCorrectArray()
     {
-        $this->assertSame(array("params" => $this->sampleCustomer['customerData']), $this->request->getData());
+        $this->assertSame(array('params' => $this->sampleCustomer['customerData']), $this->request->getData());
     }
 
     public function testRequestDataIsStoredCorrectly()
@@ -87,12 +91,13 @@ class CreateCustomerRequestTest extends TestCase
     }
 
     // Assert the customer create method is being handed the correct parameters
-    public function customerCreate($data){
+    public function customerCreate($data)
+    {
 
-         $this->assertEquals(array("params"=>$this->sampleCustomer['customerData']), $data);
+        $this->assertEquals($this->request->getData(), $data);
 
         return $this->getMockBuilder(Customer::class)
-                ->disableOriginalConstructor()
-                ->getMock();
+            ->disableOriginalConstructor()
+            ->getMock();
     }
 }

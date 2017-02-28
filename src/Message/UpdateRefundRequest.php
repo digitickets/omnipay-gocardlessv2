@@ -8,7 +8,7 @@ class UpdateRefundRequest extends AbstractRequest
     public function getData()
     {
         return array(
-            'refundData' => array('metadata'=>$this->getPaymentMetaData()),
+            'refundData' => array("params" => array('metadata' => $this->getPaymentMetaData())),
             'refundId' => $this->getTransactionReference(),
         );
     }

@@ -25,23 +25,27 @@ class CreateRefundRequestTest extends TestCase
             'meta2' => 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.',
             'meta567890123456789012345678901234567890123456789' => 'Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia.',
         ),
-        'reference'=>'13wekjhewe123n3hjd8',
-        'transactionReference'=>'PR1328317'
+        'reference' => '13wekjhewe123n3hjd8',
+        'transactionReference' => 'PR1328317',
     );
 
     public function setUp()
     {
         $gateway = $this->getMockBuilder(Client::class)
             ->disableOriginalConstructor()
-            ->setMethods(array(
-                'refunds'
-            ))
+            ->setMethods(
+                array(
+                    'refunds',
+                )
+            )
             ->getMock();
         $refundService = $this->getMockBuilder(RefundsService::class)
             ->disableOriginalConstructor()
-            ->setMethods(array(
-                'create'
-            ))
+            ->setMethods(
+                array(
+                    'create',
+                )
+            )
             ->getMock();
 
         $gateway->expects($this->any())
@@ -58,11 +62,13 @@ class CreateRefundRequestTest extends TestCase
     public function testGetDataReturnsCorrectArray()
     {
         $data = array(
-            'links' => array('payment' => $this->sampleRefund['transactionReference']),
-            'amount' => $this->sampleRefund['amount']*100,
-            'total_amount_confirmation' => $this->sampleRefund['totalRefundedAmount'],
-            'reference' => $this->sampleRefund['reference'],
-            'metadata' => $this->sampleRefund['paymentMetaData'],
+            "params" => array(
+                'links' => array('payment' => $this->sampleRefund['transactionReference']),
+                'amount' => $this->sampleRefund['amount'] * 100,
+                'total_amount_confirmation' => $this->sampleRefund['totalRefundedAmount'],
+                'reference' => $this->sampleRefund['reference'],
+                'metadata' => $this->sampleRefund['paymentMetaData'],
+            ),
         );
 
         $this->assertEquals($data, $this->request->getData());
@@ -70,7 +76,7 @@ class CreateRefundRequestTest extends TestCase
 
     public function testRequestDataIsStoredCorrectly()
     {
-        foreach($this->sampleRefund as $field => $value){
+        foreach ($this->sampleRefund as $field => $value) {
             $function = 'get'.ucfirst($field);
             $this->assertEquals($value, $this->request->{$function}());
         }
@@ -85,12 +91,13 @@ class CreateRefundRequestTest extends TestCase
     }
 
     // Assert the refund create method is being handed the correct parameters
-    public function refundCreate($data){
+    public function refundCreate($data)
+    {
 
-         $this->assertEquals($this->request->getData(), $data);
+        $this->assertEquals($this->request->getData(), $data);
 
         return $this->getMockBuilder(Refund::class)
-                ->disableOriginalConstructor()
-                ->getMock();
+            ->disableOriginalConstructor()
+            ->getMock();
     }
 }

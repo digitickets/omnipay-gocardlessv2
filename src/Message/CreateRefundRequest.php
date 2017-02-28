@@ -10,11 +10,13 @@ class CreateRefundRequest extends AbstractRequest
         $this->validate('transactionReference');
 
         return array(
-            'links' => array('payment'=>$this->getTransactionReference()),
-            'amount' => $this->getAmountInteger(),
-            'total_amount_confirmation' => $this->getTotalRefundedAmount(),
-            'reference' => $this->getReference(),
-            'metadata' => $this->getPaymentMetaData()
+            "params" => array(
+                'links' => array('payment' => $this->getTransactionReference()),
+                'amount' => $this->getAmountInteger(),
+                'total_amount_confirmation' => $this->getTotalRefundedAmount(),
+                'reference' => $this->getReference(),
+                'metadata' => $this->getPaymentMetaData(),
+            ),
         );
     }
 

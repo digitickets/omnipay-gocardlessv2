@@ -17,6 +17,7 @@ class ProGateway extends AbstractGateway
     {
         return $this->createRequest(Message\CreateCustomerRequest::class, $parameters);
     }
+
     /**
      * Only to be used with approved payment pages
      *

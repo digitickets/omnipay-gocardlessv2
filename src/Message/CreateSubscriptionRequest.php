@@ -13,15 +13,15 @@ class CreateSubscriptionRequest extends AbstractRequest
         $data = array(
             'amount' => $this->getAmountInteger(),
             'currency' => $this->getCurrency(),
-            'day_of_month'=>$this->getSubscriptionDayOfMonth(),
-            'interval'=>$this->getSubscriptionInterval(),
-            'interval_unit'=>$this->getSubscriptionIntervalUnit(),
+            'day_of_month' => $this->getSubscriptionDayOfMonth(),
+            'interval' => $this->getSubscriptionInterval(),
+            'interval_unit' => $this->getSubscriptionIntervalUnit(),
             'metadata' => $this->getSubscriptionMetaData(),
-            'month'=>$this->getSubscriptionMonth(),
+            'month' => $this->getSubscriptionMonth(),
             'name' => $this->getPaymentDescription(),
             'payment_reference' => $this->getReference(),
             'start_date' => $this->getPaymentDate(),
-            'links' => array('mandate' => $this->getMandateId())
+            'links' => array('mandate' => $this->getMandateId()),
         );
         if ($this->getSubscriptionCount()) {
             $data['count'] = $this->getSubscriptionCount();
@@ -32,12 +32,15 @@ class CreateSubscriptionRequest extends AbstractRequest
         }
 
         // Remove null values
-        $data = array_filter($data, function($value){
-            return ! is_null($value);
-        });
+        $data = array_filter(
+            $data,
+            function ($value) {
+                return !is_null($value);
+            }
+        );
 
 
-        return $data;
+        return array("params" => $data);
     }
 
     /**

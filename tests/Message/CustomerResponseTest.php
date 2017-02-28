@@ -1,5 +1,6 @@
 <?php
 namespace Omnipay\GoCardlessV2\Message;
+
 use Omnipay\Tests\TestCase;
 
 class CustomerResponseTest extends TestCase
@@ -34,7 +35,8 @@ class CustomerResponseTest extends TestCase
         $this->assertNull($response->getCustomerData());
     }
 
-    public function testSuccessful(){
+    public function testSuccessful()
+    {
         $data = 'customerData';
         $response = new CustomerResponse($this->request, $data);
         $this->assertTrue($response->isSuccessful());

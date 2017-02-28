@@ -25,15 +25,19 @@ class FindCustomerBankAccountRequestTest extends TestCase
     {
         $gateway = $this->getMockBuilder(Client::class)
             ->disableOriginalConstructor()
-            ->setMethods(array(
-                'customerBankAccounts'
-            ))
+            ->setMethods(
+                array(
+                    'customerBankAccounts',
+                )
+            )
             ->getMock();
         $customerBankAccountService = $this->getMockBuilder(CustomerBankAccountsService::class)
             ->disableOriginalConstructor()
-            ->setMethods(array(
-                'get'
-            ))
+            ->setMethods(
+                array(
+                    'get',
+                )
+            )
             ->getMock();
 
         $gateway->expects($this->any())
@@ -67,12 +71,13 @@ class FindCustomerBankAccountRequestTest extends TestCase
     }
 
     // Assert the customerBankAccount get method is being handed the customerBankAccountId
-    public function customerBankAccountGet($data){
+    public function customerBankAccountGet($data)
+    {
 
-         $this->assertEquals($this->sampleData['customerBankAccountId'], $data);
+        $this->assertEquals($this->sampleData['customerBankAccountId'], $data);
 
         return $this->getMockBuilder(CustomerBankAccount::class)
-                ->disableOriginalConstructor()
-                ->getMock();
+            ->disableOriginalConstructor()
+            ->getMock();
     }
 }

@@ -6,15 +6,16 @@ class OAuthConfirmRequest extends AbstractRequest
     public function getData()
     {
         $data = array(
-            'params'=>array(
-                'grant_type'=>'authorization_code',
-                'client_id'=>$this->getMerchantId(),
-                'client_secret'=>$this->getOAuthSecret(),
-                'redirect_uri'=>$this->getReturnUrl(),
+            'params' => array(
+                'grant_type' => 'authorization_code',
+                'client_id' => $this->getMerchantId(),
+                'client_secret' => $this->getOAuthSecret(),
+                'redirect_uri' => $this->getReturnUrl(),
                 'code' => $this->getTransactionReference(),
             ),
-            'url'=>$this->getOAuthUrl().'/access_token'
+            'url' => $this->getOAuthUrl().'/access_token',
         );
+
         return $data;
     }
 

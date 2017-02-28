@@ -7,7 +7,8 @@ class CreateCustomerBankAccountRequestFromToken extends AbstractRequest
     {
         $response['links']['customer'] = $this->getCustomerId();
         $response['links']['customer_bank_account_token'] = $this->getCustomerBankAccountToken();
-        return $response;
+
+        return array("params" => $response);
     }
 
     /**

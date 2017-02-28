@@ -24,7 +24,7 @@ class InvalidRequestExceptionTest extends TestCase
 
     public function setUp()
     {
-        $gateway = new Client(array('access_token'=>'foobar', 'environment'=>'sandbox'));
+        $gateway = new Client(array('access_token' => 'foobar', 'environment' => 'sandbox'));
 
         $this->request = new CancelMandateRequest($this->getHttpClient(), $this->getHttpRequest(), $gateway);
         $this->request->initialize($this->sampleData);

@@ -11,8 +11,10 @@ class OAuthConfirmResponse extends AbstractResponse
         if (isset($this->data->access_token)) {
             return $this->data->access_token;
         }
+
         return null;
     }
+
     /**
      * @return string|null
      */
@@ -21,8 +23,10 @@ class OAuthConfirmResponse extends AbstractResponse
         if (isset($this->data->scope)) {
             return $this->data->scope;
         }
+
         return null;
     }
+
     /**
      * @return string|null
      */
@@ -31,8 +35,10 @@ class OAuthConfirmResponse extends AbstractResponse
         if (isset($this->data->token_type)) {
             return $this->data->token_type;
         }
+
         return null;
     }
+
     /**
      * @return string|null
      */
@@ -41,6 +47,7 @@ class OAuthConfirmResponse extends AbstractResponse
         if (isset($this->data->organisation_id)) {
             return $this->data->organisation_id;
         }
+
         return null;
     }
 }

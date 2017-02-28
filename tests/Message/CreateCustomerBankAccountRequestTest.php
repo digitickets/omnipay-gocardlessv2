@@ -69,7 +69,7 @@ class CreateCustomerBankAccountRequestTest extends TestCase
     {
         $data = $this->sampleCustomerBankAccount['customerBankAccountData'];
         $data['links']['customer'] = $this->sampleCustomerBankAccount['customerId'];
-        $this->assertSame($data, $this->request->getData());
+        $this->assertSame(array('params' => $data), $this->request->getData());
     }
 
     public function testRequestDataIsStoredCorrectly()

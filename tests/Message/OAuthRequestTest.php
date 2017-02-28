@@ -16,11 +16,11 @@ class OAuthRequestTest extends TestCase
     private $request;
 
     private $sampleAuthorise = array(
-        'merchantId'=>'CB1231235413',
-        'oAuthScope'=>'read_only',
-        'returnUrl'=>'https://this.site.com/return',
-        'transactionId'=>'CR123123123',
-        'email'=>'joebloggs@mailinator.com'
+        'merchantId' => 'CB1231235413',
+        'oAuthScope' => 'read_only',
+        'returnUrl' => 'https://this.site.com/return',
+        'transactionId' => 'CR123123123',
+        'email' => 'joebloggs@mailinator.com',
     );
 
     public function setUp()
@@ -36,15 +36,15 @@ class OAuthRequestTest extends TestCase
     public function testGetDataReturnsCorrectArray()
     {
         $data = array(
-            'params'=>array(
-                'response_type'=>'code',
-                'client_id'=>$this->sampleAuthorise['merchantId'],
-                'scope'=>$this->sampleAuthorise['oAuthScope'],
-                'redirect_uri'=>$this->sampleAuthorise['returnUrl'],
+            'params' => array(
+                'response_type' => 'code',
+                'client_id' => $this->sampleAuthorise['merchantId'],
+                'scope' => $this->sampleAuthorise['oAuthScope'],
+                'redirect_uri' => $this->sampleAuthorise['returnUrl'],
                 'state' => $this->sampleAuthorise['transactionId'],
-                'prefill'=>array('email'=>$this->sampleAuthorise['email'])
+                'prefill' => array('email' => $this->sampleAuthorise['email']),
             ),
-            'redirectURL'=>$this->request->getOAuthUrl().'/authorize'
+            'redirectURL' => $this->request->getOAuthUrl().'/authorize',
         );
         $this->assertSame($data, $this->request->getData());
     }
@@ -67,12 +67,13 @@ class OAuthRequestTest extends TestCase
     }
 
     // Assert the authorise create method is being handed the correct parameters
-    public function authoriseCreate($data){
+    public function authoriseCreate($data)
+    {
 
-         $this->assertEquals(array("params"=>$this->request->getData()), $data);
+        $this->assertEquals(array('params' => $this->request->getData()), $data);
 
         return $this->getMockBuilder(RedirectFlow::class)
-                ->disableOriginalConstructor()
-                ->getMock();
+            ->disableOriginalConstructor()
+            ->getMock();
     }
 }

@@ -26,25 +26,29 @@ class CreatePaymentRequestTest extends TestCase
             'meta2' => 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.',
             'meta567890123456789012345678901234567890123456789' => 'Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia.',
         ),
-        'paymentDate'=>'2017-01-01',
-        'currency'=>'GBP',
-        'reference'=>'13wekjhewe123n3hjd8',
-        'mandateId'=>'CB1231235413'
+        'paymentDate' => '2017-01-01',
+        'currency' => 'GBP',
+        'reference' => '13wekjhewe123n3hjd8',
+        'mandateId' => 'CB1231235413',
     );
 
     public function setUp()
     {
         $gateway = $this->getMockBuilder(Client::class)
             ->disableOriginalConstructor()
-            ->setMethods(array(
-                'payments'
-            ))
+            ->setMethods(
+                array(
+                    'payments',
+                )
+            )
             ->getMock();
         $paymentService = $this->getMockBuilder(PaymentsService::class)
             ->disableOriginalConstructor()
-            ->setMethods(array(
-                'create'
-            ))
+            ->setMethods(
+                array(
+                    'create',
+                )
+            )
             ->getMock();
 
         $gateway->expects($this->any())
@@ -61,14 +65,16 @@ class CreatePaymentRequestTest extends TestCase
     public function testGetDataReturnsCorrectArray()
     {
         $data = array(
-            'amount' => $this->samplePayment['amount']*100,
-            'description' => $this->samplePayment['paymentDescription'],
-            'app_fee' => $this->samplePayment['serviceFeeAmount'],
-            'metadata' => $this->samplePayment['paymentMetaData'],
-            'charge_date' => $this->samplePayment['paymentDate'],
-            'currency' => $this->samplePayment['currency'],
-            'reference' => $this->samplePayment['reference'],
-            'links' => array('mandate' => $this->samplePayment['mandateId']),
+            "params" => array(
+                'amount' => $this->samplePayment['amount'] * 100,
+                'description' => $this->samplePayment['paymentDescription'],
+                'app_fee' => $this->samplePayment['serviceFeeAmount'],
+                'metadata' => $this->samplePayment['paymentMetaData'],
+                'charge_date' => $this->samplePayment['paymentDate'],
+                'currency' => $this->samplePayment['currency'],
+                'reference' => $this->samplePayment['reference'],
+                'links' => array('mandate' => $this->samplePayment['mandateId']),
+            ),
         );
 
         $this->assertEquals($data, $this->request->getData());
@@ -76,7 +82,7 @@ class CreatePaymentRequestTest extends TestCase
 
     public function testRequestDataIsStoredCorrectly()
     {
-        foreach($this->samplePayment as $field => $value){
+        foreach ($this->samplePayment as $field => $value) {
             $function = 'get'.ucfirst($field);
             $this->assertEquals($value, $this->request->{$function}());
         }
@@ -91,12 +97,13 @@ class CreatePaymentRequestTest extends TestCase
     }
 
     // Assert the payment create method is being handed the correct parameters
-    public function paymentCreate($data){
+    public function paymentCreate($data)
+    {
 
-         $this->assertEquals($this->request->getData(), $data);
+        $this->assertEquals($this->request->getData(), $data);
 
         return $this->getMockBuilder(Payment::class)
-                ->disableOriginalConstructor()
-                ->getMock();
+            ->disableOriginalConstructor()
+            ->getMock();
     }
 }

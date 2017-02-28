@@ -19,7 +19,7 @@ class UpdateCustomerBankAccountRequestTest extends TestCase
      */
     private $sampleData = array(
         'customerBankAccountId' => 'CU123123123',
-        'customerBankAccountData' => array('Some extra data'=>'just as placeholders'),
+        'customerBankAccountData' => array('Some extra data' => 'just as placeholders'),
     );
 
     public function setUp()
@@ -55,7 +55,7 @@ class UpdateCustomerBankAccountRequestTest extends TestCase
     public function testGetDataReturnsCorrectArray()
     {
         $data = array(
-            'customerBankAccountData' => $this->sampleData['customerBankAccountData'],
+            'customerBankAccountData' => array('params' => $this->sampleData['customerBankAccountData']),
             'customerBankAccountId' => $this->sampleData['customerBankAccountId'],
         );
         $this->assertSame($data, $this->request->getData());

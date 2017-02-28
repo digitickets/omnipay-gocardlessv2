@@ -7,7 +7,7 @@ class UpdateCustomerBankAccountRequest extends AbstractRequest
     {
 
         return array(
-            'customerBankAccountData' => $this->getCustomerBankAccountData(),
+            'customerBankAccountData' => array("params" => $this->getCustomerBankAccountData()),
             'customerBankAccountId' => $this->getCustomerBankAccountId(),
         );
     }

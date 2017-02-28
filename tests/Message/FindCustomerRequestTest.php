@@ -25,15 +25,19 @@ class FindCustomerRequestTest extends TestCase
     {
         $gateway = $this->getMockBuilder(Client::class)
             ->disableOriginalConstructor()
-            ->setMethods(array(
-                'customers'
-            ))
+            ->setMethods(
+                array(
+                    'customers',
+                )
+            )
             ->getMock();
         $customerService = $this->getMockBuilder(CustomersService::class)
             ->disableOriginalConstructor()
-            ->setMethods(array(
-                'get'
-            ))
+            ->setMethods(
+                array(
+                    'get',
+                )
+            )
             ->getMock();
 
         $gateway->expects($this->any())
@@ -67,12 +71,13 @@ class FindCustomerRequestTest extends TestCase
     }
 
     // Assert the customer get method is being handed the customerId
-    public function customerGet($data){
+    public function customerGet($data)
+    {
 
-         $this->assertEquals($this->sampleData['customerId'], $data);
+        $this->assertEquals($this->sampleData['customerId'], $data);
 
         return $this->getMockBuilder(Customer::class)
-                ->disableOriginalConstructor()
-                ->getMock();
+            ->disableOriginalConstructor()
+            ->getMock();
     }
 }

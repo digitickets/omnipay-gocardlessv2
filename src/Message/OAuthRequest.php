@@ -6,16 +6,17 @@ class OAuthRequest extends AbstractRequest
     public function getData()
     {
         $data = array(
-            'params'=>array(
-                'response_type'=>'code',
-                'client_id'=>$this->getMerchantId(),
-                'scope'=>$this->getOAuthScope(),
-                'redirect_uri'=>$this->getReturnUrl(),
+            'params' => array(
+                'response_type' => 'code',
+                'client_id' => $this->getMerchantId(),
+                'scope' => $this->getOAuthScope(),
+                'redirect_uri' => $this->getReturnUrl(),
                 'state' => $this->getTransactionId(),
-                'prefill'=>array('email'=>$this->getEmail())
+                'prefill' => array('email' => $this->getEmail()),
             ),
-            'redirectURL'=>$this->getOAuthUrl().'/authorize'
+            'redirectURL' => $this->getOAuthUrl().'/authorize',
         );
+
         return $data;
     }
 

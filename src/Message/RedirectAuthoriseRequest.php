@@ -6,13 +6,14 @@ class RedirectAuthoriseRequest extends AbstractRequest
     public function getData()
     {
         $data = array(
-            'description'=> $this->getDescription(),
+            'description' => $this->getDescription(),
             'session_token' => $this->getTransactionId(),
-            'success_redirect_url'=>$this->getReturnUrl()
+            'success_redirect_url' => $this->getReturnUrl(),
         );
-        if($this->getCreditorId()){
-            $data['links']['creditor']=$this->getCreditorId();
+        if ($this->getCreditorId()) {
+            $data['links']['creditor'] = $this->getCreditorId();
         }
+
         return $data;
     }
 

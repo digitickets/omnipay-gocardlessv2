@@ -30,15 +30,19 @@ class UpdatePaymentRequestTest extends TestCase
     {
         $gateway = $this->getMockBuilder(Client::class)
             ->disableOriginalConstructor()
-            ->setMethods(array(
-                'payments'
-            ))
+            ->setMethods(
+                array(
+                    'payments',
+                )
+            )
             ->getMock();
         $paymentService = $this->getMockBuilder(PaymentsService::class)
             ->disableOriginalConstructor()
-            ->setMethods(array(
-                'update'
-            ))
+            ->setMethods(
+                array(
+                    'update',
+                )
+            )
             ->getMock();
 
         $gateway->expects($this->any())
@@ -54,8 +58,10 @@ class UpdatePaymentRequestTest extends TestCase
 
     public function testGetDataReturnsCorrectArray()
     {
-        $data = array('paymentData' => array('metadata'=>$this->sampleData['paymentMetaData']),
-            'paymentId' => $this->sampleData['paymentId'],);
+        $data = array(
+            'paymentData' => array('params' => array('metadata' => $this->sampleData['paymentMetaData'])),
+            'paymentId' => $this->sampleData['paymentId'],
+        );
         $this->assertSame($data, $this->request->getData());
     }
 
@@ -74,13 +80,14 @@ class UpdatePaymentRequestTest extends TestCase
     }
 
     // Assert the payment get method is being handed the paymentId
-    public function paymentGet($id, $data){
+    public function paymentGet($id, $data)
+    {
 
         $this->assertEquals($this->sampleData['paymentId'], $id);
         $this->assertEquals($this->request->getData()['paymentData'], $data);
 
         return $this->getMockBuilder(Payment::class)
-                ->disableOriginalConstructor()
-                ->getMock();
+            ->disableOriginalConstructor()
+            ->getMock();
     }
 }

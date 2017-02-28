@@ -25,15 +25,19 @@ class FindEventRequestTest extends TestCase
     {
         $gateway = $this->getMockBuilder(Client::class)
             ->disableOriginalConstructor()
-            ->setMethods(array(
-                'events'
-            ))
+            ->setMethods(
+                array(
+                    'events',
+                )
+            )
             ->getMock();
         $eventService = $this->getMockBuilder(EventsService::class)
             ->disableOriginalConstructor()
-            ->setMethods(array(
-                'get'
-            ))
+            ->setMethods(
+                array(
+                    'get',
+                )
+            )
             ->getMock();
 
         $gateway->expects($this->any())
@@ -67,12 +71,13 @@ class FindEventRequestTest extends TestCase
     }
 
     // Assert the event get method is being handed the eventId
-    public function eventGet($data){
+    public function eventGet($data)
+    {
 
-         $this->assertEquals($this->sampleData['eventId'], $data);
+        $this->assertEquals($this->sampleData['eventId'], $data);
 
         return $this->getMockBuilder(Event::class)
-                ->disableOriginalConstructor()
-                ->getMock();
+            ->disableOriginalConstructor()
+            ->getMock();
     }
 }

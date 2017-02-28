@@ -27,23 +27,27 @@ class CreateMandateRequestTest extends TestCase
                 'meta567890123456789012345678901234567890123456789' => 'Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia.',
             ),
         ),
-        'customerBankAccountId'=>'CB1231235413',
-        'creditorId'=>'CR783472'
+        'customerBankAccountId' => 'CB1231235413',
+        'creditorId' => 'CR783472',
     );
 
     public function setUp()
     {
         $gateway = $this->getMockBuilder(Client::class)
             ->disableOriginalConstructor()
-            ->setMethods(array(
-                'mandates'
-            ))
+            ->setMethods(
+                array(
+                    'mandates',
+                )
+            )
             ->getMock();
         $mandateService = $this->getMockBuilder(MandatesService::class)
             ->disableOriginalConstructor()
-            ->setMethods(array(
-                'create'
-            ))
+            ->setMethods(
+                array(
+                    'create',
+                )
+            )
             ->getMock();
 
         $gateway->expects($this->any())
@@ -60,9 +64,9 @@ class CreateMandateRequestTest extends TestCase
     public function testGetDataReturnsCorrectArray()
     {
         $data = $this->sampleMandate['mandateData'];
-        $data['links']['customer_bank_account']=$this->sampleMandate['customerBankAccountId'];
-        $data['links']['creditor']=$this->sampleMandate['creditorId'];
-        $this->assertSame($data, $this->request->getData());
+        $data['links']['customer_bank_account'] = $this->sampleMandate['customerBankAccountId'];
+        $data['links']['creditor'] = $this->sampleMandate['creditorId'];
+        $this->assertSame(array('params' => $data), $this->request->getData());
     }
 
     public function testRequestDataIsStoredCorrectly()
@@ -82,12 +86,12 @@ class CreateMandateRequestTest extends TestCase
     }
 
     // Assert the mandate create method is being handed the correct parameters
-    public function mandateCreate($data){
-
-         $this->assertEquals($this->request->getData(), $data);
+    public function mandateCreate($data)
+    {
+        $this->assertEquals($this->request->getData(), $data);
 
         return $this->getMockBuilder(Mandate::class)
-                ->disableOriginalConstructor()
-                ->getMock();
+            ->disableOriginalConstructor()
+            ->getMock();
     }
 }

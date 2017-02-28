@@ -16,7 +16,7 @@ class OAuthResponseTest extends TestCase
     public function setUp()
     {
         $this->data = array(
-            "params" => array("some"=>"params"),
+            "params" => array("some" => "params"),
             "redirect_url" => "https://this.site.com/redirect",
         );
         $this->request = $this->getMockBuilder(OAuthRequest::class)

@@ -37,7 +37,8 @@ class RedirectAuthoriseResponseTest extends TestCase
         $this->assertEquals(null, $response->getRedirectData());
     }
 
-    public function testReturnedValues(){
+    public function testReturnedValues()
+    {
         $response = new RedirectAuthoriseResponse($this->request, $this->data);
         $this->assertEquals('CB1231235413', $response->getRedirectID());
         $this->assertEquals('https://this.site.com/redirect', $response->getRedirectUrl());

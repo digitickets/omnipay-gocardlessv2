@@ -193,7 +193,7 @@ class ProGatewayTest extends GatewayTestCase
 
     public function testFailedWebHookAuthentication()
     {
-        $this->setExpectedException(\Omnipay\Common\Exception\InvalidResponseException::class,'Invalid security token from webhook response');
+        $this->setExpectedException(\Omnipay\Common\Exception\InvalidResponseException::class, 'Invalid security token from webhook response');
         $this->gateway->parseWebHooks(
             array('Webhook-Signature' => 123),
             '{"events": [
@@ -201,6 +201,7 @@ class ProGatewayTest extends GatewayTestCase
             'WrongSecret'
         );
     }
+
     public function testSuccessfulWebHookAuthentication()
     {
         $body = '{"events": [{"id": "EV123", "created_at": "2014-08-03T12:00:00.000Z", "action": "confirmed","resource_type": "payments"}]}';

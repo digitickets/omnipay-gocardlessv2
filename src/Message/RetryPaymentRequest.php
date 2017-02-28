@@ -6,7 +6,7 @@ class RetryPaymentRequest extends AbstractRequest
     public function getData()
     {
         return array(
-            'paymentData' => array('metadata'=>$this->getPaymentMetaData()),
+            'paymentData' => array('metadata' => $this->getPaymentMetaData()),
             'paymentId' => $this->getPaymentId(),
         );
     }

@@ -9,7 +9,7 @@ class CreateCustomerRequest extends AbstractRequest
 {
     public function getData()
     {
-        return array("params"=>$this->getCustomerData());
+        return array("params" => $this->getCustomerData());
     }
 
     /**

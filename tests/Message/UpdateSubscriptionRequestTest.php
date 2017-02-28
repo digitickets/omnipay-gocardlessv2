@@ -31,15 +31,19 @@ class UpdateSubscriptionRequestTest extends TestCase
     {
         $gateway = $this->getMockBuilder(Client::class)
             ->disableOriginalConstructor()
-            ->setMethods(array(
-                'subscriptions'
-            ))
+            ->setMethods(
+                array(
+                    'subscriptions',
+                )
+            )
             ->getMock();
         $subscriptionService = $this->getMockBuilder(SubscriptionsService::class)
             ->disableOriginalConstructor()
-            ->setMethods(array(
-                'update'
-            ))
+            ->setMethods(
+                array(
+                    'update',
+                )
+            )
             ->getMock();
 
         $gateway->expects($this->any())
@@ -55,8 +59,15 @@ class UpdateSubscriptionRequestTest extends TestCase
 
     public function testGetDataReturnsCorrectArray()
     {
-        $data = array('subscriptionData' => array('name'=>$this->sampleData['paymentDescription'],'metadata'=>$this->sampleData['subscriptionMetaData']),
-            'subscriptionId' => $this->sampleData['subscriptionId'],);
+        $data = array(
+            'subscriptionData' => array(
+                "params" => array(
+                    'name' => $this->sampleData['paymentDescription'],
+                    'metadata' => $this->sampleData['subscriptionMetaData'],
+                ),
+            ),
+            'subscriptionId' => $this->sampleData['subscriptionId'],
+        );
         $this->assertSame($data, $this->request->getData());
     }
 
@@ -76,13 +87,14 @@ class UpdateSubscriptionRequestTest extends TestCase
     }
 
     // Assert the subscription get method is being handed the subscriptionId
-    public function subscriptionGet($id, $data){
+    public function subscriptionGet($id, $data)
+    {
 
         $this->assertEquals($this->sampleData['subscriptionId'], $id);
         $this->assertEquals($this->request->getData()['subscriptionData'], $data);
 
         return $this->getMockBuilder(Subscription::class)
-                ->disableOriginalConstructor()
-                ->getMock();
+            ->disableOriginalConstructor()
+            ->getMock();
     }
 }

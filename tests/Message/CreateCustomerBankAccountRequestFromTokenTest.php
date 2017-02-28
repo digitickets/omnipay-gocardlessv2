@@ -56,7 +56,7 @@ class CreateCustomerBankAccountRequestFromTokenTest extends TestCase
     {
         $data['links']['customer'] = $this->sampleCustomerBankAccount['customerId'];
         $data['links']['customer_bank_account_token'] = $this->sampleCustomerBankAccount['customerBankAccountToken'];
-        $this->assertSame($data, $this->request->getData());
+        $this->assertSame(array('params' => $data), $this->request->getData());
     }
 
     public function testRequestDataIsStoredCorrectly()

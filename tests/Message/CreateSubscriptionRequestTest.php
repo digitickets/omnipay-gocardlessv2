@@ -82,18 +82,20 @@ class CreateSubscriptionRequestTest extends TestCase
         unset($requestData['subscriptionEndDate']);
         $this->request->initialize($requestData);
         $data = array(
-            'amount' => $requestData['amount'] * 100,
-            'currency' => $requestData['currency'],
-            'day_of_month' => $requestData['subscriptionDayOfMonth'],
-            'interval' => $requestData['subscriptionInterval'],
-            'interval_unit' => $requestData['subscriptionIntervalUnit'],
-            'metadata' => $requestData['subscriptionMetaData'],
-            'month' => $requestData['subscriptionMonth'],
-            'name' => $requestData['paymentDescription'],
-            'payment_reference' => $requestData['reference'],
-            'start_date' => $requestData['paymentDate'],
-            'links' => array('mandate' => $requestData['mandateId']),
-            'count' => $requestData['subscriptionCount'],
+            "params" => array(
+                'amount' => $requestData['amount'] * 100,
+                'currency' => $requestData['currency'],
+                'day_of_month' => $requestData['subscriptionDayOfMonth'],
+                'interval' => $requestData['subscriptionInterval'],
+                'interval_unit' => $requestData['subscriptionIntervalUnit'],
+                'metadata' => $requestData['subscriptionMetaData'],
+                'month' => $requestData['subscriptionMonth'],
+                'name' => $requestData['paymentDescription'],
+                'payment_reference' => $requestData['reference'],
+                'start_date' => $requestData['paymentDate'],
+                'links' => array('mandate' => $requestData['mandateId']),
+                'count' => $requestData['subscriptionCount'],
+            ),
         );
 
         $this->assertEquals($data, $this->request->getData());
@@ -105,18 +107,20 @@ class CreateSubscriptionRequestTest extends TestCase
         unset($requestData['subscriptionCount']);
         $this->request->initialize($requestData);
         $data = array(
-            'amount' => $requestData['amount'] * 100,
-            'currency' => $requestData['currency'],
-            'day_of_month' => $requestData['subscriptionDayOfMonth'],
-            'interval' => $requestData['subscriptionInterval'],
-            'interval_unit' => $requestData['subscriptionIntervalUnit'],
-            'metadata' => $requestData['subscriptionMetaData'],
-            'month' => $requestData['subscriptionMonth'],
-            'name' => $requestData['paymentDescription'],
-            'payment_reference' => $requestData['reference'],
-            'start_date' => $requestData['paymentDate'],
-            'links' => array('mandate' => $requestData['mandateId']),
-            'end_date' => $requestData['subscriptionEndDate'],
+            "params" => array(
+                'amount' => $requestData['amount'] * 100,
+                'currency' => $requestData['currency'],
+                'day_of_month' => $requestData['subscriptionDayOfMonth'],
+                'interval' => $requestData['subscriptionInterval'],
+                'interval_unit' => $requestData['subscriptionIntervalUnit'],
+                'metadata' => $requestData['subscriptionMetaData'],
+                'month' => $requestData['subscriptionMonth'],
+                'name' => $requestData['paymentDescription'],
+                'payment_reference' => $requestData['reference'],
+                'start_date' => $requestData['paymentDate'],
+                'links' => array('mandate' => $requestData['mandateId']),
+                'end_date' => $requestData['subscriptionEndDate'],
+            ),
         );
 
         $this->assertEquals($data, $this->request->getData());

@@ -9,6 +9,7 @@ class RedirectCompleteAuthoriseResponse extends AbstractResponse
      * @var RedirectFlow|null
      */
     protected $data;
+
     /**
      * @return string|null
      */
@@ -20,6 +21,7 @@ class RedirectCompleteAuthoriseResponse extends AbstractResponse
 
         return null;
     }
+
     /**
      * @return string|null
      */

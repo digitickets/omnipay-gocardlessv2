@@ -25,15 +25,19 @@ class FindPaymentRequestTest extends TestCase
     {
         $gateway = $this->getMockBuilder(Client::class)
             ->disableOriginalConstructor()
-            ->setMethods(array(
-                'payments'
-            ))
+            ->setMethods(
+                array(
+                    'payments',
+                )
+            )
             ->getMock();
         $paymentService = $this->getMockBuilder(PaymentsService::class)
             ->disableOriginalConstructor()
-            ->setMethods(array(
-                'get'
-            ))
+            ->setMethods(
+                array(
+                    'get',
+                )
+            )
             ->getMock();
 
         $gateway->expects($this->any())
@@ -67,12 +71,13 @@ class FindPaymentRequestTest extends TestCase
     }
 
     // Assert the payment get method is being handed the paymentId
-    public function paymentGet($data){
+    public function paymentGet($data)
+    {
 
-         $this->assertEquals($this->sampleData['paymentId'], $data);
+        $this->assertEquals($this->sampleData['paymentId'], $data);
 
         return $this->getMockBuilder(Payment::class)
-                ->disableOriginalConstructor()
-                ->getMock();
+            ->disableOriginalConstructor()
+            ->getMock();
     }
 }

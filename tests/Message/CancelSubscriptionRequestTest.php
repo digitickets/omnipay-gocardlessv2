@@ -25,15 +25,19 @@ class CancelSubscriptionRequestTest extends TestCase
     {
         $gateway = $this->getMockBuilder(Client::class)
             ->disableOriginalConstructor()
-            ->setMethods(array(
-                'subscriptions'
-            ))
+            ->setMethods(
+                array(
+                    'subscriptions',
+                )
+            )
             ->getMock();
         $subscriptionService = $this->getMockBuilder(SubscriptionsService::class)
             ->disableOriginalConstructor()
-            ->setMethods(array(
-                'cancel'
-            ))
+            ->setMethods(
+                array(
+                    'cancel',
+                )
+            )
             ->getMock();
 
         $gateway->expects($this->any())
@@ -67,12 +71,13 @@ class CancelSubscriptionRequestTest extends TestCase
     }
 
     // Assert the subscription get method is being handed the subscriptionId
-    public function subscriptionGet($data){
+    public function subscriptionGet($data)
+    {
 
-         $this->assertEquals($this->sampleData['subscriptionId'], $data);
+        $this->assertEquals($this->sampleData['subscriptionId'], $data);
 
         return $this->getMockBuilder(Subscription::class)
-                ->disableOriginalConstructor()
-                ->getMock();
+            ->disableOriginalConstructor()
+            ->getMock();
     }
 }

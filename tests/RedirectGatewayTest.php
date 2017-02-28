@@ -17,7 +17,7 @@ class RedirectGatewayTest extends GatewayTestCase
 
         $this->gateway = new RedirectGateway($this->getHttpClient(), $this->getHttpRequest());
     }
-    
+
     public function testAuthoriseRequest()
     {
         $request = $this->gateway->authoriseRequest();

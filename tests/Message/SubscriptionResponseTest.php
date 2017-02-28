@@ -1,5 +1,6 @@
 <?php
 namespace Omnipay\GoCardlessV2\Message;
+
 use Omnipay\Tests\TestCase;
 
 class SubscriptionResponseTest extends TestCase

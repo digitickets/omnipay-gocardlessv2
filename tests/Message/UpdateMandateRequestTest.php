@@ -61,7 +61,7 @@ class UpdateMandateRequestTest extends TestCase
     public function testGetDataReturnsCorrectArray()
     {
         $data = array(
-            'mandateData' => $this->sampleData['mandateData'],
+            'mandateData' => array('params' => $this->sampleData['mandateData']),
             'mandateId' => $this->sampleData['mandateId'],
         );
         $this->assertSame($data, $this->request->getData());

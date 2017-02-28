@@ -20,10 +20,10 @@ class OAuthConfirmRequestTest extends TestCase
     private $request;
 
     private $sampleAuthorise = array(
-        'merchantId'=>'CB1231235413',
-        'oAuthSecret'=>'read_only',
-        'returnUrl'=>'https://this.site.com/return',
-        'transactionReference'=>'CR123123123'
+        'merchantId' => 'CB1231235413',
+        'oAuthSecret' => 'read_only',
+        'returnUrl' => 'https://this.site.com/return',
+        'transactionReference' => 'CR123123123',
     );
 
     private $jsonReturn = '{"links":{"mandate":"mandateVal","customer":"customerVal"}}';
@@ -65,14 +65,14 @@ class OAuthConfirmRequestTest extends TestCase
     public function testGetDataReturnsCorrectArray()
     {
         $data = array(
-            'params'=>array(
-                'grant_type'=>'authorization_code',
-                'client_id'=>$this->sampleAuthorise['merchantId'],
-                'client_secret'=>$this->sampleAuthorise['oAuthSecret'],
-                'redirect_uri'=>$this->sampleAuthorise['returnUrl'],
+            'params' => array(
+                'grant_type' => 'authorization_code',
+                'client_id' => $this->sampleAuthorise['merchantId'],
+                'client_secret' => $this->sampleAuthorise['oAuthSecret'],
+                'redirect_uri' => $this->sampleAuthorise['returnUrl'],
                 'code' => $this->sampleAuthorise['transactionReference'],
             ),
-            'url'=>$this->request->getOAuthUrl().'/access_token'
+            'url' => $this->request->getOAuthUrl().'/access_token',
         );
         $this->assertSame($data, $this->request->getData());
     }

@@ -25,15 +25,19 @@ class ReinstateMandateRequestTest extends TestCase
     {
         $gateway = $this->getMockBuilder(Client::class)
             ->disableOriginalConstructor()
-            ->setMethods(array(
-                'mandates'
-            ))
+            ->setMethods(
+                array(
+                    'mandates',
+                )
+            )
             ->getMock();
         $mandateService = $this->getMockBuilder(MandatesService::class)
             ->disableOriginalConstructor()
-            ->setMethods(array(
-                'reinstate'
-            ))
+            ->setMethods(
+                array(
+                    'reinstate',
+                )
+            )
             ->getMock();
 
         $gateway->expects($this->any())
@@ -67,12 +71,13 @@ class ReinstateMandateRequestTest extends TestCase
     }
 
     // Assert the mandate get method is being handed the mandateId
-    public function mandateGet($data){
+    public function mandateGet($data)
+    {
 
-         $this->assertEquals($this->sampleData['mandateId'], $data);
+        $this->assertEquals($this->sampleData['mandateId'], $data);
 
         return $this->getMockBuilder(Mandate::class)
-                ->disableOriginalConstructor()
-                ->getMock();
+            ->disableOriginalConstructor()
+            ->getMock();
     }
 }

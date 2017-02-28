@@ -6,7 +6,7 @@ class UpdateSubscriptionRequest extends AbstractRequest
     public function getData()
     {
         return array(
-            'subscriptionData' => array('name'=>$this->getPaymentDescription(), 'metadata'=>$this->getSubscriptionMetaData()),
+            'subscriptionData' => array("params" => array('name' => $this->getPaymentDescription(), 'metadata' => $this->getSubscriptionMetaData())),
             'subscriptionId' => $this->getSubscriptionId(),
         );
     }
