@@ -33,43 +33,31 @@ The following documentation is all old, relates to braintree and needs replacing
 
 
 
-You need to set your `merchantId`, `publicKey` and `privateKey`. Setting `testMode` to true will use the `sandbox` environment.
+You need to set your `access_token`. Setting `testMode` to true will use the `sandbox` environment.
 
-This gateway supports purchase through a token (payment nonce) only. You can generate a clientToken for Javascript:
-
-```php
-$clientToken = $gateway->clientToken()->send()->getToken();
-```
-The generated token will come in handy when using the Javascript SDK to display the [Drop-in Payment UI](https://developers.braintreepayments.com/guides/drop-in/javascript/v2) or [hosted fields](https://developers.braintreepayments.com/guides/hosted-fields/setup-and-integration/javascript/v2) used to collect payment method information.
-
-On successful submission of the payment form, a one-time-use token that references a payment method provided by your customer, such as a credit card or PayPal account is dynamically added to the form as the value of a hidden `payment_method_nonce` input field.
-
-Use the `payment_method_nonce` to process your customer order like so:
-
-
-```php
-$response = $gateway->purchase([
-            'amount' => '10.00',
-            'token' => $_POST['payment_method_nonce']
-        ])->send();
-```
+This gateway supports single payments or scheduled subscriptions via bank mandate only. For more details about what this gateway supports please consult [the documentation](https://developer.gocardless.com/api-reference/)
 
 For general usage instructions, please see the main [Omnipay](https://github.com/thephpleague/omnipay)
 repository.
 
 ## Driver specific usage
+
+This driver supports multiple methods of implementation available via GoCardless. Please consult their documentation to confirm which methods are correct for your situation. Not all methods are applicable to every route.
+This driver does not provide access to the list methods - data may only be retrieved by primary key.
+
 ### Create customer
 
 ```php
 $customer = $gateway->createCustomer([
-    'customerData' => [
-        'id' => 1,
-        'firstName' => 'John',
-        'lastName' => 'Doe'
-    ]
+    'customerData' => array(
+                'given_name' => 'Mike',
+                'family_name' => 'Jones',
+                'email' => 'mike.jones@example.com',
+                'country_code' => 'GB'
+            ),
 ])->send();
 ```
-You can find full list of options [here](https://developers.braintreepayments.com/reference/request/customer/create/php).
+You can find full list of options [here](https://developer.gocardless.com/api-reference/#customers-create-a-customer).
 
 ###Find customer (By id)
 
@@ -78,60 +66,18 @@ $customer = $gateway->findCustomer(1)->send();
 ```
 You can find full list of options [here](https://developers.braintreepayments.com/reference/request/customer/find/php)
 
-### Create payment method
-
-```php
-$method = $gateway->createPaymentMethod([
-    'customerId' => $user->getId(),
-    'paymentMethodNonce' => 'paymentnonce',
-    'options' => [
-        'verifyCard' => true
-    ]
-]);
-```
-You can find full list of options [here](https://developers.braintreepayments.com/reference/request/payment-method/create/php).
-
-### Update payment method
-
-```php
-$method = $gateway->updatePaymentMethod([
-    'paymentMethodToken' => 'token123',
-    'options' => [
-        'paymentMethodNonce' => 'paymentnonce'
-    ]
-]);
-```
-You can find full list of options [here](https://developers.braintreepayments.com/reference/request/payment-method/update/php).
-
-###Create subscription
-
-```php
-$subscription = $gateway->createSubscription([
-    'subscriptionData' => [
-        'paymentMethodToken' => 'payment_method_token',
-        'planId' => 'weekly',
-        'price' => '30.00'
-    ]
-])->send();
-```
-You can find full list of options [here](https://developers.braintreepayments.com/reference/request/subscription/create/php)
-
-###Cancel subscription
-
-```php
-$subscription = $gateway->cancelSubscription('id')->send();
-```
-You can find full list of options [here](https://developers.braintreepayments.com/reference/request/subscription/cancel/php)
 
 ###Parse webhook notification
 
 ```php
-$notification = $gateway->parseNotification([
-    'bt_signature' => 'signature',
-    'bt_payload' => 'payload'
-])->send();
+$notification = $gateway->parseNotification(
+                                getallheaders(),
+                                file_get_contents('php://input'), 
+                                'MySecurityToken'
+                            )
+                        ->send();
 ```
-You can find full list of options [here](https://developers.braintreepayments.com/guides/webhooks/parse/php)
+This will fetch the event associated with the web hook.
 
 ## Support
 

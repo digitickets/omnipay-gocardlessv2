@@ -69,7 +69,7 @@ class CreateCustomerRequestTest extends TestCase
 
     public function testGetDataReturnsCorrectArray()
     {
-        $this->assertSame($this->sampleCustomer['customerData'], $this->request->getData());
+        $this->assertSame(array("params" => $this->sampleCustomer['customerData']), $this->request->getData());
     }
 
     public function testRequestDataIsStoredCorrectly()
@@ -89,7 +89,7 @@ class CreateCustomerRequestTest extends TestCase
     // Assert the customer create method is being handed the correct parameters
     public function customerCreate($data){
 
-         $this->assertEquals($this->sampleCustomer['customerData'], $data);
+         $this->assertEquals(array("params"=>$this->sampleCustomer['customerData']), $data);
 
         return $this->getMockBuilder(Customer::class)
                 ->disableOriginalConstructor()
