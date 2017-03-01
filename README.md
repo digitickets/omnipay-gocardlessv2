@@ -3,8 +3,10 @@
 **Go Cardless driver for the Omnipay PHP payment processing library using the GoCardless v2 API**
 
 [![Build Status](https://travis-ci.org/digitickets/omnipay-gocardlessv2.png?branch=master)](https://travis-ci.org/digitickets/omnipay-gocardlessv2)
+[![Coverage Status](https://coveralls.io/repos/github/digitickets/omnipay-gocardlessv2/badge.svg?branch=master)](https://coveralls.io/github/digitickets/omnipay-gocardlessv2?branch=master)
 [![Latest Stable Version](https://poser.pugx.org/digitickets/omnipay-gocardlessv2/version.png)](https://packagist.org/packages/digitickets/omnipay-gocardlessv2)
 [![Total Downloads](https://poser.pugx.org/digitickets/omnipay-gocardlessv2/d/total.png)](https://packagist.org/packages/digitickets/omnipay-gocardlessv2)
+
 
 [Omnipay](https://github.com/thephpleague/omnipay) is a framework agnostic, multi-gateway payment
 processing library for PHP 5.5+. This package implements GoCardless support for Omnipay.
