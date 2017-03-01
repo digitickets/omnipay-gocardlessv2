@@ -19,10 +19,16 @@ before_script:
   - travis_retry composer update ${COMPOSER_FLAGS} --no-interaction --prefer-source
 
 script:
+  - if [[ $PHPSTAN = 1 ]]; then composer require --dev phpstan/phpstan:^0.6 && vendor/bin/phpstan analyse -c phpstan.neon -l 3 src; fi
+  - composer require --dev satooshi/php-coveralls
+  - composer require --dev phpunit/phpcov
   - php vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
   - vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
-  - if [[ $PHPSTAN = 1 ]]; then composer require --dev phpstan/phpstan:^0.6 && vendor/bin/phpstan analyse -c phpstan.neon -l 3 src; fi
+  - vendor/bin/phpunit --coverage-clover build/logs/clover.xml
 
 
 after_script:
   - php vendor/bin/ocular code-coverage:upload --format=php-clover coverage.clover
+
+after_success:
+  - travis_retry php vendor/bin/coveralls
