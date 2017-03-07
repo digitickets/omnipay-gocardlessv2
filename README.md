@@ -75,6 +75,9 @@ $notification = $gateway->parseNotification(
 ```
 This will fetch the event associated with the web hook.
 
+###Process repeat billing
+TODO - this. Use the standard repeatePurchase() format (see sagepay for example structure)
+
 ## Support
 
 If you are having general issues with Omnipay, we suggest posting on
