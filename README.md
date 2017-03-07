@@ -61,7 +61,6 @@ You can find full list of options [here](https://developer.gocardless.com/api-re
 ```php
 $customer = $gateway->findCustomer(1)->send();
 ```
-You can find full list of options [here](https://developers.braintreepayments.com/reference/request/customer/find/php)
 
 
 ###Parse webhook notification
