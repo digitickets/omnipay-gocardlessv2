@@ -3,9 +3,7 @@
 namespace Omnipay\GoCardlessV2\Message;
 
 /**
- * Find Customer Request
- *
- * @method CustomerResponse send()
+ * @method MandateResponse send()
  */
 class ReinstateMandateRequest extends AbstractRequest
 {

@@ -2,6 +2,9 @@
 
 namespace Omnipay\GoCardlessV2\Message;
 
+/**
+ * @method PaymentResponse send()
+ */
 class RetryPaymentRequest extends AbstractRequest
 {
     public function getData()

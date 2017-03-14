@@ -2,6 +2,9 @@
 
 namespace Omnipay\GoCardlessV2\Message;
 
+/**
+ * @method CustomerBankAccountResponse send()
+ */
 class UpdateCustomerBankAccountRequest extends AbstractRequest
 {
     public function getData()

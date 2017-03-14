@@ -2,6 +2,9 @@
 
 namespace Omnipay\GoCardlessV2\Message;
 
+/**
+ * @method MAndateResponse send()
+ */
 class CancelMandateRequest extends AbstractRequest
 {
     public function getData()
@@ -23,12 +26,4 @@ class CancelMandateRequest extends AbstractRequest
         return $this->response = new MandateResponse($this, $response);
     }
 
-    /**
-     * @inheritdoc
-     *
-     * @return \Omnipay\Common\Message\ResponseInterface|MandateResponse
-     */
-    public function send(){
-        return parent::send();
-    }
 }

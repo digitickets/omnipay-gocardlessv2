@@ -86,7 +86,7 @@ abstract class AbstractGateway extends BaseAbstractGateway
     /**
      * @param string $id
      *
-     * @return Message\CustomerResponse|Message\AbstractRequest
+     * @return Message\FindCustomerRequest|Message\AbstractRequest
      */
     public function findCustomer($id)
     {
@@ -96,7 +96,7 @@ abstract class AbstractGateway extends BaseAbstractGateway
     /**
      * @param array $parameters
      *
-     * @return Message\CustomerResponse|Message\AbstractRequest
+     * @return Message\UpdateCustomerRequest|Message\AbstractRequest
      */
     public function updateCustomer(array $parameters = [])
     {
@@ -106,7 +106,7 @@ abstract class AbstractGateway extends BaseAbstractGateway
     /**
      * @param $id
      *
-     * @return Message\CustomerBankAccountResponse|Message\AbstractRequest
+     * @return Message\FindCustomerBankAccountRequest|Message\AbstractRequest
      */
     public function findCustomerBankAccount($id)
     {
@@ -116,7 +116,7 @@ abstract class AbstractGateway extends BaseAbstractGateway
     /**
      * @param $id
      *
-     * @return Message\CustomerBankAccountResponse|Message\AbstractRequest
+     * @return Message\DisableCustomerBankAccountRequest|Message\AbstractRequest
      */
     public function disableCustomerBankAccount($id)
     {
@@ -126,7 +126,7 @@ abstract class AbstractGateway extends BaseAbstractGateway
     /**
      * @param array $parameters
      *
-     * @return Message\CustomerBankAccountResponse|Message\AbstractRequest
+     * @return Message\UpdateCustomerBankAccountRequest|Message\AbstractRequest
      */
     public function updateCustomerBankAccount(array $parameters = [])
     {
@@ -136,7 +136,7 @@ abstract class AbstractGateway extends BaseAbstractGateway
     /**
      * @param $id
      *
-     * @return Message\MandateResponse|Message\AbstractRequest
+     * @return Message\FindMandateRequest|Message\AbstractRequest
      */
     public function findMandate($id)
     {
@@ -146,7 +146,7 @@ abstract class AbstractGateway extends BaseAbstractGateway
     /**
      * @param $id
      *
-     * @return Message\MandateResponse|Message\AbstractRequest
+     * @return Message\CancelMandateRequest|Message\AbstractRequest
      */
     public function cancelMandate($id)
     {
@@ -156,7 +156,7 @@ abstract class AbstractGateway extends BaseAbstractGateway
     /**
      * @param $id
      *
-     * @return Message\MandateResponse|Message\AbstractRequest
+     * @return Message\ReinstateMandateRequest|Message\AbstractRequest
      */
     public function reinstateMandate($id)
     {
@@ -166,7 +166,7 @@ abstract class AbstractGateway extends BaseAbstractGateway
     /**
      * @param array $parameters
      *
-     * @return Message\MandateResponse|Message\AbstractRequest
+     * @return Message\UpdateMandateRequest|Message\AbstractRequest
      */
     public function updateMandate(array $parameters = [])
     {
@@ -176,7 +176,7 @@ abstract class AbstractGateway extends BaseAbstractGateway
     /**
      * @param array $parameters
      *
-     * @return Message\PaymentResponse|Message\AbstractRequest
+     * @return Message\CreatePaymentRequest|Message\AbstractRequest
      */
     public function createPayment(array $parameters = [])
     {
@@ -186,7 +186,7 @@ abstract class AbstractGateway extends BaseAbstractGateway
     /**
      * @param $id
      *
-     * @return Message\PaymentResponse|Message\AbstractRequest
+     * @return Message\FindPaymentRequest|Message\AbstractRequest
      */
     public function findPayment($id)
     {
@@ -196,7 +196,7 @@ abstract class AbstractGateway extends BaseAbstractGateway
     /**
      * @param $id
      *
-     * @return Message\PaymentResponse|Message\AbstractRequest
+     * @return Message\CancelPaymentRequest|Message\AbstractRequest
      */
     public function cancelPayment($id)
     {
@@ -206,7 +206,7 @@ abstract class AbstractGateway extends BaseAbstractGateway
     /**
      * @param array $parameters
      *
-     * @return Message\PaymentResponse|Message\AbstractRequest
+     * @return Message\RetryPaymentRequest|Message\AbstractRequest
      */
     public function retryPayment(array $parameters = [])
     {
@@ -216,7 +216,7 @@ abstract class AbstractGateway extends BaseAbstractGateway
     /**
      * @param array $parameters
      *
-     * @return Message\PaymentResponse|Message\AbstractRequest
+     * @return Message\UpdatePaymentRequest|Message\AbstractRequest
      */
     public function updatePayment(array $parameters = [])
     {
@@ -228,7 +228,7 @@ abstract class AbstractGateway extends BaseAbstractGateway
      *
      * @param array $parameters
      *
-     * @return Message\PaymentResponse|Message\AbstractRequest
+     * @return Message\CreatePaymentRequest|Message\AbstractRequest
      */
     public function purchase(array $parameters = [])
     {
@@ -240,7 +240,7 @@ abstract class AbstractGateway extends BaseAbstractGateway
      *
      * @param array $parameters
      *
-     * @return Message\RefundResponse|Message\AbstractRequest
+     * @return Message\CreateRefundRequest|Message\AbstractRequest
      */
     public function createRefund(array $parameters = [])
     {
@@ -250,7 +250,7 @@ abstract class AbstractGateway extends BaseAbstractGateway
     /**
      * @param $id
      *
-     * @return Message\RefundResponse|Message\AbstractRequest
+     * @return Message\FindRefundRequest|Message\AbstractRequest
      */
     public function findRefund($id)
     {
@@ -260,7 +260,7 @@ abstract class AbstractGateway extends BaseAbstractGateway
     /**
      * @param array $parameters
      *
-     * @return Message\RefundResponse|Message\AbstractRequest
+     * @return Message\UpdateRefundRequest|Message\AbstractRequest
      */
     public function updateRefund(array $parameters = [])
     {
@@ -273,7 +273,7 @@ abstract class AbstractGateway extends BaseAbstractGateway
      *
      * @param array $parameters
      *
-     * @return Message\RefundResponse|Message\AbstractRequest
+     * @return Message\CreateRefundRequest|Message\AbstractRequest
      */
     public function refund(array $parameters = [])
     {
@@ -283,7 +283,7 @@ abstract class AbstractGateway extends BaseAbstractGateway
     /**
      * @param array $parameters
      *
-     * @return Message\SubscriptionResponse|Message\AbstractRequest
+     * @return Message\CreateSubscriptionRequest|Message\AbstractRequest
      */
     public function createSubscription(array $parameters = [])
     {
@@ -293,7 +293,7 @@ abstract class AbstractGateway extends BaseAbstractGateway
     /**
      * @param string $subscriptionId
      *
-     * @return Message\SubscriptionResponse|Message\AbstractRequest
+     * @return Message\CancelSubscriptionRequest|Message\AbstractRequest
      */
     public function cancelSubscription($subscriptionId)
     {
@@ -303,7 +303,7 @@ abstract class AbstractGateway extends BaseAbstractGateway
     /**
      * @param string $subscriptionId
      *
-     * @return Message\SubscriptionResponse|Message\AbstractRequest
+     * @return Message\FindSubscriptionRequest|Message\AbstractRequest
      */
     public function findSubscription($subscriptionId)
     {
@@ -313,7 +313,7 @@ abstract class AbstractGateway extends BaseAbstractGateway
     /**
      * @param array $parameters
      *
-     * @return Message\SubscriptionResponse|Message\AbstractRequest
+     * @return Message\UpdateSubscriptionRequest|Message\AbstractRequest
      */
     public function updateSubscription(array $parameters = [])
     {
@@ -325,7 +325,7 @@ abstract class AbstractGateway extends BaseAbstractGateway
      *
      * @param array $parameters
      *
-     * @return Message\OAuthResponse|Message\AbstractRequest
+     * @return Message\OAuthRequest|Message\AbstractRequest
      */
     public function requestOAuth(array $parameters = [])
     {
@@ -337,7 +337,7 @@ abstract class AbstractGateway extends BaseAbstractGateway
      *
      * @param array $parameters
      *
-     * @return Message\OAuthConfirmResponse|Message\AbstractRequest
+     * @return Message\OAuthConfirmRequest|Message\AbstractRequest
      */
     public function confirmOAuth(array $parameters = [])
     {
@@ -347,7 +347,7 @@ abstract class AbstractGateway extends BaseAbstractGateway
     /**
      * @param $eventId
      *
-     * @return Message\EventResponse|Message\AbstractRequest
+     * @return Message\FindEventRequest|Message\AbstractRequest
      */
     public function findEvent($eventId)
     {
@@ -363,7 +363,7 @@ abstract class AbstractGateway extends BaseAbstractGateway
      * @param string $rawPayload - file_get_contents('php://input');
      * @param string $securityToken - WebHook secret
      *
-     * @return Message\EventResponse[]|Message\AbstractRequest[]
+     * @return Message\FindEventRequest[]|Message\AbstractRequest[]
      *
      * @throws InvalidResponseException
      */
@@ -379,7 +379,7 @@ abstract class AbstractGateway extends BaseAbstractGateway
         }
         $payload = json_decode($rawPayload, true);
         foreach ($payload['events'] as $event) {
-            $array[] = $this->findEvent($event['id']);
+            $return[] = $this->findEvent($event['id']);
         }
 
         return $return;

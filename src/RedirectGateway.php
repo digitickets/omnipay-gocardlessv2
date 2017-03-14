@@ -7,7 +7,7 @@ class RedirectGateway extends AbstractGateway
     /**
      * @param array $parameters
      *
-     * @return Message\RedirectAuthoriseResponse|Message\AbstractRequest|RedirectGateway
+     * @return Message\RedirectAuthoriseRequest|Message\AbstractRequest|RedirectGateway
      */
     public function authoriseRequest(array $parameters = [])
     {
@@ -17,7 +17,7 @@ class RedirectGateway extends AbstractGateway
     /**
      * @param array $parameters
      *
-     * @return Message\RedirectCompleteAuthoriseResponse|Message\AbstractRequest|RedirectGateway
+     * @return Message\RedirectCompleteAuthoriseRequest|Message\AbstractRequest|RedirectGateway
      */
     public function completeAuthoriseRequest(array $parameters = [])
     {

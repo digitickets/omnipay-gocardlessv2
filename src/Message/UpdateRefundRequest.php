@@ -2,6 +2,9 @@
 
 namespace Omnipay\GoCardlessV2\Message;
 
+/**
+ * @method RefundResponse send()
+ */
 class UpdateRefundRequest extends AbstractRequest
 {
     public function getData()

@@ -3,9 +3,9 @@
 namespace Omnipay\GoCardlessV2\Message;
 
 /**
- * Find Customer Request
+ * Find Event Request
  *
- * @method CustomerResponse send()
+ * @method EventResponses send()
  */
 class FindEventRequest extends AbstractRequest
 {

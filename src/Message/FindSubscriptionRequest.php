@@ -3,7 +3,7 @@
 namespace Omnipay\GoCardlessV2\Message;
 
 /**
- * Find Subscription Request
+ * @method SubscriptionResponse send()
  */
 class FindSubscriptionRequest extends AbstractRequest
 {

@@ -2,6 +2,9 @@
 
 namespace Omnipay\GoCardlessV2\Message;
 
+/**
+ * @method OAuthConfirmResponse send()
+ */
 class OAuthConfirmRequest extends AbstractRequest
 {
     public function getData()

@@ -11,7 +11,7 @@ class JSFlowGateway extends AbstractGateway
      *
      * @param array $parameters
      *
-     * @return Message\CustomerResponse|AbstractRequest|Message\AbstractRequest|JSFlowGateway
+     * @return Message\CreateCustomerRequest|AbstractRequest|Message\AbstractRequest|JSFlowGateway
      */
     public function createCustomer(array $parameters = [])
     {
@@ -23,7 +23,7 @@ class JSFlowGateway extends AbstractGateway
      *
      * @param array $parameters
      *
-     * @return Message\CustomerBankAccountResponse|Message\AbstractRequest|JSFlowGateway
+     * @return Message\CreateCustomerBankAccountRequestFromToken|Message\AbstractRequest|JSFlowGateway
      */
     public function createCustomerBankAccountFromToken(array $parameters = [])
     {
@@ -33,7 +33,7 @@ class JSFlowGateway extends AbstractGateway
     /**
      * @param array $parameters
      *
-     * @return Message\MandateResponse|Message\AbstractRequest|JSFlowGateway
+     * @return Message\CreateMandateRequest|Message\AbstractRequest|JSFlowGateway
      */
     public function createMandate(array $parameters = [])
     {

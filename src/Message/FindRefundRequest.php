@@ -3,7 +3,7 @@
 namespace Omnipay\GoCardlessV2\Message;
 
 /**
- * Find Payment Request
+ * @method RefundResponse send()
  */
 class FindRefundRequest extends AbstractRequest
 {

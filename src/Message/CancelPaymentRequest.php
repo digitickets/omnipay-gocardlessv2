@@ -2,6 +2,9 @@
 
 namespace Omnipay\GoCardlessV2\Message;
 
+/**
+ * @method PaymentResponse send()
+ */
 class CancelPaymentRequest extends AbstractRequest
 {
     public function getData()
@@ -23,12 +26,4 @@ class CancelPaymentRequest extends AbstractRequest
         return $this->response = new PaymentResponse($this, $response);
     }
 
-    /**
-     * @inheritdoc
-     *
-     * @return \Omnipay\Common\Message\ResponseInterface|PaymentResponse
-     */
-    public function send(){
-        return parent::send();
-    }
 }

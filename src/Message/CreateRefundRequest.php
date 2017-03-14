@@ -4,6 +4,9 @@ namespace Omnipay\GoCardlessV2\Message;
 
 use Omnipay\Common\Message\ResponseInterface;
 
+/**
+ * @method RefundResponse send()
+ */
 class CreateRefundRequest extends AbstractRequest
 {
     public function getData()

@@ -4,9 +4,6 @@ namespace Omnipay\GoCardlessV2\Message;
 
 use GoCardlessPro\Resources\Mandate;
 
-/**
- * CustomerResponse
- */
 class MandateResponse extends AbstractResponse
 {
     /**

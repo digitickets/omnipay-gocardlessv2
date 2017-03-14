@@ -2,6 +2,9 @@
 
 namespace Omnipay\GoCardlessV2\Message;
 
+/**
+ * @method RedirectAuthoriseResponse send()
+ */
 class RedirectAuthoriseRequest extends AbstractRequest
 {
     public function getData()

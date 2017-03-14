@@ -4,6 +4,9 @@ namespace Omnipay\GoCardlessV2\Message;
 
 use Omnipay\Common\Exception\InvalidRequestException;
 
+/**
+ * @method SubscriptionResponse send()
+ */
 class CreateSubscriptionRequest extends AbstractRequest
 {
     public function getData()

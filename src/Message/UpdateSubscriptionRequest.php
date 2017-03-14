@@ -2,6 +2,9 @@
 
 namespace Omnipay\GoCardlessV2\Message;
 
+/**
+ * @method SubscriptionResponse send()
+ */
 class UpdateSubscriptionRequest extends AbstractRequest
 {
     public function getData()

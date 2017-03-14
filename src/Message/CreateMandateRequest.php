@@ -2,6 +2,9 @@
 
 namespace Omnipay\GoCardlessV2\Message;
 
+/**
+ * @method MandateResponse send()
+ */
 class CreateMandateRequest extends AbstractRequest
 {
     public function getData()

@@ -11,7 +11,7 @@ class ProGateway extends AbstractGateway
      *
      * @param array $parameters
      *
-     * @return Message\CustomerResponse|AbstractRequest|Message\AbstractRequest|ProGateway
+     * @return Message\CreateCustomerRequest|AbstractRequest|Message\AbstractRequest|ProGateway
      */
     public function createCustomer(array $parameters = [])
     {
@@ -23,7 +23,7 @@ class ProGateway extends AbstractGateway
      *
      * @param array $parameters
      *
-     * @return Message\CustomerBankAccountResponse|Message\AbstractRequest|ProGateway
+     * @return Message\CreateCustomerBankAccountRequest|Message\AbstractRequest|ProGateway
      */
     public function createCustomerBankAccount(array $parameters = [])
     {
@@ -33,7 +33,7 @@ class ProGateway extends AbstractGateway
     /**
      * @param array $parameters
      *
-     * @return Message\MandateResponse|Message\AbstractRequest|ProGateway
+     * @return Message\CreateMandateRequest|Message\AbstractRequest|ProGateway
      */
     public function createMandate(array $parameters = [])
     {

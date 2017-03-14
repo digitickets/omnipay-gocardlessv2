@@ -208,7 +208,8 @@ class CoreGatewayTest extends GatewayTestCase
             $body,
             $secret
         );
-        $this->assertSame([], $response);
+        $this->assertInstanceOf(Message\FindEventRequest::class, $response[0]);
+        $this->assertEquals('EV123', $response[0]->getEventId());
     }
 
 }
