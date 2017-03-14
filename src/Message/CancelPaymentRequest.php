@@ -22,4 +22,13 @@ class CancelPaymentRequest extends AbstractRequest
 
         return $this->response = new PaymentResponse($this, $response);
     }
+
+    /**
+     * @inheritdoc
+     *
+     * @return \Omnipay\Common\Message\ResponseInterface|PaymentResponse
+     */
+    public function send(){
+        return parent::send();
+    }
 }
