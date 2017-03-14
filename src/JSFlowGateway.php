@@ -4,14 +4,14 @@ namespace Omnipay\GoCardlessV2;
 
 use Omnipay\GoCardlessV2\Message\AbstractRequest;
 
-class ProGateway extends AbstractGateway
+class JSFlowGateway extends AbstractGateway
 {
     /**
      * Only to be used with approved payment pages
      *
      * @param array $parameters
      *
-     * @return Message\CustomerResponse|AbstractRequest|Message\AbstractRequest|ProGateway
+     * @return Message\CustomerResponse|AbstractRequest|Message\AbstractRequest|JSFlowGateway
      */
     public function createCustomer(array $parameters = [])
     {
@@ -19,21 +19,21 @@ class ProGateway extends AbstractGateway
     }
 
     /**
-     * Only to be used with approved payment pages
+     * For use with the JS Flow process
      *
      * @param array $parameters
      *
-     * @return Message\CustomerBankAccountResponse|Message\AbstractRequest|ProGateway
+     * @return Message\CustomerBankAccountResponse|Message\AbstractRequest|JSFlowGateway
      */
-    public function createCustomerBankAccount(array $parameters = [])
+    public function createCustomerBankAccountFromToken(array $parameters = [])
     {
-        return $this->createRequest(Message\CreateCustomerBankAccountRequest::class, $parameters);
+        return $this->createRequest(Message\CreateCustomerBankAccountRequestFromToken::class, $parameters);
     }
 
     /**
      * @param array $parameters
      *
-     * @return Message\MandateResponse|Message\AbstractRequest|ProGateway
+     * @return Message\MandateResponse|Message\AbstractRequest|JSFlowGateway
      */
     public function createMandate(array $parameters = [])
     {
