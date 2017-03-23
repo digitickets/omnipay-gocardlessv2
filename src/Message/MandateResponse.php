@@ -11,10 +11,14 @@ class MandateResponse extends AbstractResponse
      */
     public function getMandateData()
     {
-        if (isset($this->data)) {
-            return $this->data;
-        }
+        return $this->data;
+    }
 
-        return null;
+    /**
+     * @return string
+     */
+    public function getMandateReference()
+    {
+        return $this->data->id;
     }
 }

@@ -25,10 +25,11 @@ class CustomerResponseTest extends TestCase
 
     public function testGetCustomerData()
     {
-        $data = 'customerData';
+        $data = json_decode('{"id":"CU1234"}');
 
         $response = new CustomerResponse($this->request, $data);
-        $this->assertEquals('customerData', $response->getCustomerData());
+        $this->assertEquals($data, $response->getCustomerData());
+        $this->assertEquals("CU1234", $response->getCustomerReference());
     }
 
     public function testFailedCustomerData()
@@ -41,7 +42,7 @@ class CustomerResponseTest extends TestCase
 
     public function testSuccessful()
     {
-        $data = 'customerData';
+        $data = json_decode('{"id":"CU1234"}');
         $response = new CustomerResponse($this->request, $data);
         $this->assertTrue($response->isSuccessful());
     }

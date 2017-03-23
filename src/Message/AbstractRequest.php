@@ -100,37 +100,6 @@ abstract class AbstractRequest extends BaseAbstractRequest
         return $this->setParameter('email', $value);
     }
 
-    public function getCustomerData()
-    {
-        return $this->getParameter('customerData');
-    }
-
-    /**
-     * @param array $value
-     *  [
-     *      'address_line1',
-     *      'address_line2',
-     *      'address_line3',
-     *      'city',
-     *      'company_name',
-     *      'country_code', // iso 3166-1 alpha-2
-     *      'email',
-     *      'family_name',
-     *      'given_name',
-     *      'language',  // en / fr / de / pt / es / it / nl / sv
-     *      'metadata', //array of up to 3 fields of key (Char 50) : value (Char 500)
-     *      'postal_code',
-     *      'region',
-     *      'swedish_identity_number' //only for autogiro
-     *  ]
-     *
-     * @return BaseAbstractRequest
-     */
-    public function setCustomerData(array $value)
-    {
-        return $this->setParameter('customerData', $value);
-    }
-
     public function getCustomerBankAccountData()
     {
         return $this->getParameter('customerBankAccountData');
@@ -186,12 +155,12 @@ abstract class AbstractRequest extends BaseAbstractRequest
         return $this->getParameter('customerBankAccountToken');
     }
 
-    public function getCustomerBankAccountId()
+    public function getBankAccountReference()
     {
         return $this->getParameter('customerBankAccountId');
     }
 
-    public function setCustomerBankAccountId($value)
+    public function setBankAccountReference($value)
     {
         return $this->setParameter('customerBankAccountId', $value);
     }
@@ -206,24 +175,34 @@ abstract class AbstractRequest extends BaseAbstractRequest
         return $this->setParameter('creditorId', $value);
     }
 
-    public function getMandateId()
+    public function getReference()
     {
-        return $this->getParameter('mandateId');
+        return $this->getParameter('reference');
     }
 
-    public function setMandateId($value)
+    public function setReference($value)
     {
-        return $this->setParameter('mandateId', $value);
+        return $this->setParameter('reference', $value);
     }
 
-    public function getCustomerId()
+    public function getMandateReference()
     {
-        return $this->getParameter('customerId');
+        return $this->getParameter('mandateReference');
     }
 
-    public function setCustomerId($value)
+    public function setMandateReference($value)
     {
-        return $this->setParameter('customerId', $value);
+        return $this->setParameter('mandateReference', $value);
+    }
+
+    public function getCustomerReference()
+    {
+        return $this->getParameter('customerReference');
+    }
+
+    public function setCustomerReference($value)
+    {
+        return $this->setParameter('customerReference', $value);
     }
 
     public function getPaymentId()
@@ -266,6 +245,16 @@ abstract class AbstractRequest extends BaseAbstractRequest
         return $this->setParameter('description', $value);
     }
 
+    public function getSwedishIdentityNumber()
+    {
+        return $this->getParameter('swedishIdentityNumber');
+    }
+
+    public function setSwedishIdentityNumber($value)
+    {
+        return $this->setParameter('swedishIdentityNumber', $value);
+    }
+
     public function setPaymentMetaData(array $value)
     {
         return $this->setParameter('paymentMetaData', $value);
@@ -284,6 +273,16 @@ abstract class AbstractRequest extends BaseAbstractRequest
     public function getSubscriptionMetaData()
     {
         return $this->getParameter('subscriptionMetaData');
+    }
+
+    public function setCustomerMetaData(array $value)
+    {
+        return $this->setParameter('customerMetaData', $value);
+    }
+
+    public function getCustomerMetaData()
+    {
+        return $this->getParameter('customerMetaData');
     }
 
     public function getTotalRefundedAmount()
@@ -329,25 +328,20 @@ abstract class AbstractRequest extends BaseAbstractRequest
     {
         return $this->setParameter('paymentDate', $value);
     }
-
-    public function getReference()
+    /**
+     * Set the plan statement descriptor
+     */
+    public function setStatementDescriptor($planStatementDescriptor)
     {
-        return $this->getParameter('paymentReference');
+        return $this->setParameter('statement_descriptor', $planStatementDescriptor);
     }
 
-    public function setReference($value)
+    /**
+     * Get the plan statement descriptor
+     */
+    public function getStatementDescriptor()
     {
-        return $this->setParameter('paymentReference', $value);
-    }
-
-    public function getSubscriptionInterval()
-    {
-        return $this->getParameter('subscriptionInterval');
-    }
-
-    public function setSubscriptionInterval($value)
-    {
-        return $this->setParameter('subscriptionInterval', $value);
+        return $this->getParameter('statement_descriptor');
     }
 
     public function getSubscriptionDayOfMonth()
@@ -360,14 +354,37 @@ abstract class AbstractRequest extends BaseAbstractRequest
         return $this->setParameter('subscriptionDayOfMonth', $value);
     }
 
-    public function getSubscriptionIntervalUnit()
+    /**
+     * @return string|null
+     */
+    public function getInterval()
     {
-        return $this->getParameter('subscriptionIntervalUnit');
+        return $this->getParameter('subscription_interval_unit');
     }
 
-    public function setSubscriptionIntervalUnit($value)
+    /**
+     * @param string $planInterval
+     * @return BaseAbstractRequest
+     * @throws InvalidRequestException
+     */
+    public function setInterval($planInterval)
     {
-        return $this->setParameter('subscriptionIntervalUnit', $value);
+        $valid = ['weekly', 'monthly', 'yearly'];
+        if (!in_array($planInterval, $valid)) {
+            throw new InvalidRequestException('Interval must be one of '.implode(' / ', $valid));
+        }
+
+        return $this->setParameter('subscription_interval_unit', $planInterval);
+    }
+
+    public function getIntervalCount()
+    {
+        return $this->getParameter('subscription_interval_count');
+    }
+
+    public function setIntervalCount($value)
+    {
+        return $this->setParameter('subscription_interval_count', $value);
     }
 
     public function getSubscriptionMonth()

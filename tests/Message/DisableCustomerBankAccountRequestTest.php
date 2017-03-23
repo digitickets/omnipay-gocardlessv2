@@ -5,7 +5,7 @@ namespace Omnipay\GoCardlessV2Tests\Message;
 use GoCardlessPro\Client;
 use GoCardlessPro\Resources\CustomerBankAccount;
 use GoCardlessPro\Services\CustomerBankAccountsService;
-use Omnipay\GoCardlessV2\Message\CustomerBankAccountResponse;
+use Omnipay\GoCardlessV2\Message\BankAccountResponse;
 use Omnipay\GoCardlessV2\Message\DisableCustomerBankAccountRequest;
 use Omnipay\Tests\TestCase;
 
@@ -20,7 +20,7 @@ class DisableCustomerBankAccountRequestTest extends TestCase
      * @var array fully populated sample customerBankAccount data to drive test
      */
     private $sampleData = [
-        'customerBankAccountId' => 'CU123123123',
+        'bankAccountReference' => 'CU123123123',
     ];
 
     public function setUp()
@@ -61,7 +61,7 @@ class DisableCustomerBankAccountRequestTest extends TestCase
 
     public function testRequestDataIsStoredCorrectly()
     {
-        $this->assertSame($this->sampleData['customerBankAccountId'], $this->request->getCustomerBankAccountId());
+        $this->assertSame($this->sampleData['bankAccountReference'], $this->request->getBankAccountReference());
     }
 
     public function testSendDataReturnsCorrectType()
@@ -69,13 +69,13 @@ class DisableCustomerBankAccountRequestTest extends TestCase
         // this will trigger additional validation as the sendData method calls customerBankAccount create that validates the parameters handed to it match
         // the original data handed in to the initialise (in $this->sampleCustomerBankAccount).
         $result = $this->request->send();
-        $this->assertInstanceOf(CustomerBankAccountResponse::class, $result);
+        $this->assertInstanceOf(BankAccountResponse::class, $result);
     }
 
     // Assert the customerBankAccount get method is being handed the customerBankAccountId
     public function customerBankAccountGet($data)
     {
-        $this->assertEquals($this->sampleData['customerBankAccountId'], $data);
+        $this->assertEquals($this->sampleData['bankAccountReference'], $data);
 
         return $this->getMockBuilder(CustomerBankAccount::class)
             ->disableOriginalConstructor()

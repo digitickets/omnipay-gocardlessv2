@@ -21,7 +21,7 @@ class FindMandateRequest extends AbstractRequest
      */
     public function sendData($data)
     {
-        $response = $this->gocardless->mandates()->get($this->getMandateId());
+        $response = $this->gocardless->mandates()->get($this->getMandateReference());
 
         return $this->response = new MandateResponse($this, $response);
     }

@@ -35,7 +35,7 @@ class ProGatewayTest extends GatewayTestCase
 
     public function testCreateCustomerBankAccount()
     {
-        $request = $this->gateway->createCustomerBankAccount();
+        $request = $this->gateway->createBankAccount();
         $this->assertInstanceOf(Message\CreateCustomerBankAccountRequest::class, $request);
     }
 

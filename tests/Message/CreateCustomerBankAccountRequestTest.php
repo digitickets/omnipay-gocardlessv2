@@ -6,7 +6,7 @@ use GoCardlessPro\Client;
 use GoCardlessPro\Resources\CustomerBankAccount;
 use GoCardlessPro\Services\CustomerBankAccountsService;
 use Omnipay\GoCardlessV2\Message\CreateCustomerBankAccountRequest;
-use Omnipay\GoCardlessV2\Message\CustomerBankAccountResponse;
+use Omnipay\GoCardlessV2\Message\BankAccountResponse;
 use Omnipay\Tests\TestCase;
 
 class CreateCustomerBankAccountRequestTest extends TestCase
@@ -34,7 +34,7 @@ class CreateCustomerBankAccountRequestTest extends TestCase
                 'shippingAddress2' => 'Shipsville',
             ],
         ],
-        'customerId' => 'CU1231235413',
+        'customerReference' => 'CU1231235413',
     ];
 
     public function setUp()
@@ -70,15 +70,15 @@ class CreateCustomerBankAccountRequestTest extends TestCase
     public function testGetDataReturnsCorrectArray()
     {
         $data = $this->sampleCustomerBankAccount['customerBankAccountData'];
-        $data['links']['customer'] = $this->sampleCustomerBankAccount['customerId'];
+        $data['links']['customer'] = $this->sampleCustomerBankAccount['customerReference'];
         $this->assertSame(['params' => $data], $this->request->getData());
     }
 
     public function testRequestDataIsStoredCorrectly()
     {
-        $this->assertNull($this->request->getCustomerBankAccountId());
+        $this->assertNull($this->request->getBankAccountReference());
         $this->assertSame($this->sampleCustomerBankAccount['customerBankAccountData'], $this->request->getCustomerBankAccountData());
-        $this->assertSame($this->sampleCustomerBankAccount['customerId'], $this->request->getCustomerId());
+        $this->assertSame($this->sampleCustomerBankAccount['customerReference'], $this->request->getCustomerReference());
     }
 
     public function testSendDataReturnsCorrectType()
@@ -86,7 +86,7 @@ class CreateCustomerBankAccountRequestTest extends TestCase
         // this will trigger additional validation as the sendData method calls customerBankAccount create that validates the parameters handed to it match
         // the original data handed in to the initialise (in $this->sampleCustomerBankAccount).
         $result = $this->request->send();
-        $this->assertInstanceOf(CustomerBankAccountResponse::class, $result);
+        $this->assertInstanceOf(BankAccountResponse::class, $result);
     }
 
     // Assert the customerBankAccount create method is being handed the correct parameters

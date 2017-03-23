@@ -11,7 +11,7 @@ class UpdateMandateRequest extends AbstractRequest
     {
         return [
             'mandateData' => ['params' => $this->getMandateData()],
-            'mandateId' => $this->getMandateId(),
+            'mandateId' => $this->getMandateReference(),
         ];
     }
 

@@ -24,8 +24,8 @@ class CreateSubscriptionRequestTest extends TestCase
         'amount' => 12.99,
         'currency' => 'GBP',
         'subscriptionDayOfMonth' => '1',
-        'subscriptionInterval' => '1',
-        'subscriptionIntervalUnit' => 'month',
+        'intervalCount' => '1',
+        'interval' => 'monthly',
         'subscriptionMetaData' => [
             'meta1' => 'Lorem Ipsom Dolor Est',
             'meta2' => 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.',
@@ -35,9 +35,10 @@ class CreateSubscriptionRequestTest extends TestCase
         'paymentDescription' => 'bacs subscription',
         'reference' => '13wekjhewe123n3hjd8',
         'paymentDate' => '2017-01-01',
-        'mandateId' => 'CB1231235413',
+        'statementDescriptor' => 'CB1231235413',
         'subscriptionCount' => '12',
         'subscriptionEndDate' => '2018-01-01',
+        'mandateReference'=>'MR12345'
     ];
 
     public function setUp()
@@ -78,6 +79,31 @@ class CreateSubscriptionRequestTest extends TestCase
         $this->request->getData();
     }
 
+    public function testSetInvalidPeriodDataException()
+    {
+        $requestData = $this->sampleSubscription;
+        unset($requestData['subscriptionEndDate']);
+
+        $requestData['interval']='weekly';
+        $this->request->initialize($requestData);
+        $this->request->getData();
+
+        $requestData['interval']='monthly';
+        $this->request->initialize($requestData);
+        $this->request->getData();
+
+        $requestData['interval']='yearly';
+        $this->request->initialize($requestData);
+        $this->request->getData();
+
+
+        $this->setExpectedException(InvalidRequestException::class, 'Interval must be one of weekly / monthly / yearly');
+
+        $requestData['interval']='month';
+        $this->request->initialize($requestData);
+        $this->request->getData();
+    }
+
     public function testGetDataReturnsCorrectArrayWithCount()
     {
         $requestData = $this->sampleSubscription;
@@ -88,14 +114,14 @@ class CreateSubscriptionRequestTest extends TestCase
                 'amount' => $requestData['amount'] * 100,
                 'currency' => $requestData['currency'],
                 'day_of_month' => $requestData['subscriptionDayOfMonth'],
-                'interval' => $requestData['subscriptionInterval'],
-                'interval_unit' => $requestData['subscriptionIntervalUnit'],
+                'interval' => $requestData['intervalCount'],
+                'interval_unit' => $requestData['interval'],
                 'metadata' => $requestData['subscriptionMetaData'],
                 'month' => $requestData['subscriptionMonth'],
                 'name' => $requestData['paymentDescription'],
-                'payment_reference' => $requestData['reference'],
+                'payment_reference' => $requestData['statementDescriptor'],
                 'start_date' => $requestData['paymentDate'],
-                'links' => ['mandate' => $requestData['mandateId']],
+                'links' => ['mandate' => $requestData['mandateReference']],
                 'count' => $requestData['subscriptionCount'],
             ],
         ];
@@ -113,14 +139,14 @@ class CreateSubscriptionRequestTest extends TestCase
                 'amount' => $requestData['amount'] * 100,
                 'currency' => $requestData['currency'],
                 'day_of_month' => $requestData['subscriptionDayOfMonth'],
-                'interval' => $requestData['subscriptionInterval'],
-                'interval_unit' => $requestData['subscriptionIntervalUnit'],
+                'interval' => $requestData['intervalCount'],
+                'interval_unit' => $requestData['interval'],
                 'metadata' => $requestData['subscriptionMetaData'],
                 'month' => $requestData['subscriptionMonth'],
                 'name' => $requestData['paymentDescription'],
-                'payment_reference' => $requestData['reference'],
+                'payment_reference' => $requestData['statementDescriptor'],
                 'start_date' => $requestData['paymentDate'],
-                'links' => ['mandate' => $requestData['mandateId']],
+                'links' => ['mandate' => $requestData['mandateReference']],
                 'end_date' => $requestData['subscriptionEndDate'],
             ],
         ];

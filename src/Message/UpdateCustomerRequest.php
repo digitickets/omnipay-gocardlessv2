@@ -10,8 +10,10 @@ class UpdateCustomerRequest extends AbstractRequest
     public function getData()
     {
         return [
-            'customerData' => ['params' => $this->getCustomerData()],
-            'customerId' => $this->getCustomerId(),
+            'customerData' => ['params' => [
+                "metadata"=>$this->getCustomerMetaData()
+            ],],
+            'customerId' => $this->getCustomerReference(),
         ];
     }
 

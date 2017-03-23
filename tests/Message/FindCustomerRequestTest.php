@@ -20,7 +20,7 @@ class FindCustomerRequestTest extends TestCase
      * @var array fully populated sample customer data to drive test
      */
     private $sampleData = [
-        'customerId' => 'CU123123123',
+        'customerReference' => 'CU123123123',
     ];
 
     public function setUp()
@@ -61,7 +61,7 @@ class FindCustomerRequestTest extends TestCase
 
     public function testRequestDataIsStoredCorrectly()
     {
-        $this->assertSame($this->sampleData['customerId'], $this->request->getCustomerId());
+        $this->assertSame($this->sampleData['customerReference'], $this->request->getCustomerReference());
     }
 
     public function testSendDataReturnsCorrectType()
@@ -72,10 +72,10 @@ class FindCustomerRequestTest extends TestCase
         $this->assertInstanceOf(CustomerResponse::class, $result);
     }
 
-    // Assert the customer get method is being handed the customerId
+    // Assert the customer get method is being handed the customerReference
     public function customerGet($data)
     {
-        $this->assertEquals($this->sampleData['customerId'], $data);
+        $this->assertEquals($this->sampleData['customerReference'], $data);
 
         return $this->getMockBuilder(Customer::class)
             ->disableOriginalConstructor()

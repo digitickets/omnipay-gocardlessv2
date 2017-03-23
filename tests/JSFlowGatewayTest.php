@@ -33,7 +33,7 @@ class JSFlowGatewayTest extends GatewayTestCase
     }
     public function testCreateCustomerBankAccountFromToken()
     {
-        $request = $this->gateway->createCustomerBankAccountFromToken();
+        $request = $this->gateway->createBankAccount();
         $this->assertInstanceOf(Message\CreateCustomerBankAccountRequestFromToken::class, $request);
     }
 

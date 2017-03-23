@@ -24,10 +24,11 @@ class MandateResponseTest extends TestCase
 
     public function testGetMandateData()
     {
-        $data = 'mandateData';
+        $data = json_decode('{"id":"MA1234"}');
 
         $response = new MandateResponse($this->request, $data);
-        $this->assertEquals('mandateData', $response->getMandateData());
+        $this->assertEquals($data, $response->getMandateData());
+        $this->assertEquals("MA1234", $response->getMandateReference());
     }
 
     public function testFailedMandateData()

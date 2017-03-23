@@ -21,7 +21,7 @@ class ReinstateMandateRequest extends AbstractRequest
      */
     public function sendData($data)
     {
-        $response = $this->gocardless->mandates()->reinstate($this->getMandateId());
+        $response = $this->gocardless->mandates()->reinstate($this->getMandateReference());
 
         return $this->response = new MandateResponse($this, $response);
     }

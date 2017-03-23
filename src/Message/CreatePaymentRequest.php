@@ -9,7 +9,7 @@ class CreatePaymentRequest extends AbstractRequest
 {
     public function getData()
     {
-        $this->validate('amount', 'currency', 'mandateId');
+        $this->validate('amount', 'currency', 'mandateReference');
 
         $data = [
             'amount' => $this->getAmountInteger(),
@@ -19,7 +19,7 @@ class CreatePaymentRequest extends AbstractRequest
             'charge_date' => $this->getPaymentDate(),
             'currency' => $this->getCurrency(),
             'reference' => $this->getReference(),
-            'links' => ['mandate' => $this->getMandateId()],
+            'links' => ['mandate' => $this->getMandateReference()],
         ];
 
         // Remove null values

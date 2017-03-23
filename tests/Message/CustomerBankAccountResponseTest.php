@@ -3,7 +3,7 @@
 namespace Omnipay\GoCardlessV2Tests\Message;
 
 use Omnipay\GoCardlessV2\Message\CreateCustomerBankAccountRequest;
-use Omnipay\GoCardlessV2\Message\CustomerBankAccountResponse;
+use Omnipay\GoCardlessV2\Message\BankAccountResponse;
 use Omnipay\Tests\TestCase;
 
 class CustomerBankAccountResponseTest extends TestCase
@@ -24,17 +24,18 @@ class CustomerBankAccountResponseTest extends TestCase
 
     public function testGetCustomerBankAccountData()
     {
-        $data = 'customerBankAccountData';
+        $data = json_decode('{"id":"BA1234"}');
 
-        $response = new CustomerBankAccountResponse($this->request, $data);
-        $this->assertEquals('customerBankAccountData', $response->getCustomerBankAccountData());
+        $response = new BankAccountResponse($this->request, $data);
+        $this->assertEquals($data, $response->getBankAccountData());;
+        $this->assertEquals("BA1234", $response->getBankAccountReference());
     }
 
     public function testFailedCustomerBankAccountData()
     {
         $data = null;
 
-        $response = new CustomerBankAccountResponse($this->request, $data);
-        $this->assertNull($response->getCustomerBankAccountData());
+        $response = new BankAccountResponse($this->request, $data);
+        $this->assertNull($response->getBankAccountData());
     }
 }

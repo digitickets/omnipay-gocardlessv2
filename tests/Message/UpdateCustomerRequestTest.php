@@ -20,8 +20,8 @@ class UpdateCustomerRequestTest extends TestCase
      * @var array sample customer data to drive test
      */
     private $sampleData = [
-        'customerId' => 'CU123123123',
-        'customerData' => ['Some extra data' => 'just as placeholders'],
+        'customerReference' => 'CU123123123',
+        'customerMetaData' => ['Some extra data' => 'just as placeholders'],
     ];
 
     public function setUp()
@@ -57,16 +57,16 @@ class UpdateCustomerRequestTest extends TestCase
     public function testGetDataReturnsCorrectArray()
     {
         $data = [
-            'customerData' => ['params' => $this->sampleData['customerData']],
-            'customerId' => $this->sampleData['customerId'],
+            'customerData' => ['params' => ["metadata" => $this->sampleData['customerMetaData']]],
+            'customerId' => $this->sampleData['customerReference'],
         ];
         $this->assertSame($data, $this->request->getData());
     }
 
     public function testRequestDataIsStoredCorrectly()
     {
-        $this->assertSame($this->sampleData['customerId'], $this->request->getCustomerId());
-        $this->assertSame($this->sampleData['customerData'], $this->request->getCustomerData());
+        $this->assertSame($this->sampleData['customerReference'], $this->request->getCustomerReference());
+        $this->assertSame($this->sampleData['customerMetaData'], $this->request->getCustomerMetaData());
     }
 
     public function testSendDataReturnsCorrectType()
@@ -77,10 +77,10 @@ class UpdateCustomerRequestTest extends TestCase
         $this->assertInstanceOf(CustomerResponse::class, $result);
     }
 
-    // Assert the customer get method is being handed the customerId
+    // Assert the customer get method is being handed the customerReference
     public function customerGet($id, $data)
     {
-        $this->assertEquals($this->sampleData['customerId'], $id);
+        $this->assertEquals($this->sampleData['customerReference'], $id);
         $this->assertEquals($this->request->getData()['customerData'], $data);
 
         return $this->getMockBuilder(Customer::class)

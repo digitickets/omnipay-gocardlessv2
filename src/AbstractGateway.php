@@ -60,6 +60,36 @@ abstract class AbstractGateway extends BaseAbstractGateway
         parent::__construct($httpClient, $httpRequest);
     }
 
+    public function initialize(array $parameters = array())
+    {
+        parent::initialize($parameters);
+        if($parameters) {
+            $this->gocardless = new GoCardlessClient(
+                [
+                    'access_token' => $parameters['access_token'],
+                    'environment' => Environment::LIVE
+                ]
+            );
+        }
+    }
+
+    public function setTestMode($value)
+    {
+        if($value && $this->getParameter('access_token')){
+                $this->gocardless = new GoCardlessClient(
+                    [
+                        'access_token' => $this->getParameter('access_token'),
+                        'environment' => Environment::SANDBOX
+                    ]
+                );
+        }
+        return parent::setTestMode($value);
+    }
+
+    public function setAccessToken($value){
+        return $this->setParameter('access_token', $value);
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -90,7 +120,7 @@ abstract class AbstractGateway extends BaseAbstractGateway
      */
     public function findCustomer($id)
     {
-        return $this->createRequest(Message\FindCustomerRequest::class, ['customerId' => $id]);
+        return $this->createRequest(Message\FindCustomerRequest::class, ['customerReference' => $id]);
     }
 
     /**
@@ -110,7 +140,7 @@ abstract class AbstractGateway extends BaseAbstractGateway
      */
     public function findCustomerBankAccount($id)
     {
-        return $this->createRequest(Message\FindCustomerBankAccountRequest::class, ['customerBankAccountId' => $id]);
+        return $this->createRequest(Message\FindCustomerBankAccountRequest::class, ['bankAccountReference' => $id]);
     }
 
     /**
@@ -120,7 +150,7 @@ abstract class AbstractGateway extends BaseAbstractGateway
      */
     public function disableCustomerBankAccount($id)
     {
-        return $this->createRequest(Message\DisableCustomerBankAccountRequest::class, ['customerBankAccountId' => $id]);
+        return $this->createRequest(Message\DisableCustomerBankAccountRequest::class, ['bankAccountReference' => $id]);
     }
 
     /**
@@ -140,7 +170,7 @@ abstract class AbstractGateway extends BaseAbstractGateway
      */
     public function findMandate($id)
     {
-        return $this->createRequest(Message\FindMandateRequest::class, ['mandateID' => $id]);
+        return $this->createRequest(Message\FindMandateRequest::class, ['mandateReference' => $id]);
     }
 
     /**
@@ -150,7 +180,7 @@ abstract class AbstractGateway extends BaseAbstractGateway
      */
     public function cancelMandate($id)
     {
-        return $this->createRequest(Message\CancelMandateRequest::class, ['mandateID' => $id]);
+        return $this->createRequest(Message\CancelMandateRequest::class, ['mandateReference' => $id]);
     }
 
     /**
@@ -160,7 +190,7 @@ abstract class AbstractGateway extends BaseAbstractGateway
      */
     public function reinstateMandate($id)
     {
-        return $this->createRequest(Message\ReinstateMandateRequest::class, ['mandateID' => $id]);
+        return $this->createRequest(Message\ReinstateMandateRequest::class, ['mandateReference' => $id]);
     }
 
     /**
@@ -367,7 +397,7 @@ abstract class AbstractGateway extends BaseAbstractGateway
      *
      * @throws InvalidResponseException
      */
-    public function parseWebHooks(array $headers, $rawPayload, $securityToken = null)
+    public function parseNotification(array $headers, $rawPayload, $securityToken = null)
     {
         $return = [];
         if ($securityToken) {// validate

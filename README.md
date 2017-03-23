@@ -58,10 +58,26 @@ This driver does not provide access to the list methods - data may only be retri
 ```php
 $customer = $gateway->createCustomer([
     'customerData' => array(
-                'given_name' => 'Mike',
-                'family_name' => 'Jones',
-                'email' => 'mike.jones@example.com',
-                'country_code' => 'GB'
+                            'card' => new \Omnipay\Common\CreditCard( // use the standard omnipay card to hold the customer data
+                                [
+                                    'firstName' => 'Mike',
+                                    'lastName' => 'Jones',
+                                    'email' => 'mike.jones@example.com',
+                                    'address1' => 'Iconic Song House, 47 Penny Lane',
+                                    'address2' => 'Wavertree',
+                                    'city' => 'Liverpool',
+                                    'company' => 'Mike Jones Enterprises',
+                                    'country' => 'GB',
+                                    'postal_code' => 'L18 1DE',
+                                    'state' => 'Merseyside',
+                                ]
+                            ),
+                            'customerMetaData' => [
+                                'meta1' => 'Lorem Ipsom Dolor Est',
+                                'meta2' => 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.',
+                                'meta567890123456789012345678901234567890123456789' => 'Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia.',
+                            ],
+                            'swedishIdentityNumber' => '123',
             ),
 ])->send();
 ```
@@ -88,6 +104,25 @@ This will fetch the event associated with the web hook.
 
 ###Process repeat billing
 TODO - this. Use the standard repeatePurchase() format (see sagepay for example structure)
+
+###Suggested generic omnipay driver flow
+We are exploring using a simplified set of functions to allow agnostic processing. Each step checks if the method exists on the driver 
+and if it does call it accordingly, before calling getXyzRefernce and adding it to the data passed around. 
+It is hoped that this structure should work with several major gateways - we have considered Stripe, Paypal and the various GoCardless options.
+1.	CreateCustomer
+2.	completeCustomer
+3.	createPaymentMethod (either create card or create bank account)
+4.	completePaymentMethod (either complete card or complete bank account)
+5.	createMandate
+6.	completeMandate
+
+---- above this point is setting up the customer data (effectively taking it to the point of having an authorisation token), below is creating the transaction data
+
+7.	createPlan
+8.	completePlan
+9.	createSubscription
+10.	completeSubscription
+
 
 ## Support
 

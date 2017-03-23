@@ -5,7 +5,7 @@ namespace Omnipay\GoCardlessV2Tests\Message;
 use GoCardlessPro\Client;
 use GoCardlessPro\Resources\CustomerBankAccount;
 use GoCardlessPro\Services\CustomerBankAccountsService;
-use Omnipay\GoCardlessV2\Message\CustomerBankAccountResponse;
+use Omnipay\GoCardlessV2\Message\BankAccountResponse;
 use Omnipay\GoCardlessV2\Message\UpdateCustomerBankAccountRequest;
 use Omnipay\Tests\TestCase;
 
@@ -20,7 +20,7 @@ class UpdateCustomerBankAccountRequestTest extends TestCase
      * @var array sample customerBankAccount data to drive test
      */
     private $sampleData = [
-        'customerBankAccountId' => 'CU123123123',
+        'bankAccountReference' => 'CU123123123',
         'customerBankAccountData' => ['Some extra data' => 'just as placeholders'],
     ];
 
@@ -58,14 +58,14 @@ class UpdateCustomerBankAccountRequestTest extends TestCase
     {
         $data = [
             'customerBankAccountData' => ['params' => $this->sampleData['customerBankAccountData']],
-            'customerBankAccountId' => $this->sampleData['customerBankAccountId'],
+            'customerBankAccountId' => $this->sampleData['bankAccountReference'],
         ];
         $this->assertSame($data, $this->request->getData());
     }
 
     public function testRequestDataIsStoredCorrectly()
     {
-        $this->assertSame($this->sampleData['customerBankAccountId'], $this->request->getCustomerBankAccountId());
+        $this->assertSame($this->sampleData['bankAccountReference'], $this->request->getBankAccountReference());
         $this->assertSame($this->sampleData['customerBankAccountData'], $this->request->getCustomerBankAccountData());
     }
 
@@ -74,13 +74,13 @@ class UpdateCustomerBankAccountRequestTest extends TestCase
         // this will trigger additional validation as the sendData method calls customerBankAccount create that validates the parameters handed to it match
         // the original data handed in to the initialise (in $this->sampleCustomerBankAccount).
         $result = $this->request->send();
-        $this->assertInstanceOf(CustomerBankAccountResponse::class, $result);
+        $this->assertInstanceOf(BankAccountResponse::class, $result);
     }
 
-    // Assert the customerBankAccount get method is being handed the customerBankAccountId
+    // Assert the customerBankAccount get method is being handed the bankAccountReference
     public function customerBankAccountGet($id, $data)
     {
-        $this->assertEquals($this->sampleData['customerBankAccountId'], $id);
+        $this->assertEquals($this->sampleData['bankAccountReference'], $id);
         $this->assertEquals($this->request->getData()['customerBankAccountData'], $data);
 
         return $this->getMockBuilder(CustomerBankAccount::class)

@@ -17,4 +17,9 @@ class SubscriptionResponse extends AbstractResponse
 
         return null;
     }
+
+    public function getSubscriptionReference()
+    {
+        return $this->data->id;
+    }
 }

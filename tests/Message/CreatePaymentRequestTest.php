@@ -31,7 +31,7 @@ class CreatePaymentRequestTest extends TestCase
         'paymentDate' => '2017-01-01',
         'currency' => 'GBP',
         'reference' => '13wekjhewe123n3hjd8',
-        'mandateId' => 'CB1231235413',
+        'mandateReference' => 'CB1231235413',
     ];
 
     public function setUp()
@@ -75,7 +75,7 @@ class CreatePaymentRequestTest extends TestCase
                 'charge_date' => $this->samplePayment['paymentDate'],
                 'currency' => $this->samplePayment['currency'],
                 'reference' => $this->samplePayment['reference'],
-                'links' => ['mandate' => $this->samplePayment['mandateId']],
+                'links' => ['mandate' => $this->samplePayment['mandateReference']],
             ],
         ];
 

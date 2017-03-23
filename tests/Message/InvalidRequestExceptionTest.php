@@ -18,7 +18,7 @@ class InvalidRequestExceptionTest extends TestCase
      * @var array fully populated sample mandate data to drive test
      */
     private $sampleData = [
-        'mandateId' => 'CU123123123',
+        'mandateReference' => 'CU123123123',
     ];
 
     public function setUp()

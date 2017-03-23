@@ -3,12 +3,13 @@
 namespace Omnipay\GoCardlessV2\Message;
 
 /**
- * @method MAndateResponse send()
+ * @method MandateResponse send()
  */
 class CancelMandateRequest extends AbstractRequest
 {
     public function getData()
     {
+        $this->validate('mandateReference');
         return [];
     }
 
@@ -21,7 +22,7 @@ class CancelMandateRequest extends AbstractRequest
      */
     public function sendData($data)
     {
-        $response = $this->gocardless->mandates()->cancel($this->getMandateId());
+        $response = $this->gocardless->mandates()->cancel($this->getMandateReference());
 
         return $this->response = new MandateResponse($this, $response);
     }

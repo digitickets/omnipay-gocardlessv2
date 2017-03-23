@@ -9,6 +9,7 @@ use GoCardlessPro\Resources\Customer;
  */
 class CustomerResponse extends AbstractResponse
 {
+    /**  */
     /**
      * @return Customer|null
      */
@@ -19,5 +20,10 @@ class CustomerResponse extends AbstractResponse
         }
 
         return null;
+    }
+
+    public function getCustomerReference()
+    {
+        return $this->data->id;
     }
 }

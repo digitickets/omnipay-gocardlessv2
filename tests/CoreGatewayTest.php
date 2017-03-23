@@ -25,11 +25,23 @@ class CoreGatewayTest extends GatewayTestCase
         $this->gateway = new ProGateway($this->getHttpClient(), $this->getHttpRequest());
     }
 
+    public function testInitialise()
+    {
+        $this->gateway->initialize(['access_token'=>'fooBar']);
+    }
+
+    public function testSetTestMode()
+    {
+        $this->testInitialise();
+        $this->gateway->setTestMode(false);
+        $this->gateway->setTestMode(true);
+    }
+
     public function testFindCustomer()
     {
         $request = $this->gateway->findCustomer(1);
         $this->assertInstanceOf(Message\FindCustomerRequest::class, $request);
-        $this->assertEquals(1, $request->getCustomerId());
+        $this->assertEquals(1, $request->getCustomerReference());
     }
 
     public function testUpdateCustomer()
@@ -42,7 +54,7 @@ class CoreGatewayTest extends GatewayTestCase
     {
         $request = $this->gateway->findCustomerBankAccount(1);
         $this->assertInstanceOf(Message\FindCustomerBankAccountRequest::class, $request);
-        $this->assertEquals(1, $request->getCustomerBankAccountId());
+        $this->assertEquals(1, $request->getBankAccountReference());
     }
 
     public function testUpdateCustomerBankAccount()
@@ -55,14 +67,14 @@ class CoreGatewayTest extends GatewayTestCase
     {
         $request = $this->gateway->disableCustomerBankAccount(1);
         $this->assertInstanceOf(Message\DisableCustomerBankAccountRequest::class, $request);
-        $this->assertEquals(1, $request->getCustomerBankAccountId());
+        $this->assertEquals(1, $request->getBankAccountReference());
     }
 
     public function testFindMandate()
     {
         $request = $this->gateway->findMandate(1);
         $this->assertInstanceOf(Message\FindMandateRequest::class, $request);
-        $this->assertEquals(1, $request->getMandateId());
+        $this->assertEquals(1, $request->getMandateReference());
     }
 
     public function testUpdateMandate()
@@ -75,14 +87,14 @@ class CoreGatewayTest extends GatewayTestCase
     {
         $request = $this->gateway->cancelMandate(1);
         $this->assertInstanceOf(Message\CancelMandateRequest::class, $request);
-        $this->assertEquals(1, $request->getMandateId());
+        $this->assertEquals(1, $request->getMandateReference());
     }
 
     public function testReinstateMandate()
     {
         $request = $this->gateway->reinstateMandate(1);
         $this->assertInstanceOf(Message\ReinstateMandateRequest::class, $request);
-        $this->assertEquals(1, $request->getMandateId());
+        $this->assertEquals(1, $request->getMandateReference());
     }
 
     public function testFindPayment()
@@ -191,7 +203,7 @@ class CoreGatewayTest extends GatewayTestCase
     public function testFailedWebHookAuthentication()
     {
         $this->setExpectedException(InvalidResponseException::class, 'Invalid security token from webhook response');
-        $this->gateway->parseWebHooks(
+        $this->gateway->parseNotification(
             ['Webhook-Signature' => 123],
             '{"events": [
     {"id": "EV123", "created_at": "2014-08-03T12:00:00.000Z", "action": "confirmed","resource_type": "payments",}}',
@@ -203,7 +215,7 @@ class CoreGatewayTest extends GatewayTestCase
     {
         $body = '{"events": [{"id": "EV123", "created_at": "2014-08-03T12:00:00.000Z", "action": "confirmed","resource_type": "payments"}]}';
         $secret = 'This Secret Is Public';
-        $response = $this->gateway->parseWebHooks(
+        $response = $this->gateway->parseNotification(
             ['Webhook-Signature' => hash_hmac('sha256', $body, $secret)],
             $body,
             $secret

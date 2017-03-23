@@ -20,7 +20,7 @@ class UpdateMandateRequestTest extends TestCase
      * @var array fully populated sample mandate data to drive test
      */
     private $sampleData = [
-        'mandateId' => 'CU123123123',
+        'mandateReference' => 'CU123123123',
         'mandateData' => [
             'metaData' => [
                 'meta1' => 'Lorem Ipsom Dolor Est',
@@ -64,14 +64,14 @@ class UpdateMandateRequestTest extends TestCase
     {
         $data = [
             'mandateData' => ['params' => $this->sampleData['mandateData']],
-            'mandateId' => $this->sampleData['mandateId'],
+            'mandateId' => $this->sampleData['mandateReference'],
         ];
         $this->assertSame($data, $this->request->getData());
     }
 
     public function testRequestDataIsStoredCorrectly()
     {
-        $this->assertSame($this->sampleData['mandateId'], $this->request->getMandateId());
+        $this->assertSame($this->sampleData['mandateReference'], $this->request->getMandateReference());
         $this->assertSame($this->sampleData['mandateData'], $this->request->getMandateData());
     }
 
@@ -83,10 +83,10 @@ class UpdateMandateRequestTest extends TestCase
         $this->assertInstanceOf(MandateResponse::class, $result);
     }
 
-    // Assert the mandate get method is being handed the mandateId
+    // Assert the mandate get method is being handed the mandateReference
     public function mandateGet($id, $data)
     {
-        $this->assertEquals($this->sampleData['mandateId'], $id);
+        $this->assertEquals($this->sampleData['mandateReference'], $id);
         $this->assertEquals($this->request->getData()['mandateData'], $data);
 
         return $this->getMockBuilder(Mandate::class)

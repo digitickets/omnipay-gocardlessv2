@@ -25,7 +25,7 @@ class ProGateway extends AbstractGateway
      *
      * @return Message\CreateCustomerBankAccountRequest|Message\AbstractRequest|ProGateway
      */
-    public function createCustomerBankAccount(array $parameters = [])
+    public function createBankAccount(array $parameters = [])
     {
         return $this->createRequest(Message\CreateCustomerBankAccountRequest::class, $parameters);
     }

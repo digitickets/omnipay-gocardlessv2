@@ -3,7 +3,7 @@
 namespace Omnipay\GoCardlessV2\Message;
 
 /**
- * @method CustomerBankAccountResponse send()
+ * @method BankAccountResponse send()
  */
 class UpdateCustomerBankAccountRequest extends AbstractRequest
 {
@@ -11,7 +11,7 @@ class UpdateCustomerBankAccountRequest extends AbstractRequest
     {
         return [
             'customerBankAccountData' => ['params' => $this->getCustomerBankAccountData()],
-            'customerBankAccountId' => $this->getCustomerBankAccountId(),
+            'customerBankAccountId' => $this->getBankAccountReference(),
         ];
     }
 
@@ -20,12 +20,12 @@ class UpdateCustomerBankAccountRequest extends AbstractRequest
      *
      * @param  mixed $data The data to send
      *
-     * @return CustomerBankAccountResponse
+     * @return BankAccountResponse
      */
     public function sendData($data)
     {
         $response = $this->gocardless->customerBankAccounts()->update($data['customerBankAccountId'], $data['customerBankAccountData']);
 
-        return $this->response = new CustomerBankAccountResponse($this, $response);
+        return $this->response = new BankAccountResponse($this, $response);
     }
 }

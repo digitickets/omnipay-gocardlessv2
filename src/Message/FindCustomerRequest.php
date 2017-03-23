@@ -21,7 +21,7 @@ class FindCustomerRequest extends AbstractRequest
      */
     public function sendData($data)
     {
-        $response = $this->gocardless->customers()->get($this->getCustomerId());
+        $response = $this->gocardless->customers()->get($this->getCustomerReference());
 
         return $this->response = new CustomerResponse($this, $response);
     }

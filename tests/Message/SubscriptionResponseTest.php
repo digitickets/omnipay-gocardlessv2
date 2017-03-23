@@ -24,10 +24,11 @@ class SubscriptionResponseTest extends TestCase
 
     public function testGetSubscriptionData()
     {
-        $data = 'subscriptionData';
+        $data = json_decode('{"id":"SU1234"}');
 
         $response = new SubscriptionResponse($this->request, $data);
-        $this->assertEquals('subscriptionData', $response->getSubscriptionData());
+        $this->assertEquals($data, $response->getSubscriptionData());
+        $this->assertEquals("SU1234", $response->getSubscriptionReference());
     }
 
     public function testFailedSubscriptionData()

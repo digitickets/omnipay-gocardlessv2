@@ -25,7 +25,7 @@ class JSFlowGateway extends AbstractGateway
      *
      * @return Message\CreateCustomerBankAccountRequestFromToken|Message\AbstractRequest|JSFlowGateway
      */
-    public function createCustomerBankAccountFromToken(array $parameters = [])
+    public function createBankAccount(array $parameters = [])
     {
         return $this->createRequest(Message\CreateCustomerBankAccountRequestFromToken::class, $parameters);
     }

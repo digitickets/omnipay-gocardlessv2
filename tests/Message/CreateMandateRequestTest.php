@@ -29,7 +29,7 @@ class CreateMandateRequestTest extends TestCase
                 'meta567890123456789012345678901234567890123456789' => 'Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia.',
             ],
         ],
-        'customerBankAccountId' => 'CB1231235413',
+        'bankAccountReference' => 'CB1231235413',
         'creditorId' => 'CR783472',
     ];
 
@@ -66,16 +66,16 @@ class CreateMandateRequestTest extends TestCase
     public function testGetDataReturnsCorrectArray()
     {
         $data = $this->sampleMandate['mandateData'];
-        $data['links']['customer_bank_account'] = $this->sampleMandate['customerBankAccountId'];
+        $data['links']['customer_bank_account'] = $this->sampleMandate['bankAccountReference'];
         $data['links']['creditor'] = $this->sampleMandate['creditorId'];
         $this->assertSame(['params' => $data], $this->request->getData());
     }
 
     public function testRequestDataIsStoredCorrectly()
     {
-        $this->assertNull($this->request->getMandateId());
+        $this->assertNull($this->request->getMandateReference());
         $this->assertSame($this->sampleMandate['mandateData'], $this->request->getMandateData());
-        $this->assertSame($this->sampleMandate['customerBankAccountId'], $this->request->getCustomerBankAccountId());
+        $this->assertSame($this->sampleMandate['bankAccountReference'], $this->request->getBankAccountReference());
         $this->assertSame($this->sampleMandate['creditorId'], $this->request->getCreditorId());
     }
 
