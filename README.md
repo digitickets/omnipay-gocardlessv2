@@ -83,14 +83,14 @@ $customer = $gateway->createCustomer([
 ```
 You can find full list of options [here](https://developer.gocardless.com/api-reference/#customers-create-a-customer).
 
-###Find customer (By id)
+### Find customer (By id)
 
 ```php
 $customer = $gateway->findCustomer(1)->send();
 ```
 
 
-###Parse webhook notification
+### Parse webhook notification
 
 ```php
 $notification = $gateway->parseNotification(
@@ -102,11 +102,11 @@ $notification = $gateway->parseNotification(
 ```
 This will fetch the event associated with the web hook.
 
-###Process repeat billing
+### Process repeat billing
 
 TODO - this. Use the standard repeatePurchase() format (see sagepay for example structure)
 
-###Suggested generic omnipay driver flow
+### Suggested generic omnipay driver flow
 
 We are exploring using a simplified set of functions to allow agnostic processing. Each step checks if the method exists on the driver 
 and if it does call it accordingly, before calling getXyzRefernce and adding it to the data passed around. 
