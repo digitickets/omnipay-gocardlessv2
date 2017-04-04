@@ -103,9 +103,11 @@ $notification = $gateway->parseNotification(
 This will fetch the event associated with the web hook.
 
 ###Process repeat billing
+
 TODO - this. Use the standard repeatePurchase() format (see sagepay for example structure)
 
 ###Suggested generic omnipay driver flow
+
 We are exploring using a simplified set of functions to allow agnostic processing. Each step checks if the method exists on the driver 
 and if it does call it accordingly, before calling getXyzRefernce and adding it to the data passed around. 
 It is hoped that this structure should work with several major gateways - we have considered Stripe, Paypal and the various GoCardless options.
