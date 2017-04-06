@@ -63,7 +63,7 @@ abstract class AbstractGateway extends BaseAbstractGateway
     public function initialize(array $parameters = array())
     {
         parent::initialize($parameters);
-        if($parameters) {
+        if($parameters && array_key_exists('access_token', $parameters)) {
             $this->gocardless = new GoCardlessClient(
                 [
                     'access_token' => $parameters['access_token'],
@@ -88,6 +88,11 @@ abstract class AbstractGateway extends BaseAbstractGateway
 
     public function setAccessToken($value){
         return $this->setParameter('access_token', $value);
+    }
+
+
+    public function setSecret($value){
+        return $this->setParameter('secret', $value);
     }
 
     /**
@@ -391,25 +396,26 @@ abstract class AbstractGateway extends BaseAbstractGateway
      *
      * @param array $headers - getallheaders();
      * @param string $rawPayload - file_get_contents('php://input');
-     * @param string $securityToken - WebHook secret
      *
-     * @return Message\FindEventRequest[]|Message\AbstractRequest[]
+     * @return Message\EventResponse[]
      *
      * @throws InvalidResponseException
      */
-    public function parseNotification(array $headers, $rawPayload, $securityToken = null)
+    public function parseNotification(array $headers, $rawPayload)
     {
         $return = [];
-        if ($securityToken) {// validate
+        if ($this->getParameter('secret')) {// validate
             $provided_signature = $headers['Webhook-Signature'];
-            $calculated_signature = hash_hmac('sha256', $rawPayload, $securityToken);
+            $calculated_signature = hash_hmac('sha256', $rawPayload, $this->getParameter('secret'));
             if ($provided_signature != $calculated_signature) {
                 throw new InvalidResponseException('Invalid security token from webhook response');
             }
         }
         $payload = json_decode($rawPayload, true);
-        foreach ($payload['events'] as $event) {
-            $return[] = $this->findEvent($event['id']);
+        if(array_key_exists('events', $payload) && is_array($payload['events'])) {
+            foreach ($payload['events'] as $event) {
+                $return[] = $this->findEvent($event['id'])->send();
+            }
         }
 
         return $return;

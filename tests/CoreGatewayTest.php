@@ -27,7 +27,7 @@ class CoreGatewayTest extends GatewayTestCase
 
     public function testInitialise()
     {
-        $this->gateway->initialize(['access_token'=>'fooBar']);
+        $this->gateway->initialize(['access_token'=>'fooBar', 'secret'=>'secret']);
     }
 
     public function testSetTestMode()
@@ -202,26 +202,26 @@ class CoreGatewayTest extends GatewayTestCase
 
     public function testFailedWebHookAuthentication()
     {
+        $this->testInitialise();
+        $this->gateway->setTestMode(true);
         $this->setExpectedException(InvalidResponseException::class, 'Invalid security token from webhook response');
         $this->gateway->parseNotification(
             ['Webhook-Signature' => 123],
             '{"events": [
-    {"id": "EV123", "created_at": "2014-08-03T12:00:00.000Z", "action": "confirmed","resource_type": "payments",}}',
-            'WrongSecret'
+    {"id": "EV123", "created_at": "2014-08-03T12:00:00.000Z", "action": "confirmed","resource_type": "payments",}}'
         );
     }
 
     public function testSuccessfulWebHookAuthentication()
     {
-        $body = '{"events": [{"id": "EV123", "created_at": "2014-08-03T12:00:00.000Z", "action": "confirmed","resource_type": "payments"}]}';
-        $secret = 'This Secret Is Public';
+        $body = '{"hello":"world"}';
+        $this->testInitialise();
+        $this->gateway->setTestMode(true);
         $response = $this->gateway->parseNotification(
-            ['Webhook-Signature' => hash_hmac('sha256', $body, $secret)],
-            $body,
-            $secret
+            ['Webhook-Signature' => hash_hmac('sha256', $body, 'secret')],
+            $body
         );
-        $this->assertInstanceOf(Message\FindEventRequest::class, $response[0]);
-        $this->assertEquals('EV123', $response[0]->getEventId());
+        $this->assertEquals([], $response);
     }
 
 }
