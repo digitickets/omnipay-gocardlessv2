@@ -394,18 +394,17 @@ abstract class AbstractGateway extends BaseAbstractGateway
      * fetches the latest version of each eventID (as per GoCardless documentation)
      * returns an array of events
      *
-     * @param array $headers - getallheaders();
      * @param string $rawPayload - file_get_contents('php://input');
+     * @param string $provided_signature - $_SERVER['HTTP_WEBHOOK_SIGNATURE'];
      *
      * @return Message\EventResponse[]
      *
      * @throws InvalidResponseException
      */
-    public function parseNotification(array $headers, $rawPayload)
+    public function parseNotification($rawPayload, $provided_signature = null)
     {
         $return = [];
         if ($this->getParameter('secret')) {// validate
-            $provided_signature = $headers['Webhook-Signature'];
             $calculated_signature = hash_hmac('sha256', $rawPayload, $this->getParameter('secret'));
             if ($provided_signature != $calculated_signature) {
                 throw new InvalidResponseException('Invalid security token from webhook response');
