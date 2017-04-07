@@ -206,9 +206,9 @@ class CoreGatewayTest extends GatewayTestCase
         $this->gateway->setTestMode(true);
         $this->setExpectedException(InvalidResponseException::class, 'Invalid security token from webhook response');
         $this->gateway->parseNotification(
-            ['Webhook-Signature' => 123],
             '{"events": [
-    {"id": "EV123", "created_at": "2014-08-03T12:00:00.000Z", "action": "confirmed","resource_type": "payments",}}'
+    {"id": "EV123", "created_at": "2014-08-03T12:00:00.000Z", "action": "confirmed","resource_type": "payments",}}',
+        123
         );
     }
 
@@ -218,8 +218,8 @@ class CoreGatewayTest extends GatewayTestCase
         $this->testInitialise();
         $this->gateway->setTestMode(true);
         $response = $this->gateway->parseNotification(
-            ['Webhook-Signature' => hash_hmac('sha256', $body, 'secret')],
-            $body
+            $body,
+            hash_hmac('sha256', $body, 'secret')
         );
         $this->assertEquals([], $response);
     }
