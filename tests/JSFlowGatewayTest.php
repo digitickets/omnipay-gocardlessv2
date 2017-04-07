@@ -42,4 +42,14 @@ class JSFlowGatewayTest extends GatewayTestCase
         $request = $this->gateway->createMandate();
         $this->assertInstanceOf(Message\CreateMandateRequest::class, $request);
     }
+
+    public function testEventExists(){
+$client = new \GoCardlessPro\Client(array(
+    'access_token' => 'sandbox_3rv6pJoQJ2UfzoJvasdwCO4ZNXquUZDIEEJM9Zd8',
+    'environment'  => \GoCardlessPro\Environment::SANDBOX
+));
+
+    $event = $client->events()->get('EVTESTGSNJM2NN');
+
+    }
 }
