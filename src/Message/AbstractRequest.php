@@ -313,7 +313,7 @@ abstract class AbstractRequest extends BaseAbstractRequest
                 );
             }
         } else {
-            $value = 0.00;
+            $value = null;
         }
 
         return $this->setParameter('serviceFeeAmount', $value);
