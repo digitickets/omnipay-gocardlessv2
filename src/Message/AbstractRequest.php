@@ -297,7 +297,7 @@ abstract class AbstractRequest extends BaseAbstractRequest
 
     public function getServiceFeeAmount()
     {
-        return $this->formatCurrency($this->getParameter('serviceFeeAmount'));
+        return $this->getParameter('serviceFeeAmount') ? $this->formatCurrency($this->getParameter('serviceFeeAmount')) : null;
     }
 
     public function setServiceFeeAmount($value)
@@ -328,6 +328,7 @@ abstract class AbstractRequest extends BaseAbstractRequest
     {
         return $this->setParameter('paymentDate', $value);
     }
+
     /**
      * Set the plan statement descriptor
      */
