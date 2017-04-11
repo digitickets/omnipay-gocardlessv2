@@ -262,7 +262,7 @@ abstract class AbstractRequest extends BaseAbstractRequest
 
     public function getPaymentMetaData()
     {
-        return $this->getParameter('paymentMetaData');
+        return $this->normaliseMetaData($this->getParameter('paymentMetaData'));
     }
 
     public function setSubscriptionMetaData(array $value)
@@ -272,7 +272,7 @@ abstract class AbstractRequest extends BaseAbstractRequest
 
     public function getSubscriptionMetaData()
     {
-        return $this->getParameter('subscriptionMetaData');
+        return $this->normaliseMetaData($this->getParameter('subscriptionMetaData'));
     }
 
     public function setCustomerMetaData(array $value)
@@ -282,7 +282,17 @@ abstract class AbstractRequest extends BaseAbstractRequest
 
     public function getCustomerMetaData()
     {
-        return $this->getParameter('customerMetaData');
+        return $this->normaliseMetaData($this->getParameter('customerMetaData'));
+    }
+
+    private function normaliseMetaData($metaData)
+    {
+        if(is_array($metaData)){
+            foreach($metaData as $k => $v){
+                $metaData[$k] = (string) $v;
+            }
+        }
+        return $metaData;
     }
 
     public function getTotalRefundedAmount()
