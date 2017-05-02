@@ -21,11 +21,6 @@ class RetryPaymentRequestTest extends TestCase
      */
     private $sampleData = [
         'paymentId' => 'CU123123123',
-        'paymentMetaData' => [
-            'meta1' => 'Lorem Ipsom Dolor Est',
-            'meta2' => 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.',
-            'meta567890123456789012345678901234567890123456789' => 'Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia.',
-        ],
     ];
 
     public function setUp()
@@ -61,7 +56,6 @@ class RetryPaymentRequestTest extends TestCase
     public function testGetDataReturnsCorrectArray()
     {
         $data = [
-            'paymentData' => ['metadata' => $this->sampleData['paymentMetaData']],
             'paymentId' => $this->sampleData['paymentId'],
         ];
         $this->assertSame($data, $this->request->getData());
@@ -70,7 +64,6 @@ class RetryPaymentRequestTest extends TestCase
     public function testRequestDataIsStoredCorrectly()
     {
         $this->assertSame($this->sampleData['paymentId'], $this->request->getPaymentId());
-        $this->assertSame($this->sampleData['paymentMetaData'], $this->request->getPaymentMetaData());
     }
 
     public function testSendDataReturnsCorrectType()

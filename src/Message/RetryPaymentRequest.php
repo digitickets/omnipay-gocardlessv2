@@ -10,7 +10,6 @@ class RetryPaymentRequest extends AbstractRequest
     public function getData()
     {
         return [
-            'paymentData' => ['metadata' => $this->getPaymentMetaData()],
             'paymentId' => $this->getPaymentId(),
         ];
     }
@@ -24,7 +23,7 @@ class RetryPaymentRequest extends AbstractRequest
      */
     public function sendData($data)
     {
-        $response = $this->gocardless->payments()->retry($data['paymentId'], $data['paymentData']);
+        $response = $this->gocardless->payments()->retry($data['paymentId']);
 
         return $this->response = new PaymentResponse($this, $response);
     }
