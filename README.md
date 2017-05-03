@@ -24,9 +24,9 @@ composer require digitickets/gocardlessv2:"^0-alpha"
 
 The following gateways are provided by this package:
 
-* GoCardless Pro
-* GoCardless Pro (JS Flow)
-* GoCardless Redirect Flow
+* GoCardless Pro - Beta Release
+* GoCardless Pro (JS Flow) - Release Candidate
+* GoCardless Redirect Flow - Alpha Release
 
 Don't know which gateway to use?
 * If you are using GoCardless' own payment screens on their site you want the RedirectGateway.
@@ -39,7 +39,7 @@ JSFlow returns you a bank account token so you can create a customer, bank accou
 Pro requires you to submit all the data yourself in individual steps.
 Creating a subscription or taking a single payment is common to all.
 
-This is still in Development - DO NOT USE IN LIVE APPLICATIONS 
+This is still in Development - Only the JS Flow gateway is currently stable. 
 
 You need to set your `access_token`. Setting `testMode` to true will use the `sandbox` environment.
 
