@@ -17,7 +17,7 @@ Omnipay is installed via [Composer](http://getcomposer.org/). To install, simply
 to your `composer.json` file:
 
 ```
-composer require digitickets/gocardlessv2:"^0-alpha"
+composer require digitickets/gocardlessv2:"^0"
 ```
 
 ## Basic Usage
