@@ -46,7 +46,7 @@
   },
   "require": {
     "omnipay/common": "~2.0",
-    "gocardless/gocardless-pro": "^0.9.4",
+    "gocardless/gocardless-pro": "^1",
     "php": "^5.5|^7"
   },
   "require-dev": {
