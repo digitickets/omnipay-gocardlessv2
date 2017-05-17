@@ -125,6 +125,67 @@ abstract class AbstractRequest extends BaseAbstractRequest
         return $this->setParameter('customerBankAccountData', $value);
     }
 
+
+    public function setIban( $value)
+    {
+        return $this->setParameter('iban', $value);
+    }
+
+    public function getIban()
+    {
+        return $this->normaliseMetaData($this->getParameter('iban'));
+    }
+
+    public function setBankCountryCode( $value)
+    {
+        return $this->setParameter('bankCountryCode', $value);
+    }
+
+    public function getBankCountryCode()
+    {
+        return $this->normaliseMetaData($this->getParameter('bankCountryCode'));
+    }
+
+    public function setBankBranchCode( $value)
+    {
+        return $this->setParameter('bankBranchCode', $value);
+    }
+
+    public function getBankBranchCode()
+    {
+        return $this->normaliseMetaData($this->getParameter('bankBranchCode'));
+    }
+
+    public function setBankCode( $value)
+    {
+        return $this->setParameter('bankCode', $value);
+    }
+
+    public function getBankCode()
+    {
+        return $this->normaliseMetaData($this->getParameter('bankCode'));
+    }
+
+    public function setAccountNumber( $value)
+    {
+        return $this->setParameter('bankAccountNumber', $value);
+    }
+
+    public function getAccountNumber()
+    {
+        return $this->normaliseMetaData($this->getParameter('bankAccountNumber'));
+    }
+
+    public function setAccountHolderName( $value)
+    {
+        return $this->setParameter('accountHolderName', $value);
+    }
+
+    public function getAccountHolderName()
+    {
+        return $this->normaliseMetaData($this->getParameter('accountHolderName'));
+    }
+    
     public function getMandateData()
     {
         return $this->getParameter('mandateData');
@@ -283,6 +344,16 @@ abstract class AbstractRequest extends BaseAbstractRequest
     public function getCustomerMetaData()
     {
         return $this->normaliseMetaData($this->getParameter('customerMetaData'));
+    }
+
+    public function setBankAccountMetaData(array $value)
+    {
+        return $this->setParameter('bankAccountMetaData', $value);
+    }
+
+    public function getBankAccountMetaData()
+    {
+        return $this->normaliseMetaData($this->getParameter('bankAccountMetaData'));
     }
 
     private function normaliseMetaData($metaData)

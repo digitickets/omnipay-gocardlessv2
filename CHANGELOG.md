@@ -2,6 +2,7 @@
 
 All Notable changes to `omnipay/gocardlessv2` will be documented in this file
 
+- 0.1.2 - Switch customer bank account creation on the pro gateway to use params rather than an array
 - 0.1.1 - Update to GoCardlessPro 1
 - 0.1.0 - initial release of JS Flow for production
 - 0.0.8 - standardise metadata to strings

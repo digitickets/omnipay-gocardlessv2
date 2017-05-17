@@ -21,7 +21,18 @@ class UpdateCustomerBankAccountRequestTest extends TestCase
      */
     private $sampleData = [
         'bankAccountReference' => 'CU123123123',
-        'customerBankAccountData' => ['Some extra data' => 'just as placeholders'],
+        'account_holder_name' => 'Example User',
+        'account_number' => 'League',
+        'bank_code' => '123 Billing St',
+        'bank_branch_code' => 'Billsville',
+        'bank_country_code' => 'Billstown',
+        'currency' => '12345',
+        'iban' => 'CA',
+        'bankAccountMetaData' => [
+            'billingPhone' => '(555) 123-4567',
+            'shippingAddress1' => '123 Shipping St',
+            'shippingAddress2' => 'Shipsville',
+        ],
     ];
 
     public function setUp()
@@ -56,17 +67,40 @@ class UpdateCustomerBankAccountRequestTest extends TestCase
 
     public function testGetDataReturnsCorrectArray()
     {
+        $data = $this->sampleData;
+        $data['branch_code'] = $data['bank_branch_code'];
+        $data['country_code'] = $data['bank_country_code'];
+        $data['metadata'] = $data['bankAccountMetaData'];
+        unset($data['bankAccountMetaData'], $data['bank_country_code'], $data['bank_branch_code'], $data['bankAccountReference']);
+        asort($data);
+
         $data = [
-            'customerBankAccountData' => ['params' => $this->sampleData['customerBankAccountData']],
+            'customerBankAccountData' => ['params' => $data],
             'customerBankAccountId' => $this->sampleData['bankAccountReference'],
         ];
-        $this->assertSame($data, $this->request->getData());
+
+
+        $result = $this->request->getData();
+        asort($result['customerBankAccountData']['params']);
+
+        $this->assertSame($data, $result);
     }
 
     public function testRequestDataIsStoredCorrectly()
     {
         $this->assertSame($this->sampleData['bankAccountReference'], $this->request->getBankAccountReference());
-        $this->assertSame($this->sampleData['customerBankAccountData'], $this->request->getCustomerBankAccountData());
+        foreach ([
+                     'account_holder_name' => 'getAccountHolderName',
+                     'account_number' => 'getAccountNumber',
+                     'bank_code' => 'getBankCode',
+                     'bank_branch_code' => 'getBankBranchCode',
+                     'bank_country_code' => 'getBankCountryCode',
+                     'currency' => 'getCurrency',
+                     'iban' => 'getIban',
+                     'bankAccountMetaData' => 'getBankAccountMetaData',
+                 ] AS $data => $method) {
+            $this->assertSame($this->sampleData[$data], $this->request->{$method}());
+        }
     }
 
     public function testSendDataReturnsCorrectType()

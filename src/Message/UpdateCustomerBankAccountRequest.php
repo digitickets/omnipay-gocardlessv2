@@ -10,7 +10,15 @@ class UpdateCustomerBankAccountRequest extends AbstractRequest
     public function getData()
     {
         return [
-            'customerBankAccountData' => ['params' => $this->getCustomerBankAccountData()],
+            'customerBankAccountData' => ['params' => [
+                'account_holder_name' => $this->getAccountHolderName(),
+                'account_number' => $this->getAccountNumber(),
+                'bank_code' => $this->getBankCode(),
+                'branch_code' => $this->getBankBranchCode(),
+                'country_code' => $this->getBankCountryCode(),
+                'currency' => $this->getCurrency(),
+                'iban' => $this->getIban(),
+                'metadata' => $this->getBankAccountMetaData()]],
             'customerBankAccountId' => $this->getBankAccountReference(),
         ];
     }

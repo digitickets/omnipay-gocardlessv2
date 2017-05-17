@@ -20,20 +20,18 @@ class CreateCustomerBankAccountRequestTest extends TestCase
      * @var array fully populated sample customerBankAccount data to drive test
      */
     private $sampleCustomerBankAccount = [
-        'customerBankAccountData' => [
-            'account_holder_name' => 'Example User',
+        'account_holder_name' => 'Example User',
             'account_number' => 'League',
             'bank_code' => '123 Billing St',
-            'branch_code' => 'Billsville',
-            'country_code' => 'Billstown',
+            'bank_branch_code' => 'Billsville',
+            'bank_country_code' => 'Billstown',
             'currency' => '12345',
             'iban' => 'CA',
-            'metadata' => [
+            'bankAccountMetaData' => [
                 'billingPhone' => '(555) 123-4567',
                 'shippingAddress1' => '123 Shipping St',
                 'shippingAddress2' => 'Shipsville',
             ],
-        ],
         'customerReference' => 'CU1231235413',
     ];
 
@@ -69,15 +67,33 @@ class CreateCustomerBankAccountRequestTest extends TestCase
 
     public function testGetDataReturnsCorrectArray()
     {
-        $data = $this->sampleCustomerBankAccount['customerBankAccountData'];
+        $data = $this->sampleCustomerBankAccount;
+        $data['branch_code']=$data['bank_branch_code'];
+        $data['country_code']=$data['bank_country_code'];
+        $data['metadata']=$data['bankAccountMetaData'];
         $data['links']['customer'] = $this->sampleCustomerBankAccount['customerReference'];
-        $this->assertSame(['params' => $data], $this->request->getData());
+        unset($data['customerReference'], $data['bankAccountMetaData'], $data['bank_country_code'], $data['bank_branch_code']);
+        asort($data);
+        $result =   $this->request->getData();
+        asort($result['params']);
+        $this->assertSame(['params' => $data], $result);
     }
 
     public function testRequestDataIsStoredCorrectly()
     {
         $this->assertNull($this->request->getBankAccountReference());
-        $this->assertSame($this->sampleCustomerBankAccount['customerBankAccountData'], $this->request->getCustomerBankAccountData());
+        foreach(['account_holder_name' => 'getAccountHolderName',
+            'account_number' => 'getAccountNumber',
+            'bank_code' => 'getBankCode',
+            'bank_branch_code' => 'getBankBranchCode',
+            'bank_country_code' => 'getBankCountryCode',
+            'currency' => 'getCurrency',
+            'iban' => 'getIban',
+            'bankAccountMetaData' => 'getBankAccountMetaData'
+            ] AS $data => $method){
+            $this->assertSame($this->sampleCustomerBankAccount[$data], $this->request->{$method}());
+        }
+
         $this->assertSame($this->sampleCustomerBankAccount['customerReference'], $this->request->getCustomerReference());
     }
 

@@ -9,7 +9,15 @@ class CreateCustomerBankAccountRequest extends AbstractRequest
 {
     public function getData()
     {
-        $response = $this->getCustomerBankAccountData();
+        $response = [
+            'account_holder_name' => $this->getAccountHolderName(),
+            'account_number' => $this->getAccountNumber(),
+            'bank_code' => $this->getBankCode(),
+            'branch_code' => $this->getBankBranchCode(),
+            'country_code' => $this->getBankCountryCode(),
+            'currency' => $this->getCurrency(),
+            'iban' => $this->getIban(),
+            'metadata' => $this->getBankAccountMetaData()];
         $response['links']['customer'] = $this->getCustomerReference();
 
         return ['params' => $response];
