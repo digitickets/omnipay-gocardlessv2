@@ -102,27 +102,23 @@ abstract class AbstractRequest extends BaseAbstractRequest
 
     public function getCustomerBankAccountData()
     {
-        return $this->getParameter('customerBankAccountData');
-    }
-
-    /**
-     * @param array $value
-     *  [
-     *      'account_holder_name', // mandatory
-     *      'account_number',
-     *      'bank_code',
-     *      'branch_code',
-     *      'country_code', // iso 3166-1 alpha-2
-     *      'currency', // iso 4217
-     *      'iban',
-     *      'metadata', //array of up to 3 fields of key (Char 50) : value (Char 500)
-     *  ]
-     *
-     * @return BaseAbstractRequest
-     */
-    public function setCustomerBankAccountData(array $value)
-    {
-        return $this->setParameter('customerBankAccountData', $value);
+        $response = [
+            'account_holder_name' => $this->getAccountHolderName(),
+            'account_number' => $this->getAccountNumber(),
+            'bank_code' => $this->getBankCode(),
+            'branch_code' => $this->getBankBranchCode(),
+            'country_code' => $this->getBankCountryCode(),
+            'currency' => $this->getCurrency(),
+            'iban' => $this->getIban(),
+            'metadata' => $this->getBankAccountMetaData()];
+// Remove null values
+        $response = array_filter(
+            $response,
+            function ($value) {
+                return !is_null($value);
+            }
+        );
+        return $response;
     }
 
 
