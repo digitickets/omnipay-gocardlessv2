@@ -138,6 +138,17 @@ abstract class AbstractGateway extends BaseAbstractGateway
         return $this->createRequest(Message\UpdateCustomerRequest::class, $parameters);
     }
 
+
+    /**
+     * @param array $parameters
+     *
+     * @return Message\ValidateBankAccountRequest|Message\AbstractRequest
+     */
+    public function validateBankAccount(array $parameters = [])
+    {
+        return $this->createRequest(Message\ValidateBankAccountRequest::class, $parameters);
+    }
+
     /**
      * @param $id
      *
