@@ -24,7 +24,7 @@ composer require digitickets/gocardlessv2:"^0"
 
 The following gateways are provided by this package:
 
-* GoCardless Pro - Beta Release
+* GoCardless Pro - Release Candidate
 * GoCardless Pro (JS Flow) - Release Candidate
 * GoCardless Redirect Flow - Alpha Release
 
