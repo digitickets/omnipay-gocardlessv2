@@ -2,6 +2,7 @@
 
 namespace Omnipay\GoCardlessV2\Message;
 
+use GoCardlessPro\Core\Exception\GoCardlessProException;
 use Guzzle\Http\ClientInterface;
 use Omnipay\Common\Exception\InvalidRequestException;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
@@ -46,7 +47,15 @@ abstract class AbstractRequest extends BaseAbstractRequest
     {
         try {
             return $this->sendData($this->getData());
-        } catch (\GoCardlessPro\Core\Exception\GoCardlessProException $e) {
+        }catch (GoCardlessProException $e) {
+            if($e->getMessage() == "Rate limit exceeded"){
+                sleep(60);
+                try{
+                    return $this->sendData($this->getData());
+                }catch(GoCardlessProException $f){
+                    $e = $f;
+                }
+            }
             throw new InvalidRequestException($e->getMessage(), $e->getCode(), $e);
         }
     }
