@@ -37,8 +37,6 @@ class CreateSubscriptionRequest extends AbstractRequest
             $data['count'] = $this->getSubscriptionCount();
         } elseif ($this->getSubscriptionEndDate()) {
             $data['end_date'] = $this->getSubscriptionEndDate();
-        } else {
-            throw new InvalidRequestException('The subscription count or end date should be set.');
         }
 
         // Remove null values

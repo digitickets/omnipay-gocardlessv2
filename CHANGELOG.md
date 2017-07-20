@@ -2,6 +2,7 @@
 
 All Notable changes to `omnipay/gocardlessv2` will be documented in this file
 
+- 0.1.4 - Allow never-ending subscriptions
 - 0.1.3 - Add rate handling to the send method - it will now sleep for 60 seconds before making a second attempt.
 - 0.1.3 - ignore nulls on the bank account object.
 - 0.1.2 - Switch customer bank account creation on the pro gateway to use params rather than an array
