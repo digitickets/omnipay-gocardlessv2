@@ -70,15 +70,6 @@ class CreateSubscriptionRequestTest extends TestCase
         $this->request = new CreateSubscriptionRequest($this->getHttpClient(), $this->getHttpRequest(), $gateway);
     }
 
-    public function testGetDataException()
-    {
-        $requestData = $this->sampleSubscription;
-        unset($requestData['subscriptionCount'], $requestData['subscriptionEndDate']);
-        $this->request->initialize($requestData);
-        $this->setExpectedException(InvalidRequestException::class, 'The subscription count or end date should be set.');
-        $this->request->getData();
-    }
-
     public function testSetInvalidPeriodDataException()
     {
         $requestData = $this->sampleSubscription;
