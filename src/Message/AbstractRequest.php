@@ -2,12 +2,12 @@
 
 namespace Omnipay\GoCardlessV2\Message;
 
+use GoCardlessPro\Client as GoCardlessClient;
 use GoCardlessPro\Core\Exception\GoCardlessProException;
 use Guzzle\Http\ClientInterface;
 use Omnipay\Common\Exception\InvalidRequestException;
-use Symfony\Component\HttpFoundation\Request as HttpRequest;
 use Omnipay\Common\Message\AbstractRequest as BaseAbstractRequest;
-use GoCardlessPro\Client as GoCardlessClient;
+use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
 /**
  * Abstract Request
@@ -436,8 +436,17 @@ abstract class AbstractRequest extends BaseAbstractRequest
         return $this->getParameter('subscriptionDayOfMonth');
     }
 
-    public function setSubscriptionDayOfMonth(int $value = null)
+    public function setSubscriptionDayOfMonth($value = null)
     {
+        // This block can be removed once PHP7 scalar type declarations are available
+        if (!is_null($value)) {
+            if (!is_numeric($value)) {
+                throw new \InvalidArgumentException('Subscription day of month must be be null or numeric');
+            } else {
+                $value = (int) $value;
+            }
+        }
+
         /*
          * GoCardless don't allow subscriptions to be set for the 29th, 30th, or 31st of the month, so map these to a
          * special "-1" value which means "last working day of the month".
