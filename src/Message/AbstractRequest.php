@@ -436,8 +436,16 @@ abstract class AbstractRequest extends BaseAbstractRequest
         return $this->getParameter('subscriptionDayOfMonth');
     }
 
-    public function setSubscriptionDayOfMonth($value)
+    public function setSubscriptionDayOfMonth(int $value = null)
     {
+        /*
+         * GoCardless don't allow subscriptions to be set for the 29th, 30th, or 31st of the month, so map these to a
+         * special "-1" value which means "last working day of the month".
+         */
+        if (!is_null($value) && $value > 28) {
+            $value = -1;
+        }
+
         return $this->setParameter('subscriptionDayOfMonth', $value);
     }
 
