@@ -27,7 +27,7 @@ class CoreGatewayTest extends GatewayTestCase
 
     public function testInitialise()
     {
-        $this->gateway->initialize(['access_token'=>'fooBar', 'secret'=>'secret']);
+        $this->gateway->initialize(['access_token' => 'fooBar', 'secret' => 'secret']);
     }
 
     public function testSetTestMode()
@@ -208,7 +208,7 @@ class CoreGatewayTest extends GatewayTestCase
         $this->gateway->parseNotification(
             '{"events": [
     {"id": "EV123", "created_at": "2014-08-03T12:00:00.000Z", "action": "confirmed","resource_type": "payments",}}',
-        123
+            123
         );
     }
 
@@ -223,5 +223,6 @@ class CoreGatewayTest extends GatewayTestCase
         );
         $this->assertEquals([], $response);
     }
+
 
 }

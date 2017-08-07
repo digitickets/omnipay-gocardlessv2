@@ -404,6 +404,8 @@ abstract class AbstractGateway extends BaseAbstractGateway
      * attempt to process the data from the webhooks
      * fetches the latest version of each eventID (as per GoCardless documentation)
      * returns an array of events
+     * Doesn't work with multiple companies for authorised partner applications - the webhook message payload can contain multiple companies
+     * and therefore multiple api keys are needed to get the event details. Instead use authenticateNotification then process each event individually
      *
      * @param string $rawPayload - file_get_contents('php://input');
      * @param string $provided_signature - $_SERVER['HTTP_WEBHOOK_SIGNATURE'];
@@ -415,11 +417,8 @@ abstract class AbstractGateway extends BaseAbstractGateway
     public function parseNotification($rawPayload, $provided_signature = null)
     {
         $return = [];
-        if ($this->getParameter('secret')) {// validate
-            $calculated_signature = hash_hmac('sha256', $rawPayload, $this->getParameter('secret'));
-            if ($provided_signature != $calculated_signature) {
-                throw new InvalidResponseException('Invalid security token from webhook response');
-            }
+        if (!$this->authenticateNotification($rawPayload, $provided_signature)) {
+            throw new InvalidResponseException('Invalid security token from webhook response');
         }
         $payload = json_decode($rawPayload, true);
         if(array_key_exists('events', $payload) && is_array($payload['events'])) {
@@ -429,5 +428,23 @@ abstract class AbstractGateway extends BaseAbstractGateway
         }
 
         return $return;
+    }
+
+    /**
+     * helper function to verify the signature on the header of the file
+     *
+     * @param string $rawPayload - file_get_contents('php://input');
+     * @param string $provided_signature - $_SERVER['HTTP_WEBHOOK_SIGNATURE'];
+     * @return bool
+     */
+    public function authenticateNotification($rawPayload, $provided_signature = null)
+    {
+        if ($this->getParameter('secret')) {// validate
+            $calculated_signature = hash_hmac('sha256', $rawPayload, $this->getParameter('secret'));
+            if ($provided_signature != $calculated_signature) {
+                return false;
+            }
+        }
+        return true;
     }
 }
