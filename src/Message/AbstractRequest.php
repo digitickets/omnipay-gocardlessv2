@@ -40,8 +40,6 @@ abstract class AbstractRequest extends BaseAbstractRequest
      * Set the correct configuration sending
      *
      * @return \Omnipay\Common\Message\ResponseInterface
-     *
-     * @throws InvalidRequestException
      */
     public function send()
     {
@@ -56,7 +54,11 @@ abstract class AbstractRequest extends BaseAbstractRequest
                     $e = $f;
                 }
             }
-            throw new InvalidRequestException($e->getMessage(), $e->getCode(), $e);
+            $response = new ErrorResponse($this, $e);
+            return $response;
+        } catch (\Exception $e){
+            $response = new ErrorResponse($this, $e);
+            return $response;
         }
     }
 

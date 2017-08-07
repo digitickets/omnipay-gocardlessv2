@@ -5,6 +5,7 @@ namespace Omnipay\GoCardlessV2Tests\Message;
 use GoCardlessPro\Client;
 use Omnipay\Common\Exception\InvalidRequestException;
 use Omnipay\GoCardlessV2\Message\CancelMandateRequest;
+use Omnipay\GoCardlessV2\Message\ErrorResponse;
 use Omnipay\Tests\TestCase;
 
 class InvalidRequestExceptionTest extends TestCase
@@ -32,7 +33,9 @@ class InvalidRequestExceptionTest extends TestCase
     public function testExceptionThrown()
     {
         // this should be blank
-        $this->setExpectedException(InvalidRequestException::class);
-        $this->request->send();
+        $response = $this->request->send();
+        $this->assertInstanceOf(ErrorResponse::class, $response);
+        $this->assertEquals(false, $response->isSuccessful());
+        $this->assertEquals('The access token you\'ve used is not a valid sandbox API access token', $response->getMessage());
     }
 }
