@@ -28,6 +28,8 @@ The following gateways are provided by this package:
 * GoCardless Pro (JS Flow) - Release Candidate
 * GoCardless Redirect Flow - Alpha Release
 
+Please let us know if you are using these release candidates in a production envrionment and we will make a formal release - until that time we may push breaking changes!
+
 Don't know which gateway to use?
 * If you are using GoCardless' own payment screens on their site you want the RedirectGateway.
 * If you are using the GoCardless Javascript to process the card details and return a token then the JSFlowGateway is for you.
