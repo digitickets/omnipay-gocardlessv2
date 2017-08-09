@@ -9,7 +9,6 @@ use GoCardlessPro\Resources\Customer;
  */
 class CustomerResponse extends AbstractResponse
 {
-    /**  */
     /**
      * @return Customer|null
      */

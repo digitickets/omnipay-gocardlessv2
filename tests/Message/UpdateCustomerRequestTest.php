@@ -57,7 +57,7 @@ class UpdateCustomerRequestTest extends TestCase
     public function testGetDataReturnsCorrectArray()
     {
         $data = [
-            'customerData' => ['params' => ["metadata" => $this->sampleData['customerMetaData']]],
+            'customerData' => ['params' => ['metadata' => $this->sampleData['customerMetaData']]],
             'customerId' => $this->sampleData['customerReference'],
         ];
         $this->assertSame($data, $this->request->getData());

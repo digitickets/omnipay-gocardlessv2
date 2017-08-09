@@ -11,7 +11,7 @@ class CreateMandateRequest extends AbstractRequest
     {
         $data = $this->getMandateData();
         $data['links']['customer_bank_account'] = $this->getBankAccountReference();
-        if($this->getCreditorId()){
+        if ($this->getCreditorId()) {
             $data['links']['creditor'] = $this->getCreditorId();
         }
 

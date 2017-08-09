@@ -10,6 +10,7 @@ class ValidateBankAccountRequest extends AbstractRequest
     public function getData()
     {
         $response = $this->getCustomerBankAccountData();
+
         return ['params' => $response];
     }
 

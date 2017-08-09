@@ -2,7 +2,6 @@
 
 namespace Omnipay\GoCardlessV2Tests;
 
-use Omnipay\Common\Exception\InvalidResponseException;
 use Omnipay\GoCardlessV2\JSFlowGateway;
 use Omnipay\GoCardlessV2\ProGateway;
 use Omnipay\Tests\GatewayTestCase;

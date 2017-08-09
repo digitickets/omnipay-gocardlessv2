@@ -60,14 +60,14 @@ abstract class AbstractGateway extends BaseAbstractGateway
         parent::__construct($httpClient, $httpRequest);
     }
 
-    public function initialize(array $parameters = array())
+    public function initialize(array $parameters = [])
     {
         parent::initialize($parameters);
-        if($parameters && array_key_exists('access_token', $parameters)) {
+        if ($parameters && array_key_exists('access_token', $parameters)) {
             $this->gocardless = new GoCardlessClient(
                 [
                     'access_token' => $parameters['access_token'],
-                    'environment' => Environment::LIVE
+                    'environment' => Environment::LIVE,
                 ]
             );
         }
@@ -75,23 +75,25 @@ abstract class AbstractGateway extends BaseAbstractGateway
 
     public function setTestMode($value)
     {
-        if($value && $this->getParameter('access_token')){
-                $this->gocardless = new GoCardlessClient(
+        if ($value && $this->getParameter('access_token')) {
+            $this->gocardless = new GoCardlessClient(
                     [
                         'access_token' => $this->getParameter('access_token'),
-                        'environment' => Environment::SANDBOX
+                        'environment' => Environment::SANDBOX,
                     ]
                 );
         }
+
         return parent::setTestMode($value);
     }
 
-    public function setAccessToken($value){
+    public function setAccessToken($value)
+    {
         return $this->setParameter('access_token', $value);
     }
 
-
-    public function setSecret($value){
+    public function setSecret($value)
+    {
         return $this->setParameter('secret', $value);
     }
 
@@ -137,7 +139,6 @@ abstract class AbstractGateway extends BaseAbstractGateway
     {
         return $this->createRequest(Message\UpdateCustomerRequest::class, $parameters);
     }
-
 
     /**
      * @param array $parameters
@@ -421,7 +422,7 @@ abstract class AbstractGateway extends BaseAbstractGateway
             throw new InvalidResponseException('Invalid security token from webhook response');
         }
         $payload = json_decode($rawPayload, true);
-        if(array_key_exists('events', $payload) && is_array($payload['events'])) {
+        if (array_key_exists('events', $payload) && is_array($payload['events'])) {
             foreach ($payload['events'] as $event) {
                 $return[] = $this->findEvent($event['id'])->send();
             }
@@ -435,6 +436,7 @@ abstract class AbstractGateway extends BaseAbstractGateway
      *
      * @param string $rawPayload - file_get_contents('php://input');
      * @param string $provided_signature - $_SERVER['HTTP_WEBHOOK_SIGNATURE'];
+     *
      * @return bool
      */
     public function authenticateNotification($rawPayload, $provided_signature = null)
@@ -445,6 +447,7 @@ abstract class AbstractGateway extends BaseAbstractGateway
                 return false;
             }
         }
+
         return true;
     }
 }

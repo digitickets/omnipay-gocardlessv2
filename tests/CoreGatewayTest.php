@@ -223,6 +223,4 @@ class CoreGatewayTest extends GatewayTestCase
         );
         $this->assertEquals([], $response);
     }
-
-
 }

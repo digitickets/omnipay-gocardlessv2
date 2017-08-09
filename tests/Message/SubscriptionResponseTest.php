@@ -28,7 +28,7 @@ class SubscriptionResponseTest extends TestCase
 
         $response = new SubscriptionResponse($this->request, $data);
         $this->assertEquals($data, $response->getSubscriptionData());
-        $this->assertEquals("SU1234", $response->getSubscriptionReference());
+        $this->assertEquals('SU1234', $response->getSubscriptionReference());
     }
 
     public function testFailedSubscriptionData()

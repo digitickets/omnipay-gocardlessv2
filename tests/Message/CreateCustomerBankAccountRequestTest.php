@@ -68,13 +68,13 @@ class CreateCustomerBankAccountRequestTest extends TestCase
     public function testGetDataReturnsCorrectArray()
     {
         $data = $this->sampleCustomerBankAccount;
-        $data['branch_code']=$data['bank_branch_code'];
-        $data['country_code']=$data['bank_country_code'];
-        $data['metadata']=$data['bankAccountMetaData'];
+        $data['branch_code'] = $data['bank_branch_code'];
+        $data['country_code'] = $data['bank_country_code'];
+        $data['metadata'] = $data['bankAccountMetaData'];
         $data['links']['customer'] = $this->sampleCustomerBankAccount['customerReference'];
         unset($data['customerReference'], $data['bankAccountMetaData'], $data['bank_country_code'], $data['bank_branch_code']);
         asort($data);
-        $result =   $this->request->getData();
+        $result = $this->request->getData();
         asort($result['params']);
         $this->assertSame(['params' => $data], $result);
     }
@@ -82,15 +82,15 @@ class CreateCustomerBankAccountRequestTest extends TestCase
     public function testRequestDataIsStoredCorrectly()
     {
         $this->assertNull($this->request->getBankAccountReference());
-        foreach(['account_holder_name' => 'getAccountHolderName',
+        foreach (['account_holder_name' => 'getAccountHolderName',
             'account_number' => 'getAccountNumber',
             'bank_code' => 'getBankCode',
             'bank_branch_code' => 'getBankBranchCode',
             'bank_country_code' => 'getBankCountryCode',
             'currency' => 'getCurrency',
             'iban' => 'getIban',
-            'bankAccountMetaData' => 'getBankAccountMetaData'
-            ] AS $data => $method){
+            'bankAccountMetaData' => 'getBankAccountMetaData',
+            ] as $data => $method) {
             $this->assertSame($this->sampleCustomerBankAccount[$data], $this->request->{$method}());
         }
 

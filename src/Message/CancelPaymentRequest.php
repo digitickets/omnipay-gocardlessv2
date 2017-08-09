@@ -25,5 +25,4 @@ class CancelPaymentRequest extends AbstractRequest
 
         return $this->response = new PaymentResponse($this, $response);
     }
-
 }

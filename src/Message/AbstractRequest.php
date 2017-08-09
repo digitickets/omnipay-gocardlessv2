@@ -45,19 +45,21 @@ abstract class AbstractRequest extends BaseAbstractRequest
     {
         try {
             return $this->sendData($this->getData());
-        }catch (GoCardlessProException $e) {
-            if($e->getMessage() == "Rate limit exceeded"){
+        } catch (GoCardlessProException $e) {
+            if ($e->getMessage() == 'Rate limit exceeded') {
                 sleep(60);
-                try{
+                try {
                     return $this->sendData($this->getData());
-                }catch(GoCardlessProException $f){
+                } catch (GoCardlessProException $f) {
                     $e = $f;
                 }
             }
             $response = new ErrorResponse($this, $e);
+
             return $response;
-        } catch (\Exception $e){
+        } catch (\Exception $e) {
             $response = new ErrorResponse($this, $e);
+
             return $response;
         }
     }
@@ -121,7 +123,7 @@ abstract class AbstractRequest extends BaseAbstractRequest
             'country_code' => $this->getBankCountryCode(),
             'currency' => $this->getCurrency(),
             'iban' => $this->getIban(),
-            'metadata' => $this->getBankAccountMetaData()];
+            'metadata' => $this->getBankAccountMetaData(), ];
 // Remove null values
         $response = array_filter(
             $response,
@@ -129,11 +131,11 @@ abstract class AbstractRequest extends BaseAbstractRequest
                 return !is_null($value);
             }
         );
+
         return $response;
     }
 
-
-    public function setIban( $value)
+    public function setIban($value)
     {
         return $this->setParameter('iban', $value);
     }
@@ -143,7 +145,7 @@ abstract class AbstractRequest extends BaseAbstractRequest
         return $this->normaliseMetaData($this->getParameter('iban'));
     }
 
-    public function setBankCountryCode( $value)
+    public function setBankCountryCode($value)
     {
         return $this->setParameter('bankCountryCode', $value);
     }
@@ -153,7 +155,7 @@ abstract class AbstractRequest extends BaseAbstractRequest
         return $this->normaliseMetaData($this->getParameter('bankCountryCode'));
     }
 
-    public function setBankBranchCode( $value)
+    public function setBankBranchCode($value)
     {
         return $this->setParameter('bankBranchCode', $value);
     }
@@ -163,7 +165,7 @@ abstract class AbstractRequest extends BaseAbstractRequest
         return $this->normaliseMetaData($this->getParameter('bankBranchCode'));
     }
 
-    public function setBankCode( $value)
+    public function setBankCode($value)
     {
         return $this->setParameter('bankCode', $value);
     }
@@ -173,7 +175,7 @@ abstract class AbstractRequest extends BaseAbstractRequest
         return $this->normaliseMetaData($this->getParameter('bankCode'));
     }
 
-    public function setAccountNumber( $value)
+    public function setAccountNumber($value)
     {
         return $this->setParameter('bankAccountNumber', $value);
     }
@@ -183,7 +185,7 @@ abstract class AbstractRequest extends BaseAbstractRequest
         return $this->normaliseMetaData($this->getParameter('bankAccountNumber'));
     }
 
-    public function setAccountHolderName( $value)
+    public function setAccountHolderName($value)
     {
         return $this->setParameter('accountHolderName', $value);
     }
@@ -192,7 +194,7 @@ abstract class AbstractRequest extends BaseAbstractRequest
     {
         return $this->normaliseMetaData($this->getParameter('accountHolderName'));
     }
-    
+
     public function getMandateData()
     {
         return $this->getParameter('mandateData');
@@ -365,11 +367,12 @@ abstract class AbstractRequest extends BaseAbstractRequest
 
     private function normaliseMetaData($metaData)
     {
-        if(is_array($metaData)){
-            foreach($metaData as $k => $v){
+        if (is_array($metaData)) {
+            foreach ($metaData as $k => $v) {
                 $metaData[$k] = (string) $v;
             }
         }
+
         return $metaData;
     }
 
@@ -470,7 +473,9 @@ abstract class AbstractRequest extends BaseAbstractRequest
 
     /**
      * @param string $planInterval
+     *
      * @return BaseAbstractRequest
+     *
      * @throws InvalidRequestException
      */
     public function setInterval($planInterval)

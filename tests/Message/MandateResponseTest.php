@@ -28,7 +28,7 @@ class MandateResponseTest extends TestCase
 
         $response = new MandateResponse($this->request, $data);
         $this->assertEquals($data, $response->getMandateData());
-        $this->assertEquals("MA1234", $response->getMandateReference());
+        $this->assertEquals('MA1234', $response->getMandateReference());
     }
 
     public function testFailedMandateData()

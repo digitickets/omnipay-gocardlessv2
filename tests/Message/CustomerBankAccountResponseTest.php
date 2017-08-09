@@ -27,8 +27,8 @@ class CustomerBankAccountResponseTest extends TestCase
         $data = json_decode('{"id":"BA1234"}');
 
         $response = new BankAccountResponse($this->request, $data);
-        $this->assertEquals($data, $response->getBankAccountData());;
-        $this->assertEquals("BA1234", $response->getBankAccountReference());
+        $this->assertEquals($data, $response->getBankAccountData());
+        $this->assertEquals('BA1234', $response->getBankAccountReference());
     }
 
     public function testFailedCustomerBankAccountData()

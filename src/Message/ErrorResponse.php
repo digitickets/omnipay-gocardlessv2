@@ -13,6 +13,7 @@ class ErrorResponse extends AbstractResponse
 
     /**
      * ErrorResponse constructor.
+     *
      * @param \Omnipay\Common\Message\RequestInterface $request
      * @param \Exception $exception
      */

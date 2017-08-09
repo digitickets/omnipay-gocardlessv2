@@ -29,7 +29,7 @@ class CustomerResponseTest extends TestCase
 
         $response = new CustomerResponse($this->request, $data);
         $this->assertEquals($data, $response->getCustomerData());
-        $this->assertEquals("CU1234", $response->getCustomerReference());
+        $this->assertEquals('CU1234', $response->getCustomerReference());
     }
 
     public function testFailedCustomerData()

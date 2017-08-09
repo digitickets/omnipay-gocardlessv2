@@ -10,6 +10,7 @@ class CancelMandateRequest extends AbstractRequest
     public function getData()
     {
         $this->validate('mandateReference');
+
         return [];
     }
 
@@ -26,5 +27,4 @@ class CancelMandateRequest extends AbstractRequest
 
         return $this->response = new MandateResponse($this, $response);
     }
-
 }

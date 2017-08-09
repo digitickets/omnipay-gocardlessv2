@@ -18,6 +18,7 @@ class CreateCustomerBankAccountRequest extends AbstractRequest
                 return !is_null($value);
             }
         );
+
         return ['params' => $response];
     }
 

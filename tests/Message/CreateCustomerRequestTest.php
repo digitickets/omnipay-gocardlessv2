@@ -78,11 +78,11 @@ class CreateCustomerRequestTest extends TestCase
     public function testGetDataReturnsCorrectArray()
     {
         $targetParams = [
-            "email" => $this->sampleCustomer['card']->getEmail(),
-            "given_name" => $this->sampleCustomer['card']->getFirstName(),
-            "family_name" => $this->sampleCustomer['card']->getLastName(),
-            "country_code" => $this->sampleCustomer['card']->getCountry(),
-            "metadata"=>$this->sampleCustomer['customerMetaData'],
+            'email' => $this->sampleCustomer['card']->getEmail(),
+            'given_name' => $this->sampleCustomer['card']->getFirstName(),
+            'family_name' => $this->sampleCustomer['card']->getLastName(),
+            'country_code' => $this->sampleCustomer['card']->getCountry(),
+            'metadata' => $this->sampleCustomer['customerMetaData'],
             'address_line1' => $this->sampleCustomer['card']->getAddress1(),
             'address_line2' => $this->sampleCustomer['card']->getAddress2(),
             'city' => $this->sampleCustomer['card']->getCity(),

@@ -22,18 +22,19 @@ class PaymentResponse extends AbstractResponse
         return null;
     }
 
-    public function getPaymentReference(){
+    public function getPaymentReference()
+    {
         return $this->data->id;
     }
 
     public function getAmount()
     {
-        return round($this->data->amount/100,2);
+        return round($this->data->amount / 100, 2);
     }
 
     public function getAmountRefunded()
     {
-        return round($this->data->amount_refunded/100,2);
+        return round($this->data->amount_refunded / 100, 2);
     }
 
     /**

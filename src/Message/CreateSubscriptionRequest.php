@@ -2,10 +2,7 @@
 
 namespace Omnipay\GoCardlessV2\Message;
 
-use Omnipay\Common\Exception\InvalidRequestException;
-
 /**
- *
  * Please note a conflict in terminology - omnipay drivers vs GC flips the use of interval to be the quantity rather than the unit
  *      (Interval vs Interval Unit). setInterval is the time period, not a number. IntervalCount is the number of intervals between each payment.
  *
@@ -14,8 +11,6 @@ use Omnipay\Common\Exception\InvalidRequestException;
  */
 class CreateSubscriptionRequest extends AbstractRequest
 {
-
-    
     public function getData()
     {
         $this->validate('amount', 'currency', 'subscription_interval_unit', 'mandateReference');

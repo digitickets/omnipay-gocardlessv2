@@ -16,12 +16,14 @@ abstract class AbstractResponse extends BaseAbstractResponse
      * If not present return null.
      *
      * @param string $fieldName
+     *
      * @return null|mixed
      */
-    public function getMetaField($fieldName){
-        if(property_exists($this->data, "metadata") && property_exists($this->data->metadata, $fieldName)){
+    public function getMetaField($fieldName)
+    {
+        if (property_exists($this->data, 'metadata') && property_exists($this->data->metadata, $fieldName)) {
             return $this->data->metadata->{$fieldName};
-        }else{
+        } else {
             return null;
         }
     }
@@ -31,12 +33,14 @@ abstract class AbstractResponse extends BaseAbstractResponse
      * If not present return null.
      *
      * @param string $linkType
+     *
      * @return null|mixed
      */
-    public function getLinkField($linkType){
-        if(property_exists($this->data, "links") && property_exists($this->data->links, $linkType)){
+    public function getLinkField($linkType)
+    {
+        if (property_exists($this->data, 'links') && property_exists($this->data->links, $linkType)) {
             return $this->data->links->{$linkType};
-        }else{
+        } else {
             return null;
         }
     }

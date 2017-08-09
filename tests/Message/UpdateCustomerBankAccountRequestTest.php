@@ -79,7 +79,6 @@ class UpdateCustomerBankAccountRequestTest extends TestCase
             'customerBankAccountId' => $this->sampleData['bankAccountReference'],
         ];
 
-
         $result = $this->request->getData();
         asort($result['customerBankAccountData']['params']);
 
@@ -98,7 +97,7 @@ class UpdateCustomerBankAccountRequestTest extends TestCase
                      'currency' => 'getCurrency',
                      'iban' => 'getIban',
                      'bankAccountMetaData' => 'getBankAccountMetaData',
-                 ] AS $data => $method) {
+                 ] as $data => $method) {
             $this->assertSame($this->sampleData[$data], $this->request->{$method}());
         }
     }

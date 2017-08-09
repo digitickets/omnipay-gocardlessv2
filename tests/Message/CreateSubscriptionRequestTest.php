@@ -38,7 +38,7 @@ class CreateSubscriptionRequestTest extends TestCase
         'statementDescriptor' => 'CB1231235413',
         'subscriptionCount' => '12',
         'subscriptionEndDate' => '2018-01-01',
-        'mandateReference'=>'MR12345'
+        'mandateReference' => 'MR12345',
     ];
 
     public function setUp()
@@ -75,22 +75,21 @@ class CreateSubscriptionRequestTest extends TestCase
         $requestData = $this->sampleSubscription;
         unset($requestData['subscriptionEndDate']);
 
-        $requestData['interval']='weekly';
+        $requestData['interval'] = 'weekly';
         $this->request->initialize($requestData);
         $this->request->getData();
 
-        $requestData['interval']='monthly';
+        $requestData['interval'] = 'monthly';
         $this->request->initialize($requestData);
         $this->request->getData();
 
-        $requestData['interval']='yearly';
+        $requestData['interval'] = 'yearly';
         $this->request->initialize($requestData);
         $this->request->getData();
-
 
         $this->setExpectedException(InvalidRequestException::class, 'Interval must be one of weekly / monthly / yearly');
 
-        $requestData['interval']='month';
+        $requestData['interval'] = 'month';
         $this->request->initialize($requestData);
         $this->request->getData();
     }
