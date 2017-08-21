@@ -117,7 +117,10 @@ abstract class AbstractGateway extends BaseAbstractGateway
 
     public function getDefaultParameters()
     {
-        return [];
+        return [
+            'accessToken' => '',
+            'testMode' => false,
+        ];
     }
 
     /**
