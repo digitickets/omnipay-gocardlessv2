@@ -92,6 +92,11 @@ abstract class AbstractGateway extends BaseAbstractGateway
         return $this->setParameter('access_token', $value);
     }
 
+    public function getAccessToken()
+    {
+        return $this->getParameter('access_token');
+    }
+
     public function setSecret($value)
     {
         return $this->setParameter('secret', $value);
@@ -119,7 +124,7 @@ abstract class AbstractGateway extends BaseAbstractGateway
     {
         return [
             'accessToken' => '',
-            'testMode' => false,
+            'testMode' => true,
         ];
     }
 
