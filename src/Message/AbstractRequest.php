@@ -527,4 +527,24 @@ abstract class AbstractRequest extends BaseAbstractRequest
     {
         return $this->setParameter('subscriptionEndDate', $value);
     }
+
+    public function setAccessToken($value)
+    {
+        return $this->setParameter('access_token', $value);
+    }
+
+    public function getAccessToken()
+    {
+        return $this->getParameter('access_token');
+    }
+
+    public function setSecret($value)
+    {
+        return $this->setParameter('secret', $value);
+    }
+
+    public function getSecret()
+    {
+        return $this->getParameter('secret');
+    }
 }
