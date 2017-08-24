@@ -9,15 +9,13 @@ class FindPaymentsByCustomerRequest extends AbstractSearchRequest
 
     public function getData()
     {
+        $this->validate("customerReference");
         $data = [];
         $paramValue = $this->getCustomerReference();
         if (!empty($paramValue)) {
             $data['customer'] = $paramValue;
         }
 
-        if(empty($data)){
-            throw new \Exception("Parameters must be specified for this search");
-        }
         return $data;
     }
 
