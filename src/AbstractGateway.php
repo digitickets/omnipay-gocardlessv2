@@ -410,6 +410,18 @@ abstract class AbstractGateway extends BaseAbstractGateway
     }
 
     /**
+     * Complete the oauth request process for linking a merchant account to your application
+     *
+     * @param array $parameters
+     *
+     * @return Message\FindPaymentsByCustomerRequest|Message\AbstractRequest
+     */
+    public function findPaymentsByCustomer(array $parameters = [])
+    {
+        return $this->createRequest(Message\FindPaymentsByCustomerRequest::class, $parameters);
+    }
+
+    /**
      * attempt to process the data from the webhooks
      * fetches the latest version of each eventID (as per GoCardless documentation)
      * returns an array of events

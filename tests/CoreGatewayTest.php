@@ -70,6 +70,14 @@ class CoreGatewayTest extends GatewayTestCase
         $this->assertEquals(1, $request->getBankAccountReference());
     }
 
+    public function testValidateBankAccount()
+    {
+        $accountData = ["bank_code"=>1];
+        $request = $this->gateway->validateBankAccount($accountData);
+        $this->assertInstanceOf(Message\ValidateBankAccountRequest::class, $request);
+        $this->assertEquals($accountData, $request->getCustomerBankAccountData());
+    }
+
     public function testFindMandate()
     {
         $request = $this->gateway->findMandate(1);
@@ -102,6 +110,13 @@ class CoreGatewayTest extends GatewayTestCase
         $request = $this->gateway->findPayment(1);
         $this->assertInstanceOf(Message\FindPaymentRequest::class, $request);
         $this->assertEquals(1, $request->getPaymentId());
+    }
+
+    public function testFindPaymentsByCustomer()
+    {
+        $request = $this->gateway->findPaymentsByCustomer(["customerReference"=>1]);
+        $this->assertInstanceOf(Message\FindPaymentsByCustomerRequest::class, $request);
+        $this->assertEquals(1, $request->getCustomerReference());
     }
 
     public function testCreatePayment()
@@ -222,5 +237,18 @@ class CoreGatewayTest extends GatewayTestCase
             hash_hmac('sha256', $body, 'secret')
         );
         $this->assertEquals([], $response);
+    }
+
+    public function testSuccessfulWebHookAuthenticationWithBody()
+    {
+        $body = '{"events": [
+    {"id": "EV123", "created_at": "2014-08-03T12:00:00.000Z", "action": "confirmed","resource_type": "payments"}]}';
+        $this->testInitialise();
+        $this->gateway->setTestMode(true);
+        $response = $this->gateway->parseNotification(
+            $body,
+            hash_hmac('sha256', $body, 'secret')
+        );
+        $this->assertInstanceOf(Message\ErrorResponse::class, $response[0]);
     }
 }

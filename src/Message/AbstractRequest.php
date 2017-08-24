@@ -16,6 +16,7 @@ abstract class AbstractRequest extends BaseAbstractRequest
 {
     const LIVE_OAUTH_URL = 'https://connect.gocardless.com/oauth';
     const TEST_OAUTH_URL = 'https://connect-sandbox.gocardless.com/oauth';
+    public $sleepTimeout = 60;
 
     /**
      * @var GoCardlessClient
@@ -47,7 +48,7 @@ abstract class AbstractRequest extends BaseAbstractRequest
             return $this->sendData($this->getData());
         } catch (GoCardlessProException $e) {
             if ($e->getMessage() == 'Rate limit exceeded') {
-                sleep(60);
+                sleep($this->sleepTimeout);
                 try {
                     return $this->sendData($this->getData());
                 } catch (GoCardlessProException $f) {
@@ -115,18 +116,19 @@ abstract class AbstractRequest extends BaseAbstractRequest
 
     public function getCustomerBankAccountData()
     {
-        $response = [
-            'account_holder_name' => $this->getAccountHolderName(),
-            'account_number' => $this->getAccountNumber(),
-            'bank_code' => $this->getBankCode(),
-            'branch_code' => $this->getBankBranchCode(),
-            'country_code' => $this->getBankCountryCode(),
-            'currency' => $this->getCurrency(),
-            'iban' => $this->getIban(),
-            'metadata' => $this->getBankAccountMetaData(), ];
+
 // Remove null values
         $response = array_filter(
-            $response,
+            [
+                'account_holder_name' => $this->getAccountHolderName(),
+                'account_number' => $this->getAccountNumber(),
+                'bank_code' => $this->getBankCode(),
+                'branch_code' => $this->getBankBranchCode(),
+                'country_code' => $this->getBankCountryCode(),
+                'currency' => $this->getCurrency(),
+                'iban' => $this->getIban(),
+                'metadata' => $this->getBankAccountMetaData(),
+            ],
             function ($value) {
                 return !is_null($value);
             }

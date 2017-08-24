@@ -171,4 +171,38 @@ class CreateSubscriptionRequestTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
     }
+
+    public function testSetSubscriptionDayOfMonthError()
+    {
+        $subscription = $this->sampleSubscription;
+        $subscription['subscriptionDayOfMonth']='No';
+        $this->setExpectedException(\Exception::class);
+        $this->request->initialize($subscription);
+    }
+
+    public function dayOfMonthProvider()
+    {
+        $output = [];
+        for($i=1;$i<=31;++$i){
+            $output[]=[$i];
+        }
+        return $output;
+    }
+
+    /**
+     * @param int $i
+     * @dataProvider dayOfMonthProvider
+     */
+    public function testSetSubscriptionDayOfMonth($i)
+    {
+        $subscription = $this->sampleSubscription;
+        $subscription['subscriptionDayOfMonth']=$i;
+        if($i>28){
+            $expected = -1;
+        }else{
+            $expected = $i;
+        }
+        $this->request->initialize($subscription);
+        $this->assertEquals($expected, $this->request->getSubscriptionDayOfMonth());
+    }
 }
