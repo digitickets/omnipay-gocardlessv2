@@ -205,4 +205,14 @@ class CreateSubscriptionRequestTest extends TestCase
         $this->request->initialize($subscription);
         $this->assertEquals($expected, $this->request->getSubscriptionDayOfMonth());
     }
+
+
+    public function testStripNullsInGetData()
+    {
+        $data = $this->sampleSubscription;
+        unset($data['subscriptionMetaData']);
+        $this->request->initialize($data);
+        $result = $this->request->getData();
+        $this->assertArrayNotHasKey('subscriptionMetaData', $result['params']);
+    }
 }

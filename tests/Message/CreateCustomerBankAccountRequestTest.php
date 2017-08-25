@@ -105,6 +105,15 @@ class CreateCustomerBankAccountRequestTest extends TestCase
         $this->assertInstanceOf(BankAccountResponse::class, $result);
     }
 
+    public function testStripNullsInGetData()
+    {
+        $data = $this->sampleCustomerBankAccount;
+        unset($data['bank_country_code']);
+        $this->request->initialize($data);
+        $result = $this->request->getData();
+        $this->assertArrayNotHasKey('bank_country_code', $result['params']);
+    }
+
     // Assert the customerBankAccount create method is being handed the correct parameters
     public function customerBankAccountCreate($data)
     {
