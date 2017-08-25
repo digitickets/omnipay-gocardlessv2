@@ -35,12 +35,11 @@ class CreateSubscriptionRequest extends AbstractRequest
         }
 
         // Remove null values
-        $data = array_filter(
-            $data,
-            function ($value) {
-                return !is_null($value);
+        foreach($data as $key=>$value){
+            if(is_null($value)){
+                unset($data[$key]);
             }
-        );
+        }
 
         return ['params' => $data];
     }

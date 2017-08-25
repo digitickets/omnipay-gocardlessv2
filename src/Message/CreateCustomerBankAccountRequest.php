@@ -12,12 +12,11 @@ class CreateCustomerBankAccountRequest extends AbstractRequest
         $response = $this->getCustomerBankAccountData();
         $response['links']['customer'] = $this->getCustomerReference();
 // Remove null values
-        $response = array_filter(
-            $response,
-            function ($value) {
-                return !is_null($value);
+        foreach($response as $key=>$value){
+            if(is_null($value)){
+                unset($response[$key]);
             }
-        );
+        }
 
         return ['params' => $response];
     }

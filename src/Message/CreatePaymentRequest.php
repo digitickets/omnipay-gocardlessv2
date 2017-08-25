@@ -11,20 +11,18 @@ class CreatePaymentRequest extends AbstractRequest
     {
         $this->validate('amount', 'currency', 'mandateReference');
 
-        $data = [
-            'amount' => $this->getAmountInteger(),
-            'description' => $this->getPaymentDescription(),
-            'app_fee' => $this->getServiceFeeAmount(),
-            'metadata' => $this->getPaymentMetaData(),
-            'charge_date' => $this->getPaymentDate(),
-            'currency' => $this->getCurrency(),
-            'reference' => $this->getReference(),
-            'links' => ['mandate' => $this->getMandateReference()],
-        ];
-
         // Remove null values
         $data = array_filter(
-            $data,
+            [
+                'amount' => $this->getAmountInteger(),
+                'description' => $this->getPaymentDescription(),
+                'app_fee' => $this->getServiceFeeAmount(),
+                'metadata' => $this->getPaymentMetaData(),
+                'charge_date' => $this->getPaymentDate(),
+                'currency' => $this->getCurrency(),
+                'reference' => $this->getReference(),
+                'links' => ['mandate' => $this->getMandateReference()],
+            ],
             function ($value) {
                 return !is_null($value);
             }
