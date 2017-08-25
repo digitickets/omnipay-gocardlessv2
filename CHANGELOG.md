@@ -2,6 +2,7 @@
 
 All Notable changes to `omnipay/gocardlessv2` will be documented in this file
 
+- 0.1.10 - Add a mechanism to the payment response for querying if the payment is outstanding without needing to know the statuses (which are now available as constants on the payment response)
 - 0.1.9 - Params from abstract now returns core values, search mechanism on payments via customer reference.
 - 0.1.8 - Add authenticate webhook method. Change error handling to omnipay standard method.
 - 0.1.4 - Allow never-ending subscriptions
