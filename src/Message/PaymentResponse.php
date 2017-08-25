@@ -10,6 +10,16 @@ use GoCardlessPro\Resources\Payment;
  */
 class PaymentResponse extends AbstractResponse
 {
+    const PENDING_CUSTOMER_APPROVAL = 'pending_customer_approval';
+    const PENDING_SUBMISSION = 'pending_submission';
+    const SUBMITTED = 'submitted';
+    const CONFIRMED = 'confirmed';
+    const PAID_OUT = 'paid_out';
+    const CANCELLED = 'cancelled';
+    const CUSTOMER_APPROVAL_DENIED = 'customer_approval_denied';
+    const FAILED = 'failed';
+    const CHARGED_BACK = 'charged_back';
+
     /**
      * @return Payment|null
      */
@@ -71,5 +81,15 @@ class PaymentResponse extends AbstractResponse
     public function getStatus()
     {
         return $this->data->status;
+    }
+
+    public function isOutstanding()
+    {
+        $arr = [self::PENDING_CUSTOMER_APPROVAL, self::PENDING_SUBMISSION, self::SUBMITTED];
+        if(in_array($this->getStatus(), $arr)){
+            return true;
+        }else{
+            return false;
+        }
     }
 }
