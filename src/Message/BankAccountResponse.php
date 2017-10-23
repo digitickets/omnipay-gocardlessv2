@@ -7,11 +7,6 @@ use GoCardlessPro\Resources\CustomerBankAccount;
 class BankAccountResponse extends AbstractResponse
 {
     /**
-     * @var CustomerBankAccount|null
-     */
-    protected $data;
-
-    /**
      * @return CustomerBankAccount|null
      */
     public function getBankAccountData()
