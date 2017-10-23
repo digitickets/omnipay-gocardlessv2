@@ -3,8 +3,6 @@
 namespace Omnipay\GoCardlessV2Tests\Message;
 
 use Omnipay\GoCardlessV2\Message\BankDetailsResponse;
-use Omnipay\GoCardlessV2\Message\CreateCustomerRequest;
-use Omnipay\GoCardlessV2\Message\CustomerResponse;
 use Omnipay\GoCardlessV2\Message\ValidateBankAccountRequest;
 use Omnipay\Tests\TestCase;
 use PHPUnit_Framework_MockObject_MockObject;
