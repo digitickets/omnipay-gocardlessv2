@@ -13,7 +13,7 @@ class CreateCustomerBankAccountRequest extends AbstractRequest
         $response['links']['customer'] = $this->getCustomerReference();
 // Remove null values
         foreach($response as $key=>$value){
-            if(is_null($value)){
+            if(empty($value)){
                 unset($response[$key]);
             }
         }

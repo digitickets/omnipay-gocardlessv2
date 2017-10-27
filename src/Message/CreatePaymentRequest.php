@@ -24,7 +24,7 @@ class CreatePaymentRequest extends AbstractRequest
                 'links' => ['mandate' => $this->getMandateReference()],
             ],
             function ($value) {
-                return !is_null($value);
+                return !empty($value);
             }
         );
 

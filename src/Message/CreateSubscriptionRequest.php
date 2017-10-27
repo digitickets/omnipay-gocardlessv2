@@ -36,7 +36,7 @@ class CreateSubscriptionRequest extends AbstractRequest
 
         // Remove null values
         foreach($data as $key=>$value){
-            if(is_null($value)){
+            if(empty($value)){
                 unset($data[$key]);
             }
         }

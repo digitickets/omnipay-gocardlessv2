@@ -130,7 +130,7 @@ abstract class AbstractRequest extends BaseAbstractRequest
                 'metadata' => $this->getBankAccountMetaData(),
             ],
             function ($value) {
-                return !is_null($value);
+                return !empty($value);
             }
         );
 
@@ -446,7 +446,7 @@ abstract class AbstractRequest extends BaseAbstractRequest
     public function setSubscriptionDayOfMonth($value = null)
     {
         // This block can be removed once PHP7 scalar type declarations are available
-        if (!is_null($value)) {
+        if (!empty($value)) {
             if (!is_numeric($value)) {
                 throw new \InvalidArgumentException('Subscription day of month must be be null or numeric');
             } else {
@@ -458,7 +458,7 @@ abstract class AbstractRequest extends BaseAbstractRequest
          * GoCardless don't allow subscriptions to be set for the 29th, 30th, or 31st of the month, so map these to a
          * special "-1" value which means "last working day of the month".
          */
-        if (!is_null($value) && $value > 28) {
+        if (!empty($value) && $value > 28) {
             $value = -1;
         }
 
