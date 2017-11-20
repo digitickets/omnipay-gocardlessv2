@@ -2,6 +2,7 @@
 
 namespace Omnipay\GoCardlessV2\Message;
 
+use DateTime;
 use Omnipay\Common\Message\AbstractResponse as BaseAbstractResponse;
 
 abstract class AbstractResponse extends BaseAbstractResponse
@@ -44,4 +45,21 @@ abstract class AbstractResponse extends BaseAbstractResponse
             return null;
         }
     }
+
+    /**
+     * @param string $field
+     * @return bool|DateTime
+     */
+    protected function getDate($field){
+        return DateTime::createFromFormat('!Y-m-d', $this->data->{$field});
+    }
+    /**
+     * @param string $field
+     * @return bool|DateTime
+     */
+    protected function getDateTime($field){
+        return DateTime::createFromFormat('!Y-m-d?H:i:s.u?', $this->data->{$field});
+    }
+
+
 }

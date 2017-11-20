@@ -52,7 +52,7 @@ class PaymentResponse extends AbstractResponse
      */
     public function getCreatedAt()
     {
-        return DateTime::createFromFormat('!Y-m-d?H:i:s.u?', $this->data->created_at);
+        return $this->getDateTime('created_at');
     }
 
     /**
@@ -60,7 +60,7 @@ class PaymentResponse extends AbstractResponse
      */
     public function getChargeDate()
     {
-        return DateTime::createFromFormat('!Y-m-d?H:i:s.u?', $this->data->charge_date);
+        return $this->getDate('charge_date');
     }
 
     public function getCurrency()
@@ -70,7 +70,7 @@ class PaymentResponse extends AbstractResponse
 
     public function getDescription()
     {
-        return $this->data->currency;
+        return $this->data->description;
     }
 
     public function getReference()
@@ -86,10 +86,31 @@ class PaymentResponse extends AbstractResponse
     public function isOutstanding()
     {
         $arr = [self::PENDING_CUSTOMER_APPROVAL, self::PENDING_SUBMISSION, self::SUBMITTED];
-        if(in_array($this->getStatus(), $arr)){
+        if (in_array($this->getStatus(), $arr)) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
+
+    public function getLinkCreditor()
+    {
+        return $this->getLinkField('creditor');
+    }
+
+    public function getLinkMandate()
+    {
+        return $this->getLinkField('mandate');
+    }
+
+    public function getLinkPayout()
+    {
+        return $this->getLinkField('payout');
+    }
+
+    public function getLinkSubscription()
+    {
+        return $this->getLinkField('subscription');
+    }
+
 }

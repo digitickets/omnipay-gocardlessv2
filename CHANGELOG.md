@@ -2,6 +2,7 @@
 
 All Notable changes to `omnipay/gocardlessv2` will be documented in this file
 
+- 0.1.13 - Add some methods to the subscription response for returning data. 
 - 0.1.12 - Switch from is_null() to empty() to handle empty arrays when stripping blank params
 - 0.1.11 - Add some methods to the Bank Account for returning data
 - 0.1.10 - Add a mechanism to the payment response for querying if the payment is outstanding without needing to know the statuses (which are now available as constants on the payment response)

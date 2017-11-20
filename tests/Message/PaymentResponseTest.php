@@ -48,7 +48,17 @@ class PaymentResponseTest extends TestCase
             "charge_date" => "2017-01-01T12:01:02.345678",
             "currency" => "GBP",
             "reference" => "Some Reference",
+            "description" => "Some Reference",
             "status" => "good, bad or ugly",
+            "metadata" => [
+                "foo" => "bar",
+            ],
+            "links" => [
+                "mandate" => "MD123",
+                "creditor" => "CR123",
+                "payout" => "P123",
+                "subscription" => "SB123412"
+            ],
         ];
         $raw = json_encode($array);
         $data = json_decode($raw);
@@ -60,11 +70,18 @@ class PaymentResponseTest extends TestCase
         $this->assertEquals($array['amount'] / 100, $response->getAmount());
         $this->assertEquals($array['amount_refunded'] / 100, $response->getAmountRefunded());
         $this->assertEquals(\DateTime::createFromFormat('!Y-m-d?H:i:s.u?', $array['created_at']), $response->getCreatedAt());
-        $this->assertEquals(\DateTime::createFromFormat('!Y-m-d?H:i:s.u?', $array['charge_date']), $response->getChargeDate());
+        $this->assertEquals(\DateTime::createFromFormat('!Y-m-d', $array['charge_date']), $response->getChargeDate());
         $this->assertEquals($array['currency'], $response->getCurrency());
-        $this->assertEquals($array['currency'], $response->getDescription());
+        $this->assertEquals($array['description'], $response->getDescription());
         $this->assertEquals($array['reference'], $response->getReference());
         $this->assertEquals($array['status'], $response->getStatus());
+        foreach($array['links'] as $link=>$value){
+            $func = "getLink".ucfirst($link);
+            $this->assertEquals($value, $response->{$func}());
+        }
+        foreach($array['metadata'] as $link=>$value){
+            $this->assertEquals($value, $response->getMetaField($link));
+        }
     }
 
     public function outstandingProvider()
