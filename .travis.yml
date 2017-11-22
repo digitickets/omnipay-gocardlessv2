@@ -33,7 +33,7 @@ before_install:
 
 before_script:
   - travis_retry composer self-update
-  - travis_retry composer update ${COMPOSER_FLAGS} --no-interaction --prefer-dist -vvv
+  - travis_retry composer update ${COMPOSER_FLAGS} --no-interaction --prefer-dist -vvv --profile
 
 script:
   - if [[ $PHPSTAN == "true" ]]; then
