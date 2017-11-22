@@ -1,3 +1,6 @@
 parameters:
     autoload_files:
         - vendor/autoload.php
+    ignoreErrors:
+        - '#Cannot access property GoCardlessPro\\Resources\\Payment::\$(id|amount|amount_refunded|currency|description|reference|status) from current scope#' # magic methods not sniffed by phpstan correctly
+        - '#Cannot access property GoCardlessPro\\Resources\\Subscription::\$(id|amount|currency|status|name|interval|interval_unit|day_of_month|month|payment_reference|upcoming_payments) from current scope#' # magic methods not sniffed by phpstan correctly

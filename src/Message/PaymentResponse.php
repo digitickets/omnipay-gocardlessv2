@@ -21,6 +21,11 @@ class PaymentResponse extends AbstractResponse
     const CHARGED_BACK = 'charged_back';
 
     /**
+     * @var Payment
+     */
+    protected $data;
+
+    /**
      * @return Payment|null
      */
     public function getPaymentData()
