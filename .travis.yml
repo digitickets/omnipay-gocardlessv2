@@ -55,4 +55,6 @@ after_script:
     fi
 
 after_success:
-  - travis_retry php vendor/bin/coveralls
+  - if [[ "$COVERAGE" == "true" ]]; then
+       travis_retry php vendor/bin/coveralls
+    fi
