@@ -1,6 +1,6 @@
 language: php
 
-sudo: false
+sudo: required
 
 git:
   depth: 2
@@ -13,7 +13,6 @@ matrix:
       env: PHPSTAN=true LINT=true COVERAGE=true
     - php: 7.1
       env: PHPSTAN=true LINT=true
-    - php: 7.2
     - php: nightly
     - php: hhvm
       sudo: required
