@@ -107,6 +107,9 @@ class SubscriptionResponse extends AbstractResponse
         return $this->data->payment_reference;
     }
 
+    /**
+     * @return UpcomingPaymentResponse[]
+     */
     public function getUpcomingPayments()
     {
         $return = [];

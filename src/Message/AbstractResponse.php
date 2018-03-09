@@ -35,7 +35,7 @@ abstract class AbstractResponse extends BaseAbstractResponse
      *
      * @param string $linkType
      *
-     * @return null|mixed
+     * @return null|string
      */
     public function getLinkField($linkType)
     {
