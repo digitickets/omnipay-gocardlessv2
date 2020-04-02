@@ -2,14 +2,14 @@
 
 namespace Omnipay\GoCardlessV2;
 
+use GoCardlessPro\Client as GoCardlessClient;
 use GoCardlessPro\Environment;
-use Omnipay\Common\AbstractGateway as BaseAbstractGateway;
 use Guzzle\Http\ClientInterface;
+use Omnipay\Common\AbstractGateway as BaseAbstractGateway;
 use Omnipay\Common\Exception\InvalidResponseException;
 use Omnipay\Common\Message\RequestInterface;
 use Omnipay\GoCardlessV2\Message\AbstractRequest;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
-use GoCardlessPro\Client as GoCardlessClient;
 
 /**
  * GoCardless Gateway
@@ -77,11 +77,11 @@ abstract class AbstractGateway extends BaseAbstractGateway
     {
         if ($value && $this->getParameter('access_token')) {
             $this->gocardless = new GoCardlessClient(
-                    [
-                        'access_token' => $this->getParameter('access_token'),
-                        'environment' => Environment::SANDBOX,
-                    ]
-                );
+                [
+                    'access_token' => $this->getParameter('access_token'),
+                    'environment' => Environment::SANDBOX,
+                ]
+            );
         }
 
         return parent::setTestMode($value);
@@ -410,7 +410,7 @@ abstract class AbstractGateway extends BaseAbstractGateway
     }
 
     /**
-     * Complete the oauth request process for linking a merchant account to your application
+     * Find all payments related to the specified Customer
      *
      * @param array $parameters
      *
@@ -419,6 +419,18 @@ abstract class AbstractGateway extends BaseAbstractGateway
     public function findPaymentsByCustomer(array $parameters = [])
     {
         return $this->createRequest(Message\FindPaymentsByCustomerRequest::class, $parameters);
+    }
+
+    /**
+     * Find all payments for specified Subscription
+     *
+     * @param array $parameters
+     *
+     * @return \Omnipay\Common\Message\AbstractRequest|AbstractRequest
+     */
+    public function findPaymentsBySubscription(array $parameters = [])
+    {
+        return $this->createRequest(Message\FindPaymentsBySubscriptionRequest::class, $parameters);
     }
 
     /**
