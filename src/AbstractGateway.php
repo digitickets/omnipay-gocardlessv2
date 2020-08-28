@@ -433,6 +433,11 @@ abstract class AbstractGateway extends BaseAbstractGateway
         return $this->createRequest(Message\FindPaymentsBySubscriptionRequest::class, $parameters);
     }
 
+    public function findSubscriptionsByCustomer(array $parameters = [])
+    {
+        return $this->createRequest(Message\FindSubscriptionsByCustomerRequest::class, $parameters);
+    }
+    
     /**
      * attempt to process the data from the webhooks
      * fetches the latest version of each eventID (as per GoCardless documentation)
