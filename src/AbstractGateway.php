@@ -36,7 +36,7 @@ abstract class AbstractGateway extends BaseAbstractGateway
     /**
      * @var GoCardlessClient
      */
-    private $gocardless;
+    protected $gocardless;
 
     /**
      * Create a new gateway instance
