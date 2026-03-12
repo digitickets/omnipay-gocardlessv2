@@ -15,6 +15,13 @@ jobs:
           php-version: '7.0.33'
           extensions: zip
 
+      - name: Cache Composer dependencies
+        uses: actions/cache@v4
+        with:
+          path: vendor
+          key: composer-${{ hashFiles('composer.lock') }}
+          restore-keys: composer-
+
       - name: Install dependencies
         run: composer install --no-interaction --prefer-dist
 
