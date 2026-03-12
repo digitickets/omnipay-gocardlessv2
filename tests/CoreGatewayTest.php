@@ -215,6 +215,11 @@ class CoreGatewayTest extends GatewayTestCase
         $this->assertEquals(1, $request->getEventId());
     }
 
+    public function testGetClientReturnsGoCardlessClient()
+    {
+        $this->assertInstanceOf(\GoCardlessPro\Client::class, $this->gateway->getClient());
+    }
+
     public function testFailedWebHookAuthentication()
     {
         $this->testInitialise();
