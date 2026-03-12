@@ -140,3 +140,15 @@ you can subscribe to.
 
 If you believe you have found a bug, please report it using the [GitHub issue tracker](https://github.com/digitickets/omnipay-gocardlessv2e/issues),
 or better yet, fork the library and submit a pull request.
+
+## Development
+
+If you are working on this library you can get a shell in a PHP 7.0 container by running:
+```
+shell.sh
+```
+Then run your commands inside there, e.g:
+```
+composer install
+composer run-tests
+```
